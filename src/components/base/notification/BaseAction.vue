@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "ApplicationsLayout.vue"
+  name: "BaseAction"
 }
 </script>
 

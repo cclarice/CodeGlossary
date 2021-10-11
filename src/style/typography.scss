@@ -1,0 +1,41 @@
+// Colors:
+$cTypoDefault:  #BBBBBB;
+$cTypoDisabled: #777777;
+$cTypoSelected: #FEFEFE;
+$cTypoLink:     #589DF6;
+$cTypoLinkPres: #BA6F25;
+
+input[type=text],
+h1, h2, h3, h4, p, code, div, pre, small, a { color: $cTypoDefault }
+h1, h2, h3, h4, p, div, pre, small, a       { font-family: 'SF Pro Text', 'Segoe UI', sans-serif }
+code                                        { font-family: 'JetBrains Mono', monospace }
+h1, h2, h3, h4, p, code, div, input, span {
+&::selection {
+  color: $cTypoDefault;
+  background: #4B6EAF;
+}}
+
+h1          {font-size: 25px; font-weight: 600; letter-spacing: 0.5px} // Headers
+h2          {font-size: 22px; font-weight: 600}
+h3          {font-size: 18px; font-weight: 400}
+h4          {font-size: 16px; font-weight: 400}
+
+input[type=text],
+div, pre, a {font-size: 13px; line-height: 16px; font-weight: 400} // Default:
+p           {font-size: 13px; line-height: 19px; font-weight: 400} // Paragraph
+.medium     {font-size: 12px; line-height: 15px; font-weight: 400} // Medium
+small       {font-size: 11px; line-height: 14px; font-weight: 400} // Small
+code        {font-size: 12px; line-height: 20px; font-weight: 400} // Code Default
+.lineNumber {font-size: 11px; line-height: 20px; font-weight: 400} // Code Line Number
+.i, .italic {font-style: italic}
+.b, .bold   {font-weight: bold}
+.sb, .sBold {font-weight: 600}
+.u,         {text-underline: red; text-underline-position: under; text-decoration: underline}
+
+h1,
+h2,
+h3,
+h4,
+p,
+code,
+div { }

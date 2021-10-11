@@ -5,16 +5,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
-import BaseNotification from '@/components/base/BaseNotification'
+import BaseNotification from '@/components/base/notification/BaseNotification.vue'
 
-export default {
+export default Vue.extend({
   name: "EmptyLayout.vue",
   components: { BaseNotification }
-}
+})
 </script>
 
 <style scoped>
-
 </style>

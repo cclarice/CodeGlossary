@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "BaseNotification"
+  name: "BaseInputCheck"
 }
 </script>
 

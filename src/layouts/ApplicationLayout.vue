@@ -1,8 +1,5 @@
 <template>
-  <div class="wrapper">
-    <BaseNotification/>
-    <slot/>
-  </div>
+
 </template>
 
 <script lang="ts">
@@ -10,7 +7,7 @@ import Vue from 'vue'
 import BaseNotification from '@/components/base/notification/BaseNotification.vue'
 
 export default Vue.extend({
-  name: "MainLayout.vue",
+  name: "ApplicationLayout.vue",
   components: { BaseNotification }
 })
 </script>
