@@ -18,8 +18,20 @@
                         {text: 'Warning', value: 'warning'},
                         {text: 'Error',   value: 'error'}
                     ]"/>
+    <BaseInputText :placeholder="'Timeout'"
+                   :value="autoRemoveTimeout"
+                   @changeValue="(data) => {this.autoRemoveTimeout = data.value}"/>
     <div class="flexEnd">
-      <BaseButton text="Send" :isDefault="true" fixedWidth="72px" @clickButton="addBalloon({id: Date.now(), head: head, body: body, type: type})"/>
+      <BaseButton text="Send"
+                  :isDefault="true"
+                  fixedWidth="72px"
+                  @clickButton="addBalloon({
+                    id: Date.now(),
+                    head: head,
+                    body: body,
+                    type: type,
+                    autoRemoveTimeout:autoRemoveTimeout
+                  })"/>
     </div>
   </div>
 </div>
@@ -37,7 +49,8 @@ export default {
     return {
       head: '',
       body: '',
-      type: ''
+      type: '',
+      autoRemoveTimeout: 5000
     }
   },
   components: { BaseInputRadio, BaseButton, BaseInputText },

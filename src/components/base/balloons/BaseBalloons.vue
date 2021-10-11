@@ -36,7 +36,9 @@ export default {
 .BaseBalloon {
   display: flex;
   width: 373px;
-
+  background: #3C3F41;
+  border: 1px solid #323232;
+  padding: 8px 0;
 }
 
 </style>
