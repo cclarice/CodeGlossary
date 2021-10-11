@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
-import TypographyTest from "@/views/test/TypographyTest.vue";
-import NotificationsTest from '@/views/test/NotificationsTest.vue'
+import TestTypography from "@/views/test/TestTypography.vue";
+import TestBalloons from '@/views/test/TestBalloons.vue'
 import Tests from '@/views/test/Tests.vue'
 
 Vue.use(VueRouter)
@@ -34,13 +34,13 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/test/typography',
-    name: 'Typography',
-    component: TypographyTest
+    name: 'TestTypography',
+    component: TestTypography
   },
   {
-    path: '/test/notifications',
-    name: 'Notifications',
-    component: NotificationsTest
+    path: '/test/balloons',
+    name: 'TestBalloons',
+    component: TestBalloons
   }
 ]
 

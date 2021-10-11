@@ -1,15 +1,18 @@
 <template>
-  <button class="BaseButton"
-          @click="$emit('clickButton')"
-          :disabled="disabled"
-          :class="{isDefault: isDefault}"
-          :style="{width: fixedWidth}"
-  >
-    <div class="BaseButtonText">{{text}}</div>
-  </button>
+  <div>
+    <button class="BaseButton"
+            :disabled="disabled"
+            :class="{isDefault: isDefault}"
+            :style="{width: fixedWidth}"
+            @click="$emit('clickButton')"
+    >
+      {{text}}
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
+
 export default {
   name: "BaseButton",
   props: {
@@ -46,15 +49,12 @@ export default {
     border: 1px solid #456A90;
     outline: #3D6185 solid 2px;
   }
+  color: #BBBBBB;
 }
 
 .isDefault {
   background: #365880;
   border: 1px solid #4C708C;
-  color: #FEFEFE;
-}
-.BaseButtonText {
-  height: 100%;
-  padding-top: 4px;
+  font-weight: 500;
 }
 </style>

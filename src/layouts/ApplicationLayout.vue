@@ -1,14 +1,17 @@
 <template>
-
+  <div class="wrapper">
+    <BaseBalloons/>
+    <slot/>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import BaseNotification from '@/components/base/notification/BaseNotification.vue'
+import BaseBalloons from '@/components/base/balloons/BaseBalloons.vue'
 
 export default Vue.extend({
   name: "ApplicationLayout.vue",
-  components: { BaseNotification }
+  components: { BaseBalloons }
 })
 </script>
 

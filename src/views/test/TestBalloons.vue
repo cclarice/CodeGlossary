@@ -13,14 +13,13 @@
                     :name="'typeOfNotification'"
                     :value="0"
                     :radios="[
-                        {text: 'Message', value: 'message'},
                         {text: 'Info',    value: 'info'},
                         {text: 'Success', value: 'success'},
-                        {text: 'Warning',value: 'warning'},
-                        {text: 'Error',value: 'error'}
+                        {text: 'Warning', value: 'warning'},
+                        {text: 'Error',   value: 'error'}
                     ]"/>
     <div class="flexEnd">
-      <BaseButton text="Send" isDefault="true" fixedWidth="72px"/>
+      <BaseButton text="Send" :isDefault="true" fixedWidth="72px" @clickButton="addBalloon({id: Date.now(), head: head, body: body, type: type})"/>
     </div>
   </div>
 </div>
@@ -30,6 +29,7 @@
 import BaseInputText from "@/components/base/input/BaseInputText.vue"
 import BaseInputRadio from "@/components/base/input/BaseInputRadio.vue"
 import BaseButton from "@/components/base/button/BaseButton.vue"
+import {mapMutations} from "vuex";
 
 export default {
   name: "NotificationsTest",
@@ -37,11 +37,13 @@ export default {
     return {
       head: '',
       body: '',
-      type: '',
-      duration: 5
+      type: ''
     }
   },
-  components: {BaseInputRadio, BaseButton, BaseInputText }
+  components: { BaseInputRadio, BaseButton, BaseInputText },
+  methods: {
+    ...mapMutations('balloons', ['addBalloon'])
+  }
 }
 </script>
 

@@ -7,7 +7,7 @@ $cTypoLinkPres: #BA6F25;
 
 input[type=text],
 h1, h2, h3, h4, p, code, div, pre, small, a { color: $cTypoDefault }
-h1, h2, h3, h4, p, div, pre, small, a       { font-family: 'SF Pro Text', 'Segoe UI', sans-serif }
+*                                           { font-family: 'SF Pro Text', 'Segoe UI', sans-serif }
 code                                        { font-family: 'JetBrains Mono', monospace }
 h1, h2, h3, h4, p, code, div, input, span {
 &::selection {
