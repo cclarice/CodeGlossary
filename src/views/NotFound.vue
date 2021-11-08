@@ -22,9 +22,9 @@
               <span>{{ result.name }}</span>
             </router-link>
           </div>
-          <div v-else style="padding-left: 0.5rem" class="NotFoundNoResult">
-            <span style="margin-left: 1rem">Type something<br> or type * <br> to see everything</span>
-          </div>
+          <span v-else class="NotFoundNoResult">
+            Type something...
+          </span>
         </div>
         <div class="NotFoundPagesDivider"></div>
         <div class="NotFoundPages">
@@ -52,6 +52,8 @@ export default Vue.extend({
       const f = this.find
       if (f.length >= 2) {
         return this.routes.filter(route => { return route.name.search(f) !== -1 || route.path.search(f) !== -1 /*  || route.meta.keywords(f) todo deep find */ })
+      } else if (f === '*') {
+        return this.routes
       } else {
         return []
       }
