@@ -1,9 +1,14 @@
 <template>
   <div class="balloonContainer">
     <!-- todo: Balloon System -->
-    <div class="BaseBalloon" v-for="balloon in getBalloons">
-      <div class="BaseBalloonLeft">
-        <img class="BaseBalloonIconImage" :src="'assets' + balloon.type" :alt="balloon.type">
+    <div class="BaseBalloon"
+         v-for="balloon in getBalloons"
+         :style="{
+           animationName: 'disappear'
+         }"
+    >
+      <div class="BaseBalloonLeft" :id="'Bx' + balloon.id">
+        <img class="BaseBalloonIconImage" :src="'assets/' + balloon.type" :alt="balloon.type">
       </div>
       <div class="BaseBalloonCenter">
         <div class="BaseBalloonHead">{{balloon.head}}<!-- todo: settings icon <div class="BaseBalloonSettings"></div>--></div>
@@ -16,12 +21,13 @@
 </template>
 
 <script lang="ts">
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "BaseNotification",
+  name: 'BaseBalloons',
   computed: {
-    ...mapGetters('balloons', ['getBalloons'])
+    ...mapGetters('balloons', ['getBalloons']),
+    balloons () { return this.getBalloons }
   }
 }
 </script>
@@ -40,5 +46,4 @@ export default {
   border: 1px solid #323232;
   padding: 8px 0;
 }
-
 </style>

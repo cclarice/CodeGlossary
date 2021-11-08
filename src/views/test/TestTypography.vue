@@ -37,7 +37,7 @@
 
 <script lang="ts">
 export default {
-  name: "Typography"
+  name: 'Typography'
 }
 </script>
 

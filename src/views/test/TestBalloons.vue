@@ -41,10 +41,10 @@
 import BaseInputText from "@/components/base/input/BaseInputText.vue"
 import BaseInputRadio from "@/components/base/input/BaseInputRadio.vue"
 import BaseButton from "@/components/base/button/BaseButton.vue"
-import {mapMutations} from "vuex";
+import { mapMutations } from 'vuex'
 
 export default {
-  name: "NotificationsTest",
+  name: 'NotificationsTest',
   data () {
     return {
       head: '',

@@ -14,7 +14,7 @@
 <script lang="ts">
 
 export default {
-  name: "BaseButton",
+  name: 'BaseButton',
   props: {
     text: {
       type: String,

@@ -3,9 +3,10 @@
 </template>
 
 <script>
-export default {
-  name: "BaseInputCheck"
-}
+import Vue from "vue"
+/*export default */ Vue.extend({
+  name: 'BaseInputCheck'
+})
 </script>
 
 <style scoped>

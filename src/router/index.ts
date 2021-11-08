@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
-import TestTypography from "@/views/test/TestTypography.vue";
+import TestTypography from '@/views/test/TestTypography.vue'
 import TestBalloons from '@/views/test/TestBalloons.vue'
 import Tests from '@/views/test/Tests.vue'
 
@@ -30,7 +30,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '/test',
     name: 'Test',
-    component: Tests
+    component: Tests,
+    children: [
+
+    ]
   },
   {
     path: '/test/typography',
@@ -41,6 +44,14 @@ const routes: Array<RouteConfig> = [
     path: '/test/balloons',
     name: 'TestBalloons',
     component: TestBalloons
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: () => import('../views/NotFound.vue'),
+    meta: {
+      layout: 'main'
+    }
   }
 ]
 

@@ -10,7 +10,7 @@ import Vue from 'vue'
 import BaseBalloons from '@/components/base/balloons/BaseBalloons.vue'
 
 export default Vue.extend({
-  name: "EmptyLayout.vue",
+  name: 'EmptyLayout',
   components: { BaseBalloons }
 })
 </script>

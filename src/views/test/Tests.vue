@@ -14,10 +14,10 @@
 
 <script lang="ts">
 import BaseButton from '@/components/base/button/BaseButton.vue'
-import router from "@/router";
+import router from '@/router'
 
 export default {
-  name: "Tests.vue",
+  name: 'Tests.vue',
   components: { BaseButton },
   computed: {
     Router () { return router }

@@ -15,7 +15,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: "BaseInput",
+  name: 'BaseInputText',
   data () {
     return {
       val: ''

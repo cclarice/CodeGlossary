@@ -1,3 +1,9 @@
+<!--                                                      -><-                                                        ->
+    Radio Button                                                Радио Кнопка
+
+    https://jetbrains.design/intellij/controls/radio_button/#writing-guidelines
+<-                                                        -><-                                                       -->
+
 <template>
   <div class="BaseInputRadio">
     <div class="BaseInputRadioLabel">
@@ -19,7 +25,7 @@
 
 <script>
 export default {
-  name: "BaseInputRadio",
+  name: 'BaseInputRadio',
   props: {
     name: {
       type: String,
