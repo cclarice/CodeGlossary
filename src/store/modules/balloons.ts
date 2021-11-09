@@ -12,7 +12,7 @@ const getRandomInt = (max: number) => {
 
 const mutations = <MutationTree<IBalloonsState>> {
     addBalloon (state: IBalloonsState, data: IBalloon) {
-        state.balloons.push(data)
+
         if (data.autoRemoveTimeout === undefined) {
             data.autoRemoveTimeout = 5000
         }
@@ -21,12 +21,20 @@ const mutations = <MutationTree<IBalloonsState>> {
                 state.balloons = state.balloons.filter(n => n.id !== data.id)
             }, data.autoRemoveTimeout)
         }
+        data.isLongText = ( data.body.length >= 100 )
+        data.closed = true
+        state.balloons.push(data)
     },
     removeBalloon (state: IBalloonsState, id: number) {
         state.balloons = state.balloons.filter(n => n.id !== id)
+    },
+    toggleClosedBalloon (state: IBalloonsState, id: number) {
+        const balloon = state.balloons.find(balloon => balloon.id === id)
+        if (balloon) {
+            balloon.closed = !balloon.closed
+        }
     }
 }
-
 const actions = <ActionTree<any, any>> {
     addBalloon (context, data: any) {
         if (data.autoClose !== false) {
@@ -63,4 +71,4 @@ export default {
     mutations,
     actions,
     getters
-}
+};
