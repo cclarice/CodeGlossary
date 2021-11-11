@@ -2,7 +2,7 @@ import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import IBalloonsState from "@/models/IBalloonsState"
 import IBalloon from "@/models/IBalloon"
 
-const initialState = {
+const initialState: IBalloonsState = {
     balloons: []
 }
 
