@@ -11,11 +11,9 @@
           <br>Please use <router-link
               :to="{ name: 'Search', params: { from: $route.path.slice(1) } }"
           >
-            search
-          </router-link> or try starting from <router-link
+            search</router-link> or try starting from <router-link
               :to="{ name: 'Home' }">
-            home
-          </router-link>.
+            home</router-link>.
         </h4>
       </div>
       <div class="NotFoundFooter">
@@ -25,9 +23,10 @@
         <BaseButton class="NotFoundButton NotFoundButton1"
                     text="Graph"
                     @clickButton="$router.push('/graph'/*{ name: 'Graph' }*/)"/>
+        <div style="flex-grow: 1"/>
         <BaseButton class="NotFoundButton NotFoundButton2"
                     text="Back to previous page"
-                    @clickButton="$router.push($router.history[1])"
+                    @clickButton="$router.push($router.history[1] ? $router.history[1] : { name: 'Home' })"
                     :isDefault="true"/>
       </div>
     </div>
@@ -112,8 +111,10 @@ export default Vue.extend({
       border-top: 1px solid #323232;
       box-sizing: border-box;
       height: 46px;
+      column-gap: 12px;
+      padding: 0 16px;
       .NotFoundButton {
-        margin: 11px 12px 0 12px;
+        margin: 11px 0 0 0;
       }
       .JustifySelfStart {
 

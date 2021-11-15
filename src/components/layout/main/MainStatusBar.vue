@@ -13,6 +13,7 @@
            @mouseleave="browserActive = false"
            @blur="browserActive = false"
            v-if="browser">
+        <BaseImage :src="browserIcons[browser.name.toLowerCase()]" class="MainStatusBarItemImage"/>
         {{ browser.name }}
         <div v-show="browserActive"
              class="MainStatusBarItemPopup"
@@ -24,7 +25,7 @@
             debug: <br>
             <div class="code">
               <code>
-                {{ browser.debug }}
+                {{ cores }}
               </code>
             </div>
           </div>
@@ -51,9 +52,19 @@ export default Vue.extend({
       browserActive: false,
       syncActive: false,
       images: {
-        toolbarVisible: require('@/assets/icons/toolbar/tbShown.svg'),
-        toolbarHidden: require('@/assets/icons/toolbar/tbHidden.svg'),
+        toolbarVisible:    require('@/assets/icons/toolbar/tbShown.svg'),
+        toolbarHidden:     require('@/assets/icons/toolbar/tbHidden.svg'),
         cloudDisconnected: require('@/assets/icons/cloud/not_connected.svg')
+      },
+      browserIcons: {
+        chrome:   require('@/assets/icons/browser/chrome.svg'),
+        firefox:  require('@/assets/icons/browser/firefox.svg'),
+        edge:     require('@/assets/icons/browser/edge.svg'),
+        yandex:   require('@/assets/icons/browser/yandex.svg'),
+        safari:   require('@/assets/icons/browser/safari.svg'),
+        brave:    require('@/assets/icons/browser/brave.svg'),
+        explorer: require('@/assets/icons/browser/explorer.svg'),
+        opera:    require('@/assets/icons/browser/opera.svg')
       }
     }
   },
@@ -88,23 +99,42 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters('mainLayout', ['getToolbarHidden', 'getToolbarHover']),
-    browser () {
-      if (!navigator.userAgent) {
+    cores () {
+      if (!navigator?.userAgent) {
+        return undefined
+      }
+      return navigator.userAgent.split(/(\d\s|\)\s)/i).map(
+          ((value: string, index: number, array: Array<string>) => {
+            if (!(index % 2)) {
+              return (value + (array[index + 1] ? array[index + 1] : '') + (array[index + 2] && array[index + 2][0] === '(' ? array[index + 2] + array[index + 3] : '')).trim()
+            }
+          })).filter(item => item && item[0] !== '(').map(value => {
+        const massive = value.replaceAll(' (', 'SEP(').split(/SEP|\//, 3)
         return {
-          name: 'Unknown',
-          version: undefined,
-          description: 'Has no info about browser'
+          name: massive[0],
+          version: massive[1],
+          other: massive[2],
+          from: value
+        }
+      })
+    },
+    browser () {
+      if (!this.cores) {
+        return {
+          name: 'Unknown'
         }
       }
-      const userAgent = navigator.userAgent
-      const browserStack = userAgent.match(/(edg|opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []
-      console.log(userAgent)
-      console.log(browserStack)
-      return {
-        name: browserStack[1],
-        version: browserStack[2],
-        debug: userAgent.replaceAll(')', ')\n').replaceAll('(', '\n(')
-      }
+
+      return (
+          (navigator['brave']?.isBrave() ? { name: 'Brave' } : null)          ||
+          this.cores.find(c => c.name === 'Edg' && (c.name = 'Edge'))         ||
+          this.cores.find(c => c.from.includes('Trident') && (c.name = 'Explorer')) ||
+          this.cores.find(c => c.name === 'YaBrowser' && (c.name = 'Yandex')) ||
+          this.cores.find(c => c.name === 'OPR'       && (c.name = 'Opera'))  ||
+          this.cores.find(c => c.name === 'Chrome')                           ||
+          this.cores.find(c => c.name === 'Edge')                             ||
+          this.cores.find(c => c.name === 'Firefox')                          ||
+          { name: 'Unknown' })
     }
   }
 })
@@ -136,6 +166,9 @@ export default Vue.extend({
       align-items: center;
       margin-left: 16px;
       height: 100%;
+      .MainStatusBarItemImage {
+        margin-right: 2px;
+      }
       &:hover { background-color: #4C5052 }
       .MainStatusBarItemPopup {
         user-select: text;

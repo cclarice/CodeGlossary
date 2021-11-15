@@ -68,7 +68,7 @@ export default Vue.extend({
     handler () {
         this.frame++                                                            // Увеличиваем кадр
         if (this.frame >= this.loader.steps.length) {
-          this.frame = 0                                   // Обнуляем кадр если он вышел за границу
+          this.frame = 0                                                        // Обнуляем кадр если он вышел за границу
         }
     }
   },
@@ -81,8 +81,8 @@ export default Vue.extend({
   },
   mounted () {
     if (this.loader &&
-        this.loader.steps) {                  // Запускаем цикл Анимации если у loader'а есть кадры
-      this.loaderCycle()
+        this.loader.steps) {                                                    // Запускаем цикл Анимации, если
+      this.loaderCycle()                                                        //                 у loader'а есть кадры
     }
   },
   beforeDestroy() {

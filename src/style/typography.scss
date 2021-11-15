@@ -21,8 +21,10 @@ h3          {font-size: 18px; font-weight: 400; line-height: normal}
 h4          {font-size: 16px; font-weight: 400; line-height: normal}
 
 input[type=text],
-div, pre, a {font-size: 13px; line-height: 16px; font-weight: 400} // Default:
-p           {font-size: 13px; line-height: 19px; font-weight: 400} // Paragraph
+
+a           {color: #589DF6; text-decoration: none}
+div, pre    {font-size: 13px; line-height: 16px; font-weight: 400} // Default:
+p .p        {font-size: 13px; line-height: 19px; font-weight: 400} // Paragraph
 .medium     {font-size: 12px; line-height: 15px; font-weight: 400} // Medium
 small       {font-size: 11px; line-height: 14px; font-weight: 400} // Small
 code        {font-size: 12px; line-height: 20px; font-weight: 400} // Code Default

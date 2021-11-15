@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
-import TestTypography from '@/views/test/TestTypography.vue'
-import TestBalloons from '@/views/test/TestBalloons.vue'
-import Tests from '@/views/test/Tests.vue'
 
 Vue.use(VueRouter)
 
@@ -14,7 +10,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import('../views/Home.vue'),
     meta: {
       title: 'Home',
       layout: 'main',
@@ -29,31 +25,36 @@ const routes: Array<RouteConfig> = [
       title: 'About',
       layout: 'main'
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import('../views/About.vue')
   },
   {
     path: '/test',
     name: 'Test',
-    component: Tests,
+    component: () => import('@/views/test/Tests.vue'),
     meta: {
       title: 'Tests'
     }
   },
   {
     path: '/test/typography',
-    name: 'TestTypography',
-    component: TestTypography,
+    name: 'Typography',
+    component: () => import('@/views/test/TestTypography.vue'),
     meta: {
       title: 'Typography'
     }
   },
   {
+    path: '/test/colors',
+    name: 'TestColors',
+    component: () => import('@/views/test/TestColors.vue'),
+    meta: {
+      title: 'Colors'
+    }
+  },
+  {
     path: '/test/balloons',
     name: 'TestBalloons',
-    component: TestBalloons,
+    component: () => import('@/views/test/TestBalloons.vue'),
     meta: {
       title: 'Balloons'
     }
@@ -61,7 +62,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/search',
     name: 'Search',
-    component: () => import('../views/Search.vue'),
+    component: () => import('@/views/Search.vue'),
     props: true,
     meta: {
       title: 'Search',
@@ -71,7 +72,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '*',
     name: 'NotFound',
-    component: () => import('../views/NotFound.vue'),
+    component: () => import('@/views/NotFound.vue'),
     meta: {
       title: '404',
       layout: 'empty'
