@@ -7,7 +7,10 @@
            animationName: 'disappear'
          }"
     >
-      <img class="BaseBalloonInfoImage" src="@/assets/icons/info.svg" alt="">
+      <img v-if="balloon.type === 'info'" class="BaseBalloonInfoImage" src="@/assets/icons/info.svg" alt="">
+      <img v-if="balloon.type === 'warning'" class="BaseBalloonWarningImage" src="@/assets/icons/warning.svg" alt="">
+      <img v-if="balloon.type === 'error'" class="BaseBalloonErrorImage" src="@/assets/icons/error.svg" alt="">
+      <img v-if="balloon.type === 'success'" class="BaseBalloonSuccessImage" src="@/assets/icons/success.svg" alt="">
 <!--      <div class="BaseBalloonLeft" :id="'Bx' + balloon.id">-->
 <!--        <img class="BaseBalloonIconImage" :src="'assets/' + balloon.type" :alt="balloon.type">-->
 <!--      </div>-->

@@ -13,11 +13,13 @@
                     :name="'typeOfNotification'"
                     :value="0"
                     :radios="[
-                        {text: 'Info',    value: 'info'},
-                        {text: 'Success', value: 'success'},
-                        {text: 'Warning', value: 'warning'},
-                        {text: 'Error',   value: 'error'}
-                    ]"/>
+                        { text: 'Info',    value: 'info'    },
+                        { text: 'Success', value: 'success' },
+                        { text: 'Warning', value: 'warning' },
+                        { text: 'Error',   value: 'error'   }
+                    ]"
+                    @changeValue="type = $event"
+    />
     <BaseInputText :placeholder="'Timeout'"
                    :value="autoRemoveTimeout"
                    @changeValue="(data) => {this.autoRemoveTimeout = data.value}"/>
