@@ -17,6 +17,8 @@
              :value="radio.value"
              :disabled="radio.disabled"
              :checked="value === index"
+             v-model="val"
+             @change="$emit('changeValue', val)"
       >
       <span class="BaseInputRadioInputText">{{ radio.text }}</span>
     </label>
@@ -26,6 +28,11 @@
 <script>
 export default {
   name: 'BaseInputRadio',
+  data() {
+    return {
+      val: undefined
+    }
+  },
   props: {
     name: {
       type: String,
