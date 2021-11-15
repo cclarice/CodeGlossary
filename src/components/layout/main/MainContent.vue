@@ -20,9 +20,11 @@
 
 <script lang='ts'>
 import Vue from 'vue'
+import MainTool from '@/components/layout/main/MainTool.vue'
 
 export default Vue.extend({
-  name: 'MainContent'
+  name: 'MainContent',
+  components: { MainTool }
 })
 </script>
 

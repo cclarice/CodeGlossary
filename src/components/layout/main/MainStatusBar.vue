@@ -98,6 +98,8 @@ export default Vue.extend({
       }
       const userAgent = navigator.userAgent
       const browserStack = userAgent.match(/(edg|opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []
+      console.log(userAgent)
+      console.log(browserStack)
       return {
         name: browserStack[1],
         version: browserStack[2],
