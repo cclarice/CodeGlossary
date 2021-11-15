@@ -22,8 +22,6 @@ import MainContent from '@/components/layout/main/MainContent.vue'
 import MainStripe from '@/components/layout/main/MainStripe.vue'
 import MainStatusBar from '@/components/layout/main/MainStatusBar.vue'
 
-let massive = [1, 2, 3]
-
 export default Vue.extend({
   name: 'MainLayout',
   components: { MainStatusBar, BaseBalloons, MainNavbar, MainContent, MainStripe },

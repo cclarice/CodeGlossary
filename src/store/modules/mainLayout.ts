@@ -60,21 +60,17 @@ const mutations = <MutationTree<IMainLayout>> {
 
   /** Toolbar Mutations **/
   toggleToolbar (state: IMainLayout) {
-    console.info('toggleToolbar')
     state.elems.toolbarHidden = !state.elems.toolbarHidden
     if (!state.elems.toolbarHidden) {
       state.elems.toolbarHover = false
     }
   },
   enterToolbar (state: IMainLayout) {
-    console.info('enterToolbar')
-    console.log(state.elems.toolbarHidden)
     if (state.elems.toolbarHidden === true) {
       state.elems.toolbarHover = true
     }
   },
   leaveToolbar (state: IMainLayout) {
-    console.info('leaveToolbar')
     state.elems.toolbarHover = false
   }
 }
@@ -95,7 +91,6 @@ const getters = <GetterTree<IMainLayout, any>> {
     return state.elems.toolbarHidden
   },
   getToolbarHover (state: IMainLayout) {
-    console.log('getToolbarHover:', state.elems.toolbarHover)
     return state.elems.toolbarHover
   }
 

@@ -4,11 +4,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Vue from 'vue'
 
-@Component({
-  components: {
-  },
+export default Vue.extend({
+  name: 'Home',
+  computed: {
+    router () {
+      return this.$router
+    }
+  }
 })
-export default class Home extends Vue {}
 </script>

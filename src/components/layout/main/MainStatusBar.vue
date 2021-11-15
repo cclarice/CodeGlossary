@@ -6,9 +6,6 @@
          @mouseleave="leaveToolbar">
       <BaseImage :src="getToolbarHidden ? images.toolbarVisible : images.toolbarHidden"
                  :alt="'Toolbar visible'"/>
-      <code class="todo delete" style="position: absolute;">
-        {{ getToolbarHover }}
-      </code>
     </div>
     <div class="MainStatusBarContent">
       <div class="MainStatusBarItem MainStatusBarItemText"
@@ -61,6 +58,9 @@ export default Vue.extend({
     }
   },
   created () {
+    /*
+      Note Что то для получения геолокации
+    \*
     let options = {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -81,6 +81,7 @@ export default Vue.extend({
     }
 
     navigator.geolocation.getCurrentPosition(success, error, options);
+    */
   },
   methods: {
     ...mapMutations('mainLayout', ['toggleToolbar', 'enterToolbar', 'leaveToolbar'])

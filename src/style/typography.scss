@@ -15,10 +15,10 @@ h1, h2, h3, h4, p, code, div, input, span {
   background: #4B6EAF;
 }}
 
-h1          {font-size: 25px; font-weight: 600; letter-spacing: 0.5px} // Headers
-h2          {font-size: 22px; font-weight: 600}
-h3          {font-size: 18px; font-weight: 400}
-h4          {font-size: 16px; font-weight: 400}
+h1          {font-size: 25px; font-weight: 600; letter-spacing: 0.5px; line-height: normal} // Headers
+h2          {font-size: 22px; font-weight: 600; line-height: normal}
+h3          {font-size: 18px; font-weight: 400; line-height: normal}
+h4          {font-size: 16px; font-weight: 400; line-height: normal}
 
 input[type=text],
 div, pre, a {font-size: 13px; line-height: 16px; font-weight: 400} // Default:

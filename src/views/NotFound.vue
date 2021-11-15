@@ -1,35 +1,34 @@
 <template lang='html'>
   <div class="NotFound">
-    <div class="NotFoundWrapper">
-      <img class="NotFoundImage" src="@/assets/logos/codeglo/404.svg" alt="404">
-      <div class="NotFoundContainer">
-        <div class="NotFoundHeader">You surely know what this means.</div>
-        <div class="NotFoundText">
-          <p>We can't find the page you're looking for.
-            <br> Please use search or try starting from <router-link to="/">home</router-link>.</p>
-        </div>
-        <div class="NotFoundPagesDivider"></div>
-        <div class="NotFoundFind">
-          <input class="InputFind" type="text" v-model="find">
-        </div>
-        <div class="NotFoundPagesDivider"></div>
-        <div class="NotFoundResult">
-          <div v-if="results.length">
-            <router-link v-for="result in results" :key="result.name"
-                         :to="result.path"
-                         class="NotFoundLink">
-              <img src="@/assets/icons/stub.svg" alt="Home">
-              <span>{{ result.name }}</span>
-            </router-link>
-          </div>
-          <span v-else class="NotFoundNoResult">
-            Type something...
-          </span>
-        </div>
-        <div class="NotFoundPagesDivider"></div>
-        <div class="NotFoundPages">
-          <router-link to="/" class="NotFoundLink"><img src="@/assets/icons/home.svg" alt="Home"><span>Home</span></router-link>
-        </div>
+    <div class="NotFoundDisplay">
+      <div class="NotFoundHeader">
+        <img src="@/assets/logos/codeglo/404.svg" alt="404">
+        <h1>UH-OH!</h1>
+      </div>
+      <div class="NotFoundMain">
+        <h2>You surely know what this means.</h2>
+        <h4>We can't find the page you're looking for.
+          <br>Please use <router-link
+              :to="{ name: 'Search', params: { from: $route.path.slice(1) } }"
+          >
+            search
+          </router-link> or try starting from <router-link
+              :to="{ name: 'Home' }">
+            home
+          </router-link>.
+        </h4>
+      </div>
+      <div class="NotFoundFooter">
+        <BaseButton class="NotFoundButton NotFoundButton0"
+                    text="Home"
+                    @clickButton="$router.push({ name: 'Home' })"/>
+        <BaseButton class="NotFoundButton NotFoundButton1"
+                    text="Graph"
+                    @clickButton="$router.push('/graph'/*{ name: 'Graph' }*/)"/>
+        <BaseButton class="NotFoundButton NotFoundButton2"
+                    text="Back to previous page"
+                    @clickButton="$router.push($router.history[1])"
+                    :isDefault="true"/>
       </div>
     </div>
   </div>
@@ -37,139 +36,92 @@
 
 <script lang='ts'>
 import Vue from 'vue'
-import router from "@/router";
+import BaseButton from "@/components/base/button/BaseButton.vue"
+import { Route } from "vue-router"
+
+interface VueWithPrevRoute extends Vue {
+  prevRoute?: Route
+}
 
 export default Vue.extend({
   name: 'PageIsNotFound',
+  components: { BaseButton },
   data () {
     return {
-      find: '',
-      routes: router.options.routes
+      prevRoute: null
     }
   },
-  computed: {
-    results () {
-      const f = this.find
-      if (f.length >= 2) {
-        return this.routes.filter(route => { return route.name.search(f) !== -1 || route.path.search(f) !== -1 /*  || route.meta.keywords(f) todo deep find */ })
-      } else if (f === '*') {
-        return this.routes
-      } else {
-        return []
-      }
-    }
+  beforeRouteEnter(to, from, next) {
+    next((vm: VueWithPrevRoute) => {
+      vm.prevRoute = from
+    })
   }
 })
 </script>
 
 <style lang='scss' scoped>
 .NotFound {
-  width: 100%;
-  height: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .NotFoundWrapper {
+  width: 100%;
+  height: 100%;
+  .NotFoundDisplay {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    column-gap: 4rem;
-    .NotFoundImage {
-      width: 256px;
-      min-width: 128px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 400px;
+    height: 256px;
+    background-color: #3C3F41;
+    border: 1px solid #323232;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    & > * {
+      width: 100%;
+      height: 56px;
     }
-
-    .NotFoundContainer {
+    .NotFoundHeader {
       display: flex;
-      flex-direction: column;
-
-      min-width: 256px;
-
-      background-color: #3C3F41;
-      border: #323232;
-
-      .NotFoundHeader {
+      background-color: #4A4E52;
+      img {
+        width: 48px;
+        padding-left: 4px;
+      }
+      h1 {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 24px;
-
-        background-color: #4A4E52;
-      }
-      .NotFoundText,
-      .NotFoundFind,
-      .NotFoundPages,
-      .NotFoundResult {
-        padding: 4px 6px;
-      }
-      .NotFoundText {
-        margin-left: 22px;
-      }
-      .NotFoundFind {
-        .InputFind {
-          height: 24px;
-          min-width: 24px;
-          width: 100%;
-          border: 1px solid #5E6060;
-          box-sizing: border-box;
-          font-weight: 500;
-          border-radius: 3px;
-          &:focus,
-          &:active {
-            border: 1px solid #456A90;
-            outline: #3D6185 solid 2px;
-          }
-          padding-left: 28px;
-
-          background: url("~@/assets/icons/find.svg") #4C5052 no-repeat left 6px top 3px;
-        }
-        .InputFind::selection {
-          color: #BBBBBB;
-          background-color: #4B6EAF;
-        }
-
-        .InputFind::placeholder {
-          color: #787878;
-          font-weight: 400;
-          transform: translateY(1px);
-        }
-      }
-      .NotFoundPages,
-      .NotFoundResult {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-      }
-      .NotFoundText > p,
-      .NotFoundNoResult {
-        padding-left: 0.5rem
-      }
-      .NotFoundPagesDivider {
-        background-color: #323232;
-        height: 1px;
-        width: 100%;
-      }
-      .NotFoundLink {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        height: 22px;
-        text-decoration: none;
-        span {
-          padding-left: 6px;
-          font-weight: bold;
-        }
+        flex-grow: 1;
+        padding-right: 56px;
       }
     }
-  }
-}
+    .NotFoundMain {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      row-gap: 1rem;
+      h2 {}
+      h4 {}
+    }
+    .NotFoundFooter {
+      display: flex;
+      border-top: 1px solid #323232;
+      box-sizing: border-box;
+      height: 46px;
+      .NotFoundButton {
+        margin: 11px 12px 0 12px;
+      }
+      .JustifySelfStart {
 
-@media (orientation: portrait) {
-  .NotFound {
-    flex-direction: column;
+      }
+      .JustifySelfEnd {
+        justify-self: end;
+      }
+    }
   }
 }
 </style>

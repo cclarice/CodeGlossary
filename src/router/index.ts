@@ -7,19 +7,26 @@ import Tests from '@/views/test/Tests.vue'
 
 Vue.use(VueRouter)
 
+/* note
+*   Мета-тег Title */
+
 const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
     component: Home,
     meta: {
-      layout: 'main'
+      title: 'Home',
+      layout: 'main',
+      description: 'Home page of CodeGlossary Website, Главная страница Сайта CodeGlossary',
+      keywords: 'Home, Main, Главная, Домой, CodeGlossary, codeglo, cg, Глоссарий, Code, Glossary, Manual, Мануал'
     }
   },
   {
     path: '/about',
     name: 'About',
     meta: {
+      title: 'About',
       layout: 'main'
     },
     // route level code-splitting
@@ -31,26 +38,43 @@ const routes: Array<RouteConfig> = [
     path: '/test',
     name: 'Test',
     component: Tests,
-    children: [
-
-    ]
+    meta: {
+      title: 'Tests'
+    }
   },
   {
     path: '/test/typography',
     name: 'TestTypography',
-    component: TestTypography
+    component: TestTypography,
+    meta: {
+      title: 'Typography'
+    }
   },
   {
     path: '/test/balloons',
     name: 'TestBalloons',
-    component: TestBalloons
+    component: TestBalloons,
+    meta: {
+      title: 'Balloons'
+    }
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import('../views/Search.vue'),
+    props: true,
+    meta: {
+      title: 'Search',
+      layout: 'empty'
+    }
   },
   {
     path: '*',
     name: 'NotFound',
     component: () => import('../views/NotFound.vue'),
     meta: {
-      layout: 'main'
+      title: '404',
+      layout: 'empty'
     }
   }
 ]
@@ -59,6 +83,13 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+const DEFAULT_TITLE = 'Code Glossary'
+router.afterEach((to): void => {
+  Vue.nextTick(() => {
+    document.title = to.meta.title || DEFAULT_TITLE
+  })
 })
 
 export default router
