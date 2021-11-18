@@ -3,13 +3,17 @@
 
     https://jetbrains.design/intellij/controls/radio_button/#writing-guidelines
 <-                                                        -><-                                                       -->
-
 <template>
-  <div class="BaseInputRadio">
-    <div class="BaseInputRadioLabel">
+  <div class="BaseInputRadio"
+       :class="{ 'BaseInputRadioInRow': inRow }"
+  >
+    <div class="BaseInputRadioLabel" v-if="label">
       <span>{{ label }}</span><div class="BaseInputRadioLabelHr"></div>
     </div>
-    <label class="BaseInputRadioInputLabel" v-for="(radio, index) of radios" :for="'BaseInputRadio' + radio.value">
+    <label class="BaseInputRadioInputLabel"
+           v-for="(radio, index) of radios"
+           :for="'BaseInputRadio' + radio.value"
+    >
       <input class="BaseInputRadioInput"
              type="radio"
              :id="'BaseInputRadio' + radio.value"
@@ -25,8 +29,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'BaseInputRadio',
   data() {
     return {
@@ -40,22 +46,10 @@ export default {
     },
     radios: {
       type: Array,
-      required: true,
-      example: [
-        {
-          text: 'some text',
-          value: 'value' | 1 | true,
-          disabled: Boolean
-        },
-        {
-          text: 'some second text',
-          value: 'value',
-          disabled: Boolean
-        }
-      ]
+      required: true
     },
     defaultValue: {
-      type: Number,
+      type: [Number, String],
       default: 0
     },
     value: {
@@ -64,13 +58,22 @@ export default {
     label: {
       type: String,
       default: null
+    },
+    inRow: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {
-    if (!this.value)
-      this.value = this.defaultValue
+    if (!this.value) {
+      this.val = (typeof this.defaultValue) === 'number' ?
+          this.radios[this.defaultValue].value :
+          this.radios.find(radio => radio.value === this.defaultValue)
+    } else {
+      this.val = this.value
+    }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -123,6 +126,16 @@ export default {
   }
   .BaseInputRadioInputLabel:not(:last-child) {
     margin-bottom: 10px;
+  }
+}
+.BaseInputRadioInRow {
+  flex-direction: row;
+  justify-content: center;
+  * {
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    transform: translateY(25%);
   }
 }
 </style>

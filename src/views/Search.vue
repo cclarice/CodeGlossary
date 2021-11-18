@@ -46,7 +46,6 @@ import Vue from 'vue'
 import BaseLoader from '@/components/base/loaders/BaseLoader.vue'
 import BaseButton from '@/components/base/button/BaseButton.vue'
 import BaseSearch from '@/components/base/input/BaseSearch.vue'
-// import sleep from '@/library/sleep'
 
 export default Vue.extend({
   name: 'Search',
@@ -78,7 +77,6 @@ export default Vue.extend({
                 route.meta?.keywords?.toLowerCase().includes(search)
             )
           ] : undefined
-      // setTimeout(() => this.loading = false, 100)
       this.loading = false
       return result
     }

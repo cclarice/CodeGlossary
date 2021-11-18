@@ -11,7 +11,6 @@
                    @changeValue="(data) => {this.body = data.value}"/>
     <BaseInputRadio :label="'Type'"
                     :name="'typeOfNotification'"
-                    :value="0"
                     :radios="[
                         { text: 'Info',    value: 'info'    },
                         { text: 'Success', value: 'success' },

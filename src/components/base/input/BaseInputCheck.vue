@@ -2,9 +2,10 @@
 
 </template>
 
-<script>
-import Vue from "vue"
-/*export default */ Vue.extend({
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'BaseInputCheck'
 })
 </script>

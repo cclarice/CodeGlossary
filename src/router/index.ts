@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
+import { DEFAULT_TITLE } from '@/constants/titles'
+import { FAVICON_FOLDER_TEST, DEFAULT_FAVICON, FAVICON_COLORS, FAVICON_TEST, FAVICON_404 } from '@/constants/favicons'
 
 Vue.use(VueRouter)
 
@@ -12,7 +14,7 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: () => import('../views/Home.vue'),
     meta: {
-      title: 'Home',
+      title: 'CodeGlossary',
       layout: 'main',
       description: 'Home page of CodeGlossary Website, Главная страница Сайта CodeGlossary',
       keywords: 'Home, Main, Главная, Домой, CodeGlossary, codeglo, cg, Глоссарий, Code, Glossary, Manual, Мануал'
@@ -32,7 +34,9 @@ const routes: Array<RouteConfig> = [
     name: 'Test',
     component: () => import('@/views/test/Tests.vue'),
     meta: {
-      title: 'Tests'
+      title: 'Tests',
+      favicon: FAVICON_FOLDER_TEST,
+      layout: 'main'
     }
   },
   {
@@ -40,23 +44,29 @@ const routes: Array<RouteConfig> = [
     name: 'Typography',
     component: () => import('@/views/test/TestTypography.vue'),
     meta: {
-      title: 'Typography'
+      title: 'Typography',
+      favicon: FAVICON_TEST,
+      layout: 'main'
     }
   },
   {
     path: '/test/colors',
-    name: 'TestColors',
+    name: 'Colors',
     component: () => import('@/views/test/TestColors.vue'),
     meta: {
-      title: 'Colors'
+      title: 'Colors',
+      favicon: FAVICON_COLORS,
+      layout: 'main'
     }
   },
   {
     path: '/test/balloons',
-    name: 'TestBalloons',
+    name: 'Balloons',
     component: () => import('@/views/test/TestBalloons.vue'),
     meta: {
-      title: 'Balloons'
+      title: 'Balloons',
+      favicon: FAVICON_TEST,
+      layout: 'main'
     }
   },
   {
@@ -66,7 +76,7 @@ const routes: Array<RouteConfig> = [
     props: true,
     meta: {
       title: 'Search',
-      layout: 'empty'
+      layout: 'main'
     }
   },
   {
@@ -75,7 +85,8 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/NotFound.vue'),
     meta: {
       title: '404',
-      layout: 'empty'
+      favicon: FAVICON_404,
+      layout: 'main'
     }
   }
 ]
@@ -86,11 +97,23 @@ const router = new VueRouter({
   routes
 })
 
-const DEFAULT_TITLE = 'Code Glossary'
-router.afterEach((to): void => {
-  Vue.nextTick(() => {
-    document.title = to.meta.title || DEFAULT_TITLE
-  })
+router.beforeEach((to, from, next): void => {
+  /*** Favicon */
+  const oldFavicon = document.getElementById('favicon')
+  if (oldFavicon) {
+    document.head.removeChild(oldFavicon)
+  }
+
+  const favicon = document.createElement('link')
+
+  favicon.rel = 'icon'
+  favicon.id = 'favicon'
+  favicon.href = to.meta.favicon || DEFAULT_FAVICON
+  document.head.appendChild(favicon)
+
+  /*** Title */
+  document.title = to.meta.title || DEFAULT_TITLE
+  next()
 })
 
 export default router

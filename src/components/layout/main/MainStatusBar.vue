@@ -118,17 +118,16 @@ export default Vue.extend({
         }
       })
     },
-    browser () {
+    browser () { // Brave Edge Explorer Yandex Opera Chrome Edge Firefox
       if (!this.cores) {
         return {
           name: 'Unknown'
         }
       }
-
       return (
           (navigator['brave']?.isBrave() ? { name: 'Brave' } : null)          ||
           this.cores.find(c => c.name === 'Edg' && (c.name = 'Edge'))         ||
-          this.cores.find(c => c.from.includes('Trident') && (c.name = 'Explorer')) ||
+          this.cores.find(c => c.from.includes('Trident') && (c.name = 'Explorer'))                                                                   ||
           this.cores.find(c => c.name === 'YaBrowser' && (c.name = 'Yandex')) ||
           this.cores.find(c => c.name === 'OPR'       && (c.name = 'Opera'))  ||
           this.cores.find(c => c.name === 'Chrome')                           ||
