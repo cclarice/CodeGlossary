@@ -5,8 +5,9 @@ import { FAVICON_FOLDER_TEST, DEFAULT_FAVICON, FAVICON_COLORS, FAVICON_TEST, FAV
 
 Vue.use(VueRouter)
 
-/* note
-*   Мета-тег Title */
+/* Todo Добавить мета теги для роботов (поисковиков)
+ *                                     ( Google / Yandex )
+ */
 
 const routes: Array<RouteConfig> = [
   {
@@ -99,17 +100,18 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next): void => {
   /*** Favicon */
-  const oldFavicon = document.getElementById('favicon')
-  if (oldFavicon) {
+  const oldFavicon = document.getElementById('favicon')                // Пытаемся найти favicon
+
+  if (oldFavicon) {                                                             // Удаляем favicon если он есть
     document.head.removeChild(oldFavicon)
   }
 
-  const favicon = document.createElement('link')
+  const favicon = document.createElement('link')                        // Создаем новый favicon
 
   favicon.rel = 'icon'
   favicon.id = 'favicon'
   favicon.href = to.meta.favicon || DEFAULT_FAVICON
-  document.head.appendChild(favicon)
+  document.head.appendChild(favicon)                                            // Добавляем его в <head>
 
   /*** Title */
   document.title = to.meta.title || DEFAULT_TITLE
