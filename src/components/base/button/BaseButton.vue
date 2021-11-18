@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <button class="BaseButton"
-            :disabled="disabled"
-            :class="{isDefault: isDefault}"
-            :style="{width: fixedWidth}"
-            @click="$emit('clickButton')"
-    >
-      {{text}}
-    </button>
-  </div>
+  <button class="BaseButton"
+          :disabled="disabled"
+          :class="{isDefault: isDefault}"
+          :style="{width: fixedWidth}"
+          @click="$emit('clickButton')"
+  >
+    {{text}}
+  </button>
 </template>
 
 <script lang="ts">

@@ -61,6 +61,16 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
+    path: '/test/sketch',
+    name: 'Sketch',
+    component: () => import('@/views/test/TestSketchfab.vue'),
+    meta: {
+      title: 'Sketch',
+      favicon: FAVICONS.TEST,
+      layout: 'main'
+    }
+  },
+  {
     path: '/test/balloons',
     name: 'Balloons',
     component: () => import('@/views/test/TestBalloons.vue'),
