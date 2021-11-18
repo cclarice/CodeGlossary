@@ -8,6 +8,10 @@
                  :alt="'Toolbar visible'"/>
     </div>
     <div class="MainStatusBarContent">
+      <div class="MainStatusBarItem">
+        <BaseImage class="MainStatusBarItemImageCould"
+                   :src="images.cloudDisconnected"/>
+      </div>
       <div class="MainStatusBarItem MainStatusBarItemText"
            @click="browserActive = true"
            @mouseleave="browserActive = false"
@@ -55,6 +59,7 @@ export default Vue.extend({
         toolbarVisible:    require('@/assets/icons/toolbar/tbShown.svg'),
         toolbarHidden:     require('@/assets/icons/toolbar/tbHidden.svg'),
         cloudDisconnected: require('@/assets/icons/cloud/not_connected.svg')
+
       },
       browserIcons: {
         chrome:   require('@/assets/icons/browser/chrome.svg'),

@@ -71,6 +71,16 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
+    path: '/test/two_inputs',
+    name: 'TwoInputs',
+    component: () => import('@/views/test/TestTwoInputs.vue'),
+    meta: {
+      title: 'Two Inputs',
+      favicon: FAVICONS.TEST,
+      layout: 'main'
+    }
+  },
+  {
     path: '/search',
     name: 'Search',
     component: () => import('@/views/Search.vue'),
