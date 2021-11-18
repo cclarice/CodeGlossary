@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import { DEFAULT_TITLE } from '@/constants/titles'
-import { FAVICON_FOLDER_TEST, DEFAULT_FAVICON, FAVICON_COLORS, FAVICON_TEST, FAVICON_404 } from '@/constants/favicons'
+import FAVICONS from '@/constants/favicons'
 
 Vue.use(VueRouter)
 
@@ -36,7 +36,7 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/test/Tests.vue'),
     meta: {
       title: 'Tests',
-      favicon: FAVICON_FOLDER_TEST,
+      favicon: FAVICONS.FOLDER_TEST,
       layout: 'main'
     }
   },
@@ -46,7 +46,7 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/test/TestTypography.vue'),
     meta: {
       title: 'Typography',
-      favicon: FAVICON_TEST,
+      favicon: FAVICONS.TEST,
       layout: 'main'
     }
   },
@@ -56,7 +56,7 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/test/TestColors.vue'),
     meta: {
       title: 'Colors',
-      favicon: FAVICON_COLORS,
+      favicon: FAVICONS.COLORS,
       layout: 'main'
     }
   },
@@ -66,7 +66,7 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/test/TestBalloons.vue'),
     meta: {
       title: 'Balloons',
-      favicon: FAVICON_TEST,
+      favicon: FAVICONS.TEST,
       layout: 'main'
     }
   },
@@ -86,7 +86,7 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/NotFound.vue'),
     meta: {
       title: '404',
-      favicon: FAVICON_404,
+      favicon: FAVICONS['404'],
       layout: 'main'
     }
   }
@@ -110,7 +110,7 @@ router.beforeEach((to, from, next): void => {
 
   favicon.rel = 'icon'
   favicon.id = 'favicon'
-  favicon.href = to.meta.favicon || DEFAULT_FAVICON
+  favicon.href = to.meta.favicon || FAVICONS.DEFAULT
   document.head.appendChild(favicon)                                            // Добавляем его в <head>
 
   /*** Title */

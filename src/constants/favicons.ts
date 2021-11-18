@@ -1,6 +1,9 @@
-export const DEFAULT_FAVICON = '/favicons/favicon.svg'
-export const FAVICON_COLORS = '/favicons/favicon_colors.svg'
-export const FAVICON_HTML = '/favicons/favicon_html.svg'
-export const FAVICON_FOLDER_TEST = '/favicons/favicon_test_folder.svg'
-export const FAVICON_TEST = '/favicons/favicon_test.svg'
-export const FAVICON_404 = '/favicons/favicon_404.svg'
+const FAVICONS = {
+  DEFAULT:      '/favicons/default.svg',
+  COLORS:       '/favicons/colors.svg',
+  HTML:         '/favicons/html.svg',
+  FOLDER_TEST:  '/favicons/test_folder.svg',
+  TEST:         '/favicons/test.svg',
+  404:          '/favicons/404.svg'
+}
+export default FAVICONS
