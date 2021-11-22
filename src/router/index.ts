@@ -66,7 +66,7 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/test/TestBalloons.vue'),
     meta: {
       title: 'Balloons',
-      favicon: FAVICONS.TEST,
+      favicon: FAVICONS.BALLOONS,
       layout: 'main'
     }
   },

@@ -7,8 +7,10 @@
           :to="{ name: path.name }"
           style="display: flex"
       >
-        <img :src="path.meta['favicon'] || '/favicons/favicon.svg'" alt="">
-        <pre> {{ path.meta['title'] || path.name }}{{ index === paths.length - 1 ? '' : ' > '}}</pre>
+        <img class="favicon" :src="path.meta['favicon'] || '/favicons/default.svg'" alt="">
+        <!--<pre> {{ path.meta['title'] || path.name }}{{ index === paths.length - 1 ? '' : ' > '}}</pre>-->
+        <pre class="normal" v-bind:class="{ first: index === 0 }"> {{ path.meta['title'] || path.name }}<img class="arrow" v-if="index !== paths.length - 1" :src="'/favicons/arrow.svg'" alt=""></pre>
+
       </router-link>
     </div>
   </div>
@@ -45,5 +47,24 @@ export default Vue.extend({
 <style lang='scss' scoped>
 .MainNavbarPath {
   height: 100%;
+}
+.arrow {
+  height: 15px;
+  transform: translateY(3px);
+  margin-left: 3px;
+}
+
+.normal {
+  color: #BBBBBB;
+  font-weight: 400;
+}
+
+.first {
+  color: #FEFEFE;
+  font-weight: bold;
+}
+
+.favicon {
+  padding-left: 5px;
 }
 </style>
