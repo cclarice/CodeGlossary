@@ -19,7 +19,7 @@ import Vue from 'vue'
 import BaseBalloons from '@/components/base/balloons/BaseBalloons.vue'
 import MainNavbar from '@/components/layout/main/navbar/MainNavbar.vue'
 import MainContent from '@/components/layout/main/MainContent.vue'
-import MainStripe from '@/components/layout/main/MainStripe.vue'
+import MainStripe from '@/components/layout/main/stripe/MainStripe.vue'
 import MainStatusBar from '@/components/layout/main/MainStatusBar.vue'
 
 export default Vue.extend({
