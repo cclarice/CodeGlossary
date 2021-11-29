@@ -2,13 +2,14 @@
   <div class="MainLayoutPage">
     <BaseBalloons/>
     <MainNavbar/>
-    <main class="MainLayoutPageMain">
-      <MainStripe :side="'Left'"/>
+    <main class="MainLayoutPageMain"
+          :class="{ MainLayoutPageMainWithoutBottomStripe: bottomStripeEmpty }">
+      <MainStripe :stripe="getStripes.stripeLeft"/>
       <router-view class="MainLayoutPageMainView"/>
-      <MainStripe :side="'Right'"/>
+      <MainStripe :stripe="getStripes.stripeRight"/>
     </main>
     <footer class="MainLayoutPageFooter">
-      <MainStripe :side="'Bottom'"/>
+      <MainStripe :stripe="getStripes.stripeBottom"/>
       <MainStatusBar/>
     </footer>
   </div>
@@ -21,47 +22,20 @@ import MainNavbar from '@/components/layout/main/navbar/MainNavbar.vue'
 import MainContent from '@/components/layout/main/MainContent.vue'
 import MainStripe from '@/components/layout/main/stripe/MainStripe.vue'
 import MainStatusBar from '@/components/layout/main/MainStatusBar.vue'
+import {mapGetters, mapMutations} from "vuex";
 
 export default Vue.extend({
   name: 'MainLayout',
   components: { MainStatusBar, BaseBalloons, MainNavbar, MainContent, MainStripe },
-  data () {
-    return ({
-      getMainState: {
-        theme: 'default',
-        mainLayout: {
-          stripeLeft: {
-            left: [],
-            right: []
-          },
-          stripeRight: {
-            left: [],
-            right: []
-          },
-          stripeBottom: {
-            left: [],
-            right: []
-          },
-          navbar: {},
-          tools: {
-            leftLeft: null,
-            leftRight: null,
-            rightLeft: null,
-            rightRight: null,
-            bottomLeft: null,
-            bottomRight: null
-          }
-        },
-      }
-    })
-  },
-  mounted () {
-
-  },
   methods: {
+    ...mapMutations('mainLayout', [''])
   },
   computed: {
-
+    ...mapGetters('mainLayout', ['getStripes']),
+    bottomStripeEmpty () {
+      return  this.getStripes.stripeBottom.left.length === 0 &&
+              this.getStripes.stripeBottom.left.length === 0
+    }
   }
 })
 </script>
@@ -74,10 +48,16 @@ export default Vue.extend({
   display: flex;
   flex-direction: column;
   .MainLayoutPageMain {
-    height: 100%;
+    flex-grow: 1;
+    max-height: calc(100% - 42px - 30px);
+    &WithoutBottomStripe {
+      max-height: calc(100% - 21px - 30px);
+    }
     display: flex;
     flex-direction: row;
     .MainLayoutPageMainView {
+      overflow: hidden;
+      max-height: 100%;
       flex-grow: 1;
     }
   }

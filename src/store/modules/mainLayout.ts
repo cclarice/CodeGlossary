@@ -5,16 +5,33 @@ const initialState = (): IMainLayout => (
   {
     theme: null,
     elems: {
-      stripeRight: {
-        left: [],
+      stripeLeft: {
+        side: 'Left',
+        left: [
+          {
+            icon: require('@/assets/icons/stripes/favorites.svg'),
+            name: 'Favorites',
+            tool: '',
+            active: true
+          }
+        ],
         right: []
       },
-      stripeLeft: {
+      stripeRight: {
+        side: 'Right',
         left: [],
         right: []
       },
       stripeBottom: {
-        left: [],
+        side: 'Bottom',
+        left: [
+          {
+            icon: require('@/assets/icons/stripes/favorites.svg'),
+            name: 'Favorites',
+            tool: '',
+            active: true
+          }
+        ],
         right: []
       },
       navbar: {
@@ -92,9 +109,12 @@ const getters = <GetterTree<IMainLayout, any>> {
   },
   getToolbarHover (state: IMainLayout) {
     return state.elems.toolbarHover
-  }
+  },
 
   /** Stripe Getters **/
+  getStripes (state: IMainLayout) {
+    return state.elems
+  }
 }
 
 export default {

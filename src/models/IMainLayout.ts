@@ -33,6 +33,7 @@ export interface IMainLayoutNavbarPath {
 
 
 export interface IMainLayoutStripe {
+  side: 'Left' | 'Right' | 'Bottom'
   left: Array<IMainLayoutStripeButton> | null
   right: Array<IMainLayoutStripeButton> | null
 }
