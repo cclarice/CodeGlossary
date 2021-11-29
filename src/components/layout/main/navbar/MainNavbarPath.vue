@@ -3,7 +3,7 @@
     <router-link
         class="MainNavbarPathLink"
         tag="div"
-        v-for="(path, index) of paths" :key="path.name"
+        v-for="(path, index) of paths" v-if="path" :key="path.name"
         :to="{ name: path.name }">
       <img class="MainNavbarPathLinkIcon"
            :src="path.meta['favicon'] || '/favicons/default.svg'"
@@ -40,8 +40,14 @@ export default Vue.extend({
         }
       }
       paths.push(path)
+      const routes = paths.map((path) => {
+        return this.$router.options.routes.find(router => router.path === path)
+      })
 
-      return this.$router.options.routes.filter(router => paths.includes(router.path))
+      // console.log(routes)
+      // console.log(this.$router.options.routes.filter(router => paths.includes(router.path)))
+
+      return routes
     }
   }
 })
