@@ -1,6 +1,6 @@
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import IBalloonsState from "@/models/IBalloonsState"
-import IBalloon from "@/models/IBalloon"
+import IBalloon, { IBalloonType } from "@/models/IBalloon"
 
 const initialState: IBalloonsState = {
     balloons: []
@@ -12,7 +12,6 @@ const getRandomInt = (max: number) => {
 
 const mutations = <MutationTree<IBalloonsState>> {
     addBalloon (state: IBalloonsState, data: IBalloon) {
-
         if (data.autoRemoveTimeout === undefined) {
             data.autoRemoveTimeout = 5000
         }
@@ -35,6 +34,7 @@ const mutations = <MutationTree<IBalloonsState>> {
         }
     }
 }
+
 const actions = <ActionTree<any, any>> {
     addBalloon (context, data: any) {
         if (data.autoClose !== false) {

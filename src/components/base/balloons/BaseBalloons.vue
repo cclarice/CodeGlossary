@@ -4,7 +4,9 @@
     <div class="BaseBalloon"
          v-for="balloon in balloons"
          :style="{
-           animationName: 'disappear'
+           animationName: 'disappear',
+           animationDelay: balloon.autoRemoveTimeout - 1000 + 'ms',
+           animationDuration: 1 + 's'
          }"
     >
       <img v-if="balloon.type === 'info'" class="BaseBalloonInfoImage" src="@/assets/icons/info.svg" alt="">
@@ -127,5 +129,12 @@ export default {
 .BaseBalloonArrowReverseImage {
   transform: rotateX(180deg);
 }
-
+@keyframes disappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 </style>

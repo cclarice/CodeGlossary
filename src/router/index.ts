@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { DEFAULT_TITLE } from '@/constants/titles'
 import FAVICONS from '@/constants/favicons'
-import routes from '@/router/routes'
+import routes from '@/router/routes/routes'
 
 Vue.use(VueRouter)
 

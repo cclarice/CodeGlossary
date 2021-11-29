@@ -4,7 +4,7 @@
     <MainNavbar/>
     <main class="MainLayoutPageMain">
       <MainStripe :side="'Left'"/>
-      <router-view/>
+      <router-view class="MainLayoutPageMainView"/>
       <MainStripe :side="'Right'"/>
     </main>
     <footer class="MainLayoutPageFooter">
@@ -70,17 +70,20 @@ export default Vue.extend({
 .MainLayoutPage {
   width: 100vw;
   height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   .MainLayoutPageMain {
-    flex-grow: 1;
-
+    height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    .MainLayoutPageMainView {
+      flex-grow: 1;
+    }
   }
   .MainLayoutPageFooter {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 import FAVICONS from "@/constants/favicons";
 
 const test = [
-    {
+  {
     path: '/test',
     name: 'Test',
     component: () => import('@/views/test/Tests.vue'),

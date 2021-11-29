@@ -1,18 +1,22 @@
 <template>
   <div class="MainNavbarPath">
-    <div class="MainNavbarPath" style="display: flex; height: 100%; align-items: center">
-      <router-link
-          tag="div"
-          v-for="(path, index) of paths" :key="path.name"
-          :to="{ name: path.name }"
-          style="display: flex"
-      >
-        <img class="favicon" :src="path.meta['favicon'] || '/favicons/default.svg'" alt="">
-        <!--<pre> {{ path.meta['title'] || path.name }}{{ index === paths.length - 1 ? '' : ' > '}}</pre>-->
-        <pre class="normal" v-bind:class="{ first: index === 0 }"> {{ path.meta['title'] || path.name }}<img class="arrow" v-if="index !== paths.length - 1" :src="'/favicons/arrow.svg'" alt=""></pre>
-
-      </router-link>
-    </div>
+    <router-link
+        class="MainNavbarPathLink"
+        tag="div"
+        v-for="(path, index) of paths" :key="path.name"
+        :to="{ name: path.name }">
+      <img class="MainNavbarPathLinkIcon"
+           :src="path.meta['favicon'] || '/favicons/default.svg'"
+           alt="">
+      <div class="MainNavbarPathLinkName"
+           v-bind:class="{ MainNavbarPathLinkNameFirst: index === 0 }">
+        {{ path.meta['title'] || path.name }}
+      </div>
+      <img class="MainNavbarPathLinkSeparator"
+           v-if="index !== paths.length - 1"
+           :src="'/favicons/arrow.svg'"
+           alt="/">
+    </router-link>
   </div>
 </template>
 
@@ -36,7 +40,6 @@ export default Vue.extend({
         }
       }
       paths.push(path)
-      console.log(paths)
 
       return this.$router.options.routes.filter(router => paths.includes(router.path))
     }
@@ -45,26 +48,60 @@ export default Vue.extend({
 </script>
 
 <style lang='scss' scoped>
+// .MainNavbarPath {
+//   display: flex;
+//   height: 100%;
+//   align-items: center;
+// }
+// .arrow {
+//   height: 15px;
+//   transform: translateY(3px);
+//   margin-left: 3px;
+// }
+//
+// .normal {
+//   color: #BBBBBB;
+//   font-weight: 400;
+// }
+//
+// .first {
+//   color: #FEFEFE;
+//   font-weight: bold;
+// }
+//
+// .favicon {
+//   padding-left: 5px;
+// }
+
 .MainNavbarPath {
-  height: 100%;
-}
-.arrow {
-  height: 15px;
-  transform: translateY(3px);
-  margin-left: 3px;
-}
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  column-gap: 4px;
+  padding: 6px 5px;
+  max-height: 100%;
+  &Link {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 4px;
+    max-height: 100%;
+    &Icon {
 
-.normal {
-  color: #BBBBBB;
-  font-weight: 400;
-}
+    }
+    &Name {
+      content: '';
+      user-select: contain;
+      max-height: 16px;
+      &First {
+        color: #FEFEFE;
+        font-weight: bold;
+      }
+    }
+    &Separator {
 
-.first {
-  color: #FEFEFE;
-  font-weight: bold;
-}
-
-.favicon {
-  padding-left: 5px;
+    }
+  }
 }
 </style>

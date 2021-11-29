@@ -2,7 +2,8 @@ import FAVICONS from '@/constants/favicons'
 import { RouteConfig } from 'vue-router'
 
 /** @import other Routes */
-import test from '@/router/test'
+import test       from '@/router/routes/test'
+import javascript from "@/router/routes/javascript";
 
 /* Todo Добавить мета теги для роботов (поисковиков)
  *                                     ( Google / Yandex )
@@ -10,10 +11,12 @@ import test from '@/router/test'
 
 /**  @routes */
 const routes: Array<RouteConfig> = [
+  ...test,
+  ...javascript,
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/Home.vue'),
+    component: () => import('../../views/Home.vue'),
     meta: {
       title: 'CodeGlossary',
       layout: 'main',
@@ -28,9 +31,8 @@ const routes: Array<RouteConfig> = [
       title: 'About',
       layout: 'main'
     },
-    component: () => import('../views/About.vue')
+    component: () => import('../../views/About.vue')
   },
-  ...test,
   {
     path: '/search',
     name: 'Search',
@@ -49,6 +51,16 @@ const routes: Array<RouteConfig> = [
       title: '404',
       favicon: FAVICONS['404'],
       layout: 'main'
+    }
+  },
+  {
+    path: '/cmd_chat',
+    name: 'Cmd Chat',
+    component: () => import('@/views/CmdChat.vue'),
+    meta: {
+      title: 'Cmd Chat press F11',
+      favicon: FAVICONS.CMD,
+      layout: 'empty'
     }
   }
 ]

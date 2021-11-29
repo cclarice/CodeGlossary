@@ -5,6 +5,7 @@ const FAVICONS = {
   FOLDER_TEST:  '/favicons/test_folder.svg',
   TEST:         '/favicons/test.svg',
   BALLOONS:     '/favicons/balloons.svg',
-  404:          '/favicons/404.svg'
+  404:          '/favicons/404.svg',
+  CMD:          '/favicons/cmd.svg'
 }
 export default FAVICONS
