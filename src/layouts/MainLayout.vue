@@ -3,7 +3,7 @@
     <BaseBalloons/>
     <MainNavbar/>
     <main class="MainLayoutPageMain"
-          :class="{ MainLayoutPageMainWithoutBottomStripe: bottomStripeEmpty }">
+          :class="{ MainLayoutPageMainWithoutBottomStripe: bottomStripeDisabled }">
       <MainStripe :stripe="getStripes.stripeLeft"/>
       <router-view class="MainLayoutPageMainView"/>
       <MainStripe :stripe="getStripes.stripeRight"/>
@@ -31,10 +31,11 @@ export default Vue.extend({
     ...mapMutations('mainLayout', [''])
   },
   computed: {
-    ...mapGetters('mainLayout', ['getStripes']),
-    bottomStripeEmpty () {
-      return  this.getStripes.stripeBottom.left.length === 0 &&
-              this.getStripes.stripeBottom.left.length === 0
+    ...mapGetters('mainLayout', ['getStripes', 'getToolbarHidden']),
+    bottomStripeDisabled () {
+      return  this.getToolbarHidden ||
+              (this.getStripes.stripeBottom.left.length === 0 &&
+              this.getStripes.stripeBottom.left.length === 0)
     }
   }
 })
