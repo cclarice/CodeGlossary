@@ -7,16 +7,16 @@
        }"
        v-if="!stripeEmpty && !getToolbarHidden">
     <div class="MainStripeSideLeft">
-      <MainStripeButton v-for="left of stripe.left" :key="left.name"
-                        :stripeButton="left"
-                        :left="stripe.side === 'Left'"
-                        :side="stripe.side !== 'Bottom'"/>
+      <MainStripeButton v-for="button of stripe.left" :key="button.name"
+                        :stripeButton="button"
+                        :stripeSide="stripe.side"
+                        side="Left"/>
     </div>
     <div class="MainStripeSideRight">
-      <MainStripeButton v-for="right of stripe.right" :key="right.name"
-                        :stripeButton="right"
-                        :left="stripe.side === 'Left'"
-                        :side="stripe.side !== 'Bottom'"/>
+      <MainStripeButton v-for="button of stripe.right" :key="button.name"
+                        :stripeButton="button"
+                        :stripeSide="stripe.side"
+                        side="Right"/>
     </div>
   </div>
 </template>
@@ -53,22 +53,32 @@ export default Vue.extend({
 
   display: flex;
   justify-content: space-between;
-  &Left {
-    // writing-mode: vertical-lr;
-    flex-direction: column-reverse;
+  align-items: center;
+}
+
+.MainStripeLeft {
+  flex-direction: column-reverse;
+  min-width: 21px;
+  * {
+    width: 100%
   }
-  &Right {
-    // writing-mode: vertical-rl;
-    flex-direction: column;
-  }
-  &Left,
-  &Right {
-    width: 21px;
-  }
-  &Bottom {
-    border-top-width: 1px;
+}
+
+.MainStripeRight {
+  flex-direction: column;
+  width: 21px;
+  * {
     width: 100%;
-    height: 21px;
+  }
+}
+
+.MainStripeBottom {
+  padding: 0 20px;
+  border-top-width: 1px;
+  width: 100%;
+  height: 21px;
+  * {
+    height: 100%;
   }
 }
 </style>
