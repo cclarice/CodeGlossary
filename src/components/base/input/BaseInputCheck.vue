@@ -3,10 +3,9 @@
     <input type="checkbox"
            :disabled="disabled"
            :autofocus="autofocus"
-           v-model="val"
-           @input="handleInput(val)"
+           @input="toggleVal()"
       >
-    <span>{{text}}</span>
+    <span>{{ text }}</span>
   </label>
 </template>
 
@@ -37,15 +36,64 @@ export default Vue.extend({
       type: Boolean,
       default: false
     },
-    hidden: {}
+    model: {}
   },
   model: {
-    prop: 'hidden',
+    prop: 'model',
     event: 'input'
   },
   methods: {
-    handleInput (value) {
-      this.$emit('input', !value ? [this.value] : null)
+    handleInput () {
+      console.log('nothing')
+    },
+    toggleVal () {
+      this.val = !this.val
+      this.handleInput()
+    }
+    // handleInput (value) {
+    //   this.$emit('input', !value ? [this.value] : null)
+    // }
+  },
+  created () {
+    function handleArray() {
+      console.log('array')
+      let array
+
+      if (!this.val) {
+        array = this.model.filter(elem => elem !== this.value)
+      } else {
+        this.model.push(this.value)
+        array = this.model
+      }
+
+      this.$emit('input', array)
+    }
+
+    function handleObject() {
+      console.log('object')
+      this.model[this.value] = this.val
+      const model = {...this.model}
+      this.$emit('input', model)
+    }
+
+    function handleVariable() {
+      console.log('variable')
+      this.$emit('input', this.val)
+    }
+
+    if (Array.isArray(this.model)) {
+      console.log('i am array')
+      this.handleInput = handleArray
+      this.handleInput()
+    } else if (typeof this.model === 'object') {
+      console.log('i am object')
+      this.handleInput = handleObject
+      this.handleInput()
+    }
+    else {
+      console.log('i am variable')
+      this.handleInput = handleVariable
+      this.handleInput()
     }
   }
 })
@@ -56,7 +104,7 @@ export default Vue.extend({
 .BaseInputCheck {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   height: 28px;
   column-gap: 6px;
