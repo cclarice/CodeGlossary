@@ -20,7 +20,7 @@ import BaseInputText from '../../components/base/input/BaseInputText'
 import BaseButton from '../../components/base/button/BaseButton'
 
 export default Vue.extend({
-  name: 'TestSketchfab',
+  name: 'TestSketchFab',
   components: {
     BaseButton,
     BaseInputText,

@@ -50,6 +50,16 @@ const test = [
       favicon: FAVICONS.TEST,
       layout: 'main'
     }
+  },
+  {
+    path: '/test/SketchFab',
+    name: 'SketchFab Test',
+    component: () => import('@/views/test/TestSketchFab.vue'),
+    meta: {
+      title: 'SketchFab',
+      favicon: FAVICONS.TEST, // todo add SketchFab favicon
+      layout: 'main'
+    }
   }
 ]
 

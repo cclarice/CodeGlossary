@@ -1,11 +1,8 @@
-// Импорт шейдеров
-import fragmentShaderText from '@/library/webgl/fragmentShaderText'
-import vertexShaderText   from '@/library/webgl/vertexShaderText'
-
 interface IWebGLOptions {
 	addBalloon?:	(data: object) => boolean
 	width?:				number,
 	height?:			number,
+	preset?:      string
 }
 
 export default function initWebGL (canvas: HTMLCanvasElement, options: IWebGLOptions = {}):WebGL2RenderingContext | null {
@@ -40,9 +37,25 @@ export default function initWebGL (canvas: HTMLCanvasElement, options: IWebGLOpt
 	const vertexShader  	= webGL.createShader(webGL.VERTEX_SHADER)
 	const fragmentShader	= webGL.createShader(webGL.FRAGMENT_SHADER)
 
+	let vertexShaderPureCode   = undefined
+	let fragmentShaderPureCode = undefined
+
+	// Динамически импортируем шейдеры в зависимости от пресета
+	if (options.preset === 'CUBE') {
+		import('@/library/webgl/shaders/vertexShaderCube')
+			.then((def) => { vertexShaderPureCode		= def })
+		import('@/library/webgl/shaders/fragmentShaderCube')
+			.then((def) => { fragmentShaderPureCode = def })
+	} else {
+		import('@/library/webgl/shaders/vertexShader')
+			.then((def) => { vertexShaderPureCode 	= def })
+		import('@/library/webgl/shaders/fragmentShader')
+			.then((def) => { fragmentShaderPureCode = def })
+	}
+
 	// Установка исходного кода шейдеров
-	webGL.shaderSource(vertexShader,   vertexShaderText)
-	webGL.shaderSource(fragmentShader, fragmentShaderText)
+	webGL.shaderSource(vertexShader,   vertexShaderPureCode)
+	webGL.shaderSource(fragmentShader, fragmentShaderPureCode)
 
 	// Компиляция и проверка этих шейдеров
 	webGL.compileShader(vertexShader)

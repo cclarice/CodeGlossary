@@ -22,21 +22,33 @@ import MainNavbar from '@/components/layout/main/navbar/MainNavbar.vue'
 import MainContent from '@/components/layout/main/MainContent.vue'
 import MainStripe from '@/components/layout/main/stripe/MainStripe.vue'
 import MainStatusBar from '@/components/layout/main/MainStatusBar.vue'
-import {mapGetters, mapMutations} from "vuex";
+import { mapGetters, mapMutations } from 'vuex'
 
 export default Vue.extend({
   name: 'MainLayout',
-  components: { MainStatusBar, BaseBalloons, MainNavbar, MainContent, MainStripe },
+  components: {
+    MainStatusBar,
+    BaseBalloons,
+    MainNavbar,
+    MainContent,
+    MainStripe
+  },
   methods: {
-    ...mapMutations('mainLayout', [''])
+    ...mapMutations('mainLayout', ['setDefaultStripes'])
   },
   computed: {
     ...mapGetters('mainLayout', ['getStripes', 'getToolbarHidden']),
     bottomStripeDisabled () {
-      return  this.getToolbarHidden ||
-              (this.getStripes.stripeBottom.left.length === 0 &&
-              this.getStripes.stripeBottom.left.length === 0)
+      return (
+        this.getToolbarHidden || (
+          this.getStripes.stripeBottom.left.length === 0 &&
+          this.getStripes.stripeBottom.left.length === 0
+        )
+      )
     }
+  },
+  created () {
+    this.setDefaultStripes()
   }
 })
 </script>

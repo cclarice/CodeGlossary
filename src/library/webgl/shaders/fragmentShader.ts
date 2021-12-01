@@ -1,4 +1,4 @@
-const fragmentShaderText: string = [
+const fragmentShader: string = [
 'precision mediump float;',
 '',
 'varying vec3 fragColor;',
@@ -8,4 +8,4 @@ const fragmentShaderText: string = [
 '}'
 ].join('\n')
 
-export default fragmentShaderText
+export default fragmentShader

@@ -1,6 +1,7 @@
 <template>
   <div class="MainStripeButton"
-       :class="'MainStripeButton' + stripeSide + side">
+       :class="['MainStripeButton' + stripeSide + side, { 'MainStripeButtonActive': stripeButton.active }]"
+       @click="toggleStripe(stripeButton.id)">
     <div class=MainStripeButtonText>
       {{ stripeButton.name }}
     </div>
@@ -10,6 +11,7 @@
 
 <script>
 import Vue from 'vue'
+import { mapMutations } from 'vuex'
 
 export default Vue.extend({
   name: "MainStripeButton",
@@ -26,6 +28,9 @@ export default Vue.extend({
       type: String,
       required: true
     }
+  },
+  methods: {
+    ...mapMutations('mainLayout', ['toggleStripe'])
   }
 })
 </script>
@@ -55,6 +60,9 @@ export default Vue.extend({
   }
   &Active {
     background-color: #2D2F30;
+    &:hover {
+      background-color: #2D2F30;
+    }
   }
 }
 
