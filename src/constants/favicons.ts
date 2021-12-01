@@ -6,6 +6,8 @@ const FAVICONS = {
   TEST:         '/favicons/test.svg',
   BALLOONS:     '/favicons/balloons.svg',
   404:          '/favicons/404.svg',
-  CMD:          '/favicons/cmd.svg'
+  CMD:          '/favicons/cmd.svg',
+  GIGA_SHLEPA:         '/favicons/test.svg',
+  CHECKERS:         '/favicons/test.svg'
 }
 export default FAVICONS

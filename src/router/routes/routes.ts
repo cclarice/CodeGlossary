@@ -4,6 +4,7 @@ import { RouteConfig } from 'vue-router'
 /** @import other Routes */
 import test       from '@/router/routes/test'
 import javascript from "@/router/routes/javascript";
+import pickles from "@/router/routes/pickles";
 
 /* Todo Добавить мета теги для роботов (поисковиков)
  *                                     ( Google / Yandex )
@@ -13,6 +14,7 @@ import javascript from "@/router/routes/javascript";
 const routes: Array<RouteConfig> = [
   ...test,
   ...javascript,
+  ...pickles,
   {
     path: '/',
     name: 'Home',

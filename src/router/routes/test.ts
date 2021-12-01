@@ -50,6 +50,16 @@ const test = [
       favicon: FAVICONS.TEST,
       layout: 'main'
     }
+  },
+  {
+    path: '/test/checkers',
+    name: 'Checkers',
+    component: () => import('@/views/test/Checkers.vue'),
+    meta: {
+      title: 'Checkers',
+      favicon: FAVICONS.CHECKERS,
+      layout: 'main'
+    }
   }
 ]
 
