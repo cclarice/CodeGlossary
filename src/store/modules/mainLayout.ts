@@ -5,18 +5,30 @@ const initialState = (): IMainLayout => (
   {
     theme: null,
     elems: {
-      stripeRight: {
+      stripeLeft: {
+        side: 'Left',
         left: [],
         right: []
       },
-      stripeLeft: {
+      stripeRight: {
+        side: 'Right',
         left: [],
         right: []
       },
       stripeBottom: {
+        side: 'Bottom',
         left: [],
         right: []
       },
+      stripes: [
+        {
+          id: 0,
+          icon: require('@/assets/icons/stripes/favorites.svg'),
+          name: 'Favorites',
+          tool: 'favorites',
+          active: false
+        }
+      ],
       navbar: {
         path: [],
         toolbar: []
@@ -41,6 +53,20 @@ const mutations = <MutationTree<IMainLayout>> {
   },
 
   /** Stripe Mutations **/
+  setDefaultStripes (state: IMainLayout) {
+    const favorites = state.elems.stripes.find(stripe => stripe.name === 'Favorites')
+
+    if (favorites && !state.elems.stripeLeft.left.find(stripe => stripe.name === favorites.name)) {
+      state.elems.stripeLeft.left.push(favorites)
+    }
+  },
+  toggleStripe (state: IMainLayout, stripeId: number) {
+    const stripe = state.elems.stripes.find(stripe => stripe.id === stripeId)
+
+    if (stripe) {
+      stripe.active = !stripe.active
+    }
+  },
   removeStripeButton (state: IMainLayout, toRemove: IMainLayoutStripeButton) {
     const elems: IMainLayoutElems = state.elems
     const stripes: Array<IMainLayoutStripe> = [elems.stripeLeft, elems.stripeRight, elems.stripeBottom]
@@ -92,9 +118,12 @@ const getters = <GetterTree<IMainLayout, any>> {
   },
   getToolbarHover (state: IMainLayout) {
     return state.elems.toolbarHover
-  }
+  },
 
   /** Stripe Getters **/
+  getStripes (state: IMainLayout) {
+    return state.elems
+  }
 }
 
 export default {

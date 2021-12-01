@@ -7,7 +7,7 @@ export interface IMainLayoutElems {
   stripeLeft: IMainLayoutStripe | null
   stripeRight: IMainLayoutStripe | null
   stripeBottom: IMainLayoutStripe | null
-  navbar: IMainLayoutNavbar | null
+  stripes: Array<IMainLayoutStripeButton>
   tools: {
     leftLeft: object | null
     leftRight: object | null
@@ -16,6 +16,7 @@ export interface IMainLayoutElems {
     bottomLeft: object | null
     bottomRight: object | null
   },
+  navbar: IMainLayoutNavbar | null
   toolbarHidden: boolean | null,
   toolbarHover: boolean | null
 }
@@ -33,11 +34,13 @@ export interface IMainLayoutNavbarPath {
 
 
 export interface IMainLayoutStripe {
+  side: 'Left' | 'Right' | 'Bottom'
   left: Array<IMainLayoutStripeButton> | null
   right: Array<IMainLayoutStripeButton> | null
 }
 
 export interface IMainLayoutStripeButton {
+  id:   number | null
   icon: string | null
   name: string | null
   tool: string | null

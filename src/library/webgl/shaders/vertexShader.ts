@@ -1,4 +1,4 @@
-const vertexShaderText: string = [
+const vertexShader: string = [
 'precision mediump float;',
 '',
 'attribute vec2 vertPosition;',
@@ -12,4 +12,4 @@ const vertexShaderText: string = [
 '}'
 ].join('\n')
 
-export default vertexShaderText
+export default vertexShader
