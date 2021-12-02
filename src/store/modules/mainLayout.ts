@@ -25,21 +25,24 @@ const initialState = (): IMainLayout => (
           id: 0,
           icon: require('@/assets/icons/stripes/favorites.svg'),
           name: 'Favorites',
-          tool: 'favorites',
-          active: false
+          component: null,
+          active: false,
+          location: 'stripeLeft',
+          side: 'left'
+        },
+        {
+          id: 1,
+          icon: require('@/assets/icons/stripes/favorites.svg'),
+          name: 'Calculate',
+          component: () => import('@/components/layout/main/tool/calculate/MainToolCalculate.vue'),
+          active: true,
+          location: 'stripeLeft',
+          side: 'left'
         }
       ],
       navbar: {
         path: [],
         toolbar: []
-      },
-      tools: {
-        leftLeft: null,
-        leftRight: null,
-        rightLeft: null,
-        rightRight: null,
-        bottomLeft: null,
-        bottomRight: null
       },
       toolbarHidden: false,
       toolbarHover: false
@@ -57,13 +60,24 @@ const mutations = <MutationTree<IMainLayout>> {
     const favorites = state.elems.stripes.find(stripe => stripe.name === 'Favorites')
 
     if (favorites && !state.elems.stripeLeft.left.find(stripe => stripe.name === favorites.name)) {
-      state.elems.stripeLeft.left.push(favorites)
+      state.elems[favorites.location][favorites.side].push(favorites)
+    }
+
+    const calculate = state.elems.stripes.find(stripe => stripe.name === 'Calculate')
+
+    if (calculate && !state.elems.stripeLeft.left.find(stripe => stripe.name === calculate.name)) {
+      state.elems[calculate.location][calculate.side].push(calculate)
     }
   },
   toggleStripe (state: IMainLayout, stripeId: number) {
-    const stripe = state.elems.stripes.find(stripe => stripe.id === stripeId)
+    const stripe  = state.elems.stripes.find(stripe => stripe.id === stripeId)
 
     if (stripe) {
+      state.elems[stripe.location][stripe.side].forEach((stripeButton) => {
+        if (stripeButton !== stripe) {
+          stripeButton.active = false
+        }
+      })
       stripe.active = !stripe.active
     }
   },

@@ -1,3 +1,5 @@
+import { ExtendedVue, VueConstructor } from 'vue/types/vue'
+
 export default interface IMainLayout {
   theme: string | null,
   elems?: IMainLayoutElems | null
@@ -8,14 +10,6 @@ export interface IMainLayoutElems {
   stripeRight: IMainLayoutStripe | null
   stripeBottom: IMainLayoutStripe | null
   stripes: Array<IMainLayoutStripeButton>
-  tools: {
-    leftLeft: object | null
-    leftRight: object | null
-    rightLeft: object | null
-    rightRight: object | null
-    bottomLeft: object | null
-    bottomRight: object | null
-  },
   navbar: IMainLayoutNavbar | null
   toolbarHidden: boolean | null,
   toolbarHover: boolean | null
@@ -38,11 +32,18 @@ export interface IMainLayoutStripe {
   left: Array<IMainLayoutStripeButton> | null
   right: Array<IMainLayoutStripeButton> | null
 }
+type Instance = any
+type Data = any
+type Methods = any
+type Computed = any
+type Props = any
 
 export interface IMainLayoutStripeButton {
   id:   number | null
   icon: string | null
   name: string | null
-  tool: string | null
+  component: any
   active: boolean
+  location: string | null
+  side: string | null
 }

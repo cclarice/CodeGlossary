@@ -5,7 +5,8 @@
     <main class="MainLayoutPageMain"
           :class="{ MainLayoutPageMainWithoutBottomStripe: bottomStripeDisabled }">
       <MainStripe :stripe="getStripes.stripeLeft"/>
-      <router-view class="MainLayoutPageMainView"/>
+<!--      <router-view class="MainLayoutPageMainView"/>-->
+      <MainContent class="MainContent"/>
       <MainStripe :stripe="getStripes.stripeRight"/>
     </main>
     <footer class="MainLayoutPageFooter">
@@ -68,7 +69,7 @@ export default Vue.extend({
     }
     display: flex;
     flex-direction: row;
-    .MainLayoutPageMainView {
+    .MainContent {
       overflow: hidden;
       max-height: 100%;
       flex-grow: 1;
