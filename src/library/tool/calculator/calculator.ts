@@ -12,10 +12,5 @@ const codes = {
 	'*': ['*', '']
 }
 
-export function parseView (view) {
-
-}
-
-export function parseCode (code) {
-
+export function parseView (code) {
 }

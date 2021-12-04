@@ -1,14 +1,22 @@
-<pre style="font-size: 26px; line-height: 1.3; border: 1px solid #3f3f40; font-family: 'JetBrains Mono', monospace; background: #2b2b2c; color: #aeb0b3">
+<pre style="font-size: 24px; line-height: 1.3; border: 1px solid #3f3f40; font-family: 'JetBrains Mono', monospace; background: #2b2b2c; color: #aeb0b3">
     Math:
 + - × ÷ %
 ± = ≠ ≡ ≈ ≤ ≥ < >
-√ ∞
+∞ √ ∛ ∜
+<span style="font-size: 1.4em; letter-spacing: -0.1em">√</span><span style="text-decoration: overline">25</span><span style="letter-spacing: -0.8em; font-size: 1.45em; line-height: 1px"> '</span> = <span style="font-size: 1.4em; letter-spacing: -0.1em">√</span><span style="text-decoration: overline">16 </span><span style="letter-spacing: -0.89em; font-size: 1.31em"> '</span> + <span style="font-size: 1.4em; letter-spacing: -0.1em">√</span><span style="text-decoration: overline">9 </span><span style="letter-spacing: -0.89em; font-size: 1.31em"> '</span>
+<span style="font-size: 1.4em; line-height: 0; letter-spacing: -0.1em">√</span><span style="text-decoration: overline;">25</span><span style="letter-spacing: -0.79em; font-size: 1.45em; line-height: 0"> '</span> = <span style="font-size: 1.4em; line-height: 0; letter-spacing: -0.1em">√</span><span style="text-decoration: overline;">16</span><span style="letter-spacing: -0.79em; font-size: 1.45em; line-height: 0"> '</span> + <span style="font-size: 1.4em; line-height: 0; letter-spacing: -0.1em">√</span><span style="text-decoration: overline;">9</span><span style="letter-spacing: -0.79em; font-size: 1.45em; line-height: 0"> '</span>
+
+Math.pow(25, 1/2) => ²<span style="font-size: 1.4em; line-height: 0; letter-spacing: -0.1em">√</span><span style="text-decoration: overline;">25</span><span style="letter-spacing: -0.79em; font-size: 1.45em; line-height: 0">'</span> 
+Math.pow(25, 2)   => 2²
+
+²√(25)
+
 ∂ ∆ ∏ ∑ − ∕ ∙ ∫
 ⁰ ¹ ² ³ ⁴ ⁵ ⁶ ⁷ ⁸ ⁹ ⁺ ⁻ ⁼ ⁽ ⁾ ʸ ᶻ ⁿ ᵏ ᵐ
 ₀ ₁ ₂ ₃ ₄ ₅ ₆ ₇ ₈ ₉ ₊ ₋ ₌ ₍ ₎ ₓ ₐ ₑ ₒ ₔ
 ° ¿ • … ‰ % ‹ › ⁄ ◌
 ◌ⷤ◌ⷪ◌ⷫ◌ⷶ
-
+1◌ͯ
 aⷤlⷪiⷫnⷶa
 _ⷤ_ⷪ_ⷫ_ⷶ
 
