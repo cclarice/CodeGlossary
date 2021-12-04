@@ -1,7 +1,7 @@
 <template>
   <div class="BaseIcon" @click="handl">
     <div class="BaseIconBody">
-      <img :src="src" :alt="name">
+      <img :src="src" :alt="name" @dragstart="(event) => { event.preventDefault() }">
     </div>
   </div>
 </template>
@@ -31,7 +31,9 @@ export default Vue.extend({
       if (this.value) {
         this.$emit('click', this.value)
       }
-      this.$emit('click')
+      else {
+        this.$emit('click')
+      }
     }
   }
 })
@@ -55,6 +57,10 @@ export default Vue.extend({
     justify-content: center;
     align-items: center;
     border-radius: 3px;
+
+    img {
+      user-select: none;
+    }
   }
 }
 </style>

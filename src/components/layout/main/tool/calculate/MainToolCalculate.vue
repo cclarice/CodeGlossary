@@ -1,5 +1,5 @@
 <template>
-  <div class="Calculate">
+  <div class="Calculate" @focus="this.focused = true" @blur="this.focused = false">
     <div class="CalculateHeader">
       <p>Calculate:</p>
     </div>
@@ -7,10 +7,10 @@
       <div class="CalculateBodyAside">
         <div class="CalculateBodyAsideItem" v-for="(item, index) of items" :key="index" @click="item.handler()">
           <component v-bind="{ ...item, handler: undefined }"/>
-          <div class="CalculateBodyAsideItemName" v-if="asideOpened && item.name && !item.name.includes('Hide')">{{ item.name }}</div>
+          <div class="CalculateBodyAsideItemName"v-if="asideOpened && item.name && !item.name.includes('Hide')">{{ item.name }}</div>
         </div>
       </div>
-      <component class="CalculateMainComponent" :is="currentComponent"></component>
+      <component class="CalculateMainComponent" :is="currentComponent" :focused="focused"></component>
     </div>
   </div>
 </template>
@@ -31,7 +31,8 @@ export default Vue.extend({
         BaseIconDivider: () => import('@/components/base/icon/BaseIconDivider.vue')
       },
       items: [],
-      asideOpened: false
+      asideOpened: false,
+      focused: true
     }
   },
   computed: {
