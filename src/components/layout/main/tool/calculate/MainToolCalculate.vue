@@ -1,5 +1,5 @@
 <template>
-  <div class="Calculate" @focus="this.focused = true" @blur="this.focused = false">
+  <div class="Calculate" @mouseenter="focused = true" @mouseleave="focused = false">
     <div class="CalculateHeader">
       <p>Calculate:</p>
     </div>

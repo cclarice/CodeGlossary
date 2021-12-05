@@ -1,5 +1,5 @@
 <template>
-  <div class="CalculatorRegular" @keydown="log" ref="div">
+  <div class="CalculatorRegular">
     <div class="CalculatorRegularResult">
       <p>{{ viewString }}</p>
       <code>{{ codeString }}</code>
@@ -15,7 +15,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import BaseIcon from "@/components/base/icon/BaseIcon.vue";
+import BaseIcon from '@/components/base/icon/BaseIcon.vue'
+import { parseView, codeKeys, codes } from '@/library/tool/calculator/calculator'
 
 export default Vue.extend({
   name: "MainToolCalculateRegular",
@@ -73,18 +74,21 @@ export default Vue.extend({
       }
     },
     log (e) {
-      console.log(e.keyCode)
+      console.log(e)
     }
   },
   mounted () {
-    this.$refs.div.focus()
-
     document.addEventListener('keydown', (e) => {
-      console.clear(e)
-      console.log(e)
-      this.calc(e.key)
+      if (this.focused && codeKeys.includes(e.key)) {
+        if (typeof codes[e.key][0] === 'function') {                              // Функция
+          this.codeString = codes[e.key][0](this.codeString)
+        } else {                                                                // Строка
+          this.codeString += codes[e.key][0]
+        }
+      } else if (this.focused) {
+        console.log(e.key, 'не обработался')
+      }
     })
-
   }
 })
 </script>
@@ -96,6 +100,7 @@ export default Vue.extend({
 
   padding: 1px;
   row-gap: 1px;
+
   .CalculatorRegularResult {
     display: flex;
     flex-direction: column;
