@@ -7,7 +7,7 @@
     </div>
     <div class="CalculatorRegularInputs">
       <div v-for="(buttons, index) of buttonsMap" :key="index" class="CalculatorRegularInput">
-        <BaseIcon v-for="button of buttons" :key="button[0]" :src="icons('./' + button[0] + '.svg')" :value="button[1]" @click="calc"/>
+        <BaseIcon v-for="button of buttons" :key="button[0]" :src="icons('./' + button[0] + '.svg')" :value="button[1]" @click="calculator({ key: button[1] })"/>
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import BaseIcon from '@/components/base/icon/BaseIcon.vue'
-import { parseView, codeKeys, codes } from '@/library/tool/calculator/calculator'
+import { parseView, codeKeys, codes, CalculatorElement, codeList } from '@/library/tool/calculator/calculator'
 
 export default Vue.extend({
   name: "MainToolCalculateRegular",
@@ -38,57 +38,65 @@ export default Vue.extend({
         [['7', '7'], ['8', '8'], ['9', '9'], ['×', '*'], ['÷', '/']],
         [['0', '0'], ['d', '.'], ['(', '('], [')', ')'], ['m', '%']]
       ],
-      viewString: '',
-      codeString: '',
-      result: '',
+      viewArray: [],
+      codeArray: [],
       color: '#aeb0b3'
     }
   },
-  methods: {
-    calc (e) {
-      if (!'␡␈'.includes(e)) {
-        this.codeString += e
-        if (/\d/.test(e) || '.()+-%'.includes(e)) {
-          this.viewString += e
-        }
-        else {
-          switch (e) {
-            case '/': this.viewString += '÷'; break
-            case '*': this.viewString += '×'; break
-          }
-        }
-      }
-      else {
+  computed: {
+    codeArrayLast () {
+      return this.codeArray[this.codeArray.length - 1]
+    },
+    codeString () {
+      let ret = ''
 
-        this.codeString = e === '␈' ? this.viewString.substring(0, this.codeString.length - 1) : ''
-        this.viewString = e === '␈' ? this.viewString.substring(0, this.viewString.length - 1) : ''
+      for (const code of this.codeArray) {
+        ret += code.code
       }
+
+      return ret
+    },
+    viewString () {
+      return ''
+    },
+    result () {
+      let result = ''
+
       try {
-        const result = eval(this.viewString)
-        this.result = result
+        result = eval(this.codeString)
         this.color = '#aeb0b3'
       }
       catch (e)  {
-        console.log('Can\'t Parse This String')
+        result = '⚠'
         this.color = '#FF5261'
       }
-    },
-    log (e) {
-      console.log(e)
+
+      return result
+    }
+  },
+  methods: {
+    calculator (event) {
+      if (this.focused && codeKeys.includes(event.key)) {
+        if (typeof codeList[event.key] === 'function') {
+          this.codeArray = codeList[event.key](this.codeArray)
+        } else {
+          if (
+            this.codeArray.length &&
+            this.codeArrayLast.isNumber &&
+            event.key <= 9 && event.key >= 0
+          ) {
+            this.codeArrayLast.addNumber(event.key)
+          } else {
+            this.codeArray.push(new CalculatorElement(codeList[event.key]))
+          }
+        }
+      } else if (this.focused) {
+        console.log('Nothing: ', event.key)
+      }
     }
   },
   mounted () {
-    document.addEventListener('keydown', (e) => {
-      if (this.focused && codeKeys.includes(e.key)) {
-        if (typeof codes[e.key][0] === 'function') {                              // Функция
-          this.codeString = codes[e.key][0](this.codeString)
-        } else {                                                                // Строка
-          this.codeString += codes[e.key][0]
-        }
-      } else if (this.focused) {
-        console.log(e.key, 'не обработался')
-      }
-    })
+    document.addEventListener('keydown', this.calculator)
   }
 })
 </script>
