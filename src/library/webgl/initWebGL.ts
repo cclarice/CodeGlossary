@@ -5,9 +5,29 @@ interface IWebGLOptions {
 	preset?:      string
 }
 
-export default function initWebGL (canvas: HTMLCanvasElement, options: IWebGLOptions = {}):WebGL2RenderingContext | null {
+// todo interface for return
+interface IWebGL {
+
+}
+
+export default async function initWebGL	// Promise<WebGL2RenderingContext>
+	(canvas: HTMLCanvasElement, options: IWebGLOptions = {}):Promise<any> | null {
+	let WebGLMatrix
+
+	if (options.preset === 'CUBE') {
+		await import('@/library/webgl/glMatrix/index.js')
+			.then((def) => { WebGLMatrix = def })
+	}
+
 	// Не работает в Internet Explorer
 	const webGL = canvas.getContext('webgl2')
+
+	if (options.preset === 'CUBE') {
+		webGL.enable(webGL.DEPTH_TEST)
+		webGL.enable(webGL.CULL_FACE)
+		webGL.frontFace(webGL.CCW)
+		webGL.cullFace(webGL.BACK)
+	}
 
 	// Проверка на поддержку WebGL
 	if (!webGL) {
@@ -37,20 +57,19 @@ export default function initWebGL (canvas: HTMLCanvasElement, options: IWebGLOpt
 	const vertexShader  	= webGL.createShader(webGL.VERTEX_SHADER)
 	const fragmentShader	= webGL.createShader(webGL.FRAGMENT_SHADER)
 
-	let vertexShaderPureCode   = undefined
-	let fragmentShaderPureCode = undefined
+	let vertexShaderPureCode, fragmentShaderPureCode
 
-	// Динамически импортируем шейдеры в зависимости от пресета
+	// Динамическое импортирование нужных нам шейдеров (зависимости от пресета)
 	if (options.preset === 'CUBE') {
-		import('@/library/webgl/shaders/vertexShaderCube')
-			.then((def) => { vertexShaderPureCode		= def })
-		import('@/library/webgl/shaders/fragmentShaderCube')
-			.then((def) => { fragmentShaderPureCode = def })
+		await import('@/library/webgl/shaders/vertexShaderCube')
+			.then((def) => { vertexShaderPureCode		= def.default })
+		await import('@/library/webgl/shaders/fragmentShaderCube')
+			.then((def) => { fragmentShaderPureCode = def.default })
 	} else {
-		import('@/library/webgl/shaders/vertexShader')
-			.then((def) => { vertexShaderPureCode 	= def })
-		import('@/library/webgl/shaders/fragmentShader')
-			.then((def) => { fragmentShaderPureCode = def })
+		await import('@/library/webgl/shaders/vertexShader')
+			.then((def) => { vertexShaderPureCode 	= def.default })
+		await import('@/library/webgl/shaders/fragmentShader')
+			.then((def) => { fragmentShaderPureCode = def.default })
 	}
 
 	// Установка исходного кода шейдеров
@@ -119,33 +138,78 @@ export default function initWebGL (canvas: HTMLCanvasElement, options: IWebGLOpt
 		return null
 	}
 
-	const triangleVertexBufferObject = webGL.createBuffer()
-	webGL.bindBuffer(webGL.ARRAY_BUFFER, triangleVertexBufferObject)
+	let boxVertexBufferObject, boxIndexBufferObject, triangleVertexBufferObject
+	if (options.preset === 'CUBE') {
+		boxVertexBufferObject = webGL.createBuffer()
+		webGL.bindBuffer(webGL.ARRAY_BUFFER, boxVertexBufferObject)
+
+		boxIndexBufferObject = webGL.createBuffer()
+		webGL.bindBuffer(webGL.ELEMENT_ARRAY_BUFFER, boxIndexBufferObject)
+	} else {
+		triangleVertexBufferObject = webGL.createBuffer()
+		webGL.bindBuffer(webGL.ARRAY_BUFFER, triangleVertexBufferObject)
+	}
 
 	const positionAttribLocation	= webGL.getAttribLocation(program, 'vertPosition')
 	const colorAttribLocation			= webGL.getAttribLocation(program, 'vertColor')
 
 	webGL.vertexAttribPointer(
-		positionAttribLocation,	// Расположение атрибутов
-		2,									// Количество элементов под атрибут
-		webGL.FLOAT,						// Тип элемента
+		positionAttribLocation,																											// Расположение атрибутов
+		(options.preset === 'CUBE' ? 3 : 2),																				// Количество элементов под атрибут
+		webGL.FLOAT,																																// Тип элемента
 		false,
-		5 * Float32Array.BYTES_PER_ELEMENT, // Размер индивидуальной вершины
-		0 																	// Отступ от начала одиничной вершины до его атрибутов
+		(options.preset === 'CUBE' ? 6 : 5) * Float32Array.BYTES_PER_ELEMENT, // Размер индивидуальной вершины
+		0 																																		// Отступ от начала одиничной вершины до его атрибутов
 	)
 
 	webGL.vertexAttribPointer(
-		colorAttribLocation,		// Расположение атрибутов
-		3,									// Количество элементов под атрибут
-		webGL.FLOAT,						// Тип элемента
+		colorAttribLocation,																												// Расположение атрибутов
+		3,																																			// Количество элементов под атрибут
+		webGL.FLOAT,																																// Тип элемента
 		false,
-		5 * Float32Array.BYTES_PER_ELEMENT, // Размер индивидуальной вершины
-		2 * Float32Array.BYTES_PER_ELEMENT  // Отступ от начала одиничной вершины до его атрибутов
+		(options.preset === 'CUBE' ? 6 : 5) * Float32Array.BYTES_PER_ELEMENT,	// Размер индивидуальной вершины
+		(options.preset === 'CUBE' ? 3 : 2) * Float32Array.BYTES_PER_ELEMENT  // Отступ от начала одиничной вершины до его атрибутов
 	)
 
 	webGL.enableVertexAttribArray(positionAttribLocation)
 	webGL.enableVertexAttribArray(colorAttribLocation)
 
+	// Говорим OpenGL какая программа должна быть активна
 	webGL.useProgram(program)
+
+	let matWorldUniformLocation, matViewUniformLocation, matProjUniformLocation,
+		worldMatrix, viewMatrix, projMatrix
+
+	if (options.preset === 'CUBE') {
+		matWorldUniformLocation = webGL.getUniformLocation(program, 'mWorld')
+		matViewUniformLocation  = webGL.getUniformLocation(program, 'mView')
+		matProjUniformLocation  = webGL.getUniformLocation(program, 'mProj')
+
+		worldMatrix = new Float32Array(16);
+		viewMatrix	= new Float32Array(16);
+		projMatrix	= new Float32Array(16);
+
+		WebGLMatrix.mat4.identity(worldMatrix)
+		WebGLMatrix.mat4.lookAt(viewMatrix, [0, 0, -4], [0, 0, 0], [0, 1, 0])
+		WebGLMatrix.mat4.perspective(projMatrix, WebGLMatrix.glMatrix.toRadian(60), options.height / options.width, 0.1, 1000.0)
+
+		webGL.uniformMatrix4fv(matWorldUniformLocation, false, worldMatrix)
+		webGL.uniformMatrix4fv(matViewUniformLocation,  false, viewMatrix)
+		webGL.uniformMatrix4fv(matProjUniformLocation,  false, projMatrix)
+	}
+
+	if (options.preset === 'CUBE') {
+		return {
+			webGL,
+			WebGLMatrix,
+			worldMatrix,
+			viewMatrix,
+			projMatrix,
+			matWorldUniformLocation,
+			matViewUniformLocation,
+			matProjUniformLocation
+		}
+	}
+
 	return webGL
 }

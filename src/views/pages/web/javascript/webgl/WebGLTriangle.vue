@@ -19,9 +19,9 @@ export default Vue.extend({
   methods: {
     ...mapMutations('balloons', ['addBalloon'])
   },
-  mounted () {
+  async mounted () {
     const addBalloon = this.addBalloon
-    const webGL = initWebGL(this.$refs.canvas, { addBalloon: addBalloon })
+    const webGL = await initWebGL(this.$refs.canvas, { addBalloon: addBalloon })
     if (!webGL) return;
 
     // Создание буфера

@@ -16,7 +16,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import BaseIcon from '@/components/base/icon/BaseIcon.vue'
-import { parseView, codeKeys, codes, CalculatorElement, codeList } from '@/library/tool/calculator/calculator'
+import { codeKeys, CalculatorElement, codeList, autoCloseBrackets } from '@/library/tool/calculator/calculator'
 
 export default Vue.extend({
   name: "MainToolCalculateRegular",
@@ -63,11 +63,12 @@ export default Vue.extend({
       let result = ''
 
       try {
-        result = eval(this.codeString)
+        result = eval(autoCloseBrackets(this.codeString))
         this.color = '#aeb0b3'
       }
       catch (e)  {
         result = '⚠'
+        console.log(e)
         this.color = '#FF5261'
       }
 
@@ -119,6 +120,7 @@ export default Vue.extend({
     * {
       padding: 4px 6px;
       height: calc(1em + 12px);
+      white-space: nowrap;
       background: #2B2B2B;
     }
   }

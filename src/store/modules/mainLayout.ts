@@ -35,7 +35,7 @@ const initialState = (): IMainLayout => (
           icon: require('@/assets/icons/stripes/favorites.svg'),
           name: 'Calculate',
           component: () => import('@/components/layout/main/tool/calculate/MainToolCalculate.vue'),
-          active: true,
+          active: false,
           location: 'stripeLeft',
           side: 'left'
         }

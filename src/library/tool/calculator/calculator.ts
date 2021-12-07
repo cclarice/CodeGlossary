@@ -15,8 +15,20 @@ export class CalculatorElement {
 		return this.type === 'object'
 	}
 
+	get isWaitArgument (): boolean {
+		return this.type === 'string' && this.elem[this.elem.length - 1] === ','
+	}
+
 	get isNumber (): boolean {
-		return this.type === 'string' && this.elem[0] >= '0' && this.elem[0] <= '9'
+		return this.type === 'string' && (this.elem[0] === '.' || (this.elem[0] >= '0' && this.elem[0] <= '9'))
+	}
+
+	get getNumberFromArgument (): string {
+		return this.elem.match(/\d+/)
+	}
+
+	setToNumberFromArgument (): void {
+		this.elem = this.getNumberFromArgument
 	}
 
 	get code (): string {
@@ -28,11 +40,7 @@ export class CalculatorElement {
 	}
 
 	get view (): string {
-		return this.toView
-	}
-
-	get toView(): string {
-		return this.code
+		return
 	}
 
 	addNumber (number: string) {
@@ -93,6 +101,7 @@ export const codeList = {
 	'7': '7',
 	'8': '8',
 	'9': '9',
+	'.': '.',
 	'+': '+',
 	'-': '-',
 	'*': '*',
@@ -103,27 +112,32 @@ export const codeList = {
 	'Delete':			calculatorDelete,
 	'␡':					calculatorDelete,
 	'Backspace':	calculatorBackspace,
-	'␈': 					calculatorBackspace
+	'␈': 					calculatorBackspace,
+	'^': 					calculatorPow,
+	's': 					'Math.sin(',
+	'c':					'Math.cos(',
+	't':					'Math.tan(',
+	'p':          'Math.PI'
 }
 
 export const codeKeys = Object.keys(codeList)
 
-export function parseView (code) {
-	let view = ''
-
-	while (code) {
-
-	}
-}
 
 // Последнее число
-function getLastNumber () {
-
+function getLastNumber (codeArray) {
+	return codeArray.length && isLastNumber(codeArray) ? codeArray[codeArray.length - 1] : null
 }
 
 // Без последнего числа
-function withoutLastNumber () {
+function withoutLastNumber (codeArray: Array<any>): Array<any> {
+	const sad = codeArray.slice(0, codeArray.length - (isLastNumber(codeArray) ? 1 : 0))
+	console.log(sad)
+	return sad
+}
 
+// Последний элемент это число
+function isLastNumber (codeArray: Array<any>): boolean {
+	return codeArray[codeArray.length - 1].isNumber
 }
 
 function calculatorDelete (codeArray: Array<any>): Array<any> {
@@ -133,9 +147,50 @@ function calculatorDelete (codeArray: Array<any>): Array<any> {
 function calculatorBackspace (codeArray: Array<any>): Array<any> {
 	const codeArrayLast = codeArray[codeArray.length - 1]
 
+	console.log(codeArrayLast, codeArrayLast.isWaitArgument)
+	if (codeArrayLast && codeArrayLast.isWaitArgument) {
+		codeArrayLast.setToNumberFromArgument()
+
+		return codeArray
+	}
+
 	if (codeArrayLast && codeArrayLast.isNumber && codeArrayLast.elem.length >= 2) {
 		codeArrayLast.backspace()
 		return codeArray
 	}
 	return codeArray.length >= 1 ? codeArray.slice(0, codeArray.length - 1) : codeArray
+}
+
+function calculatorPow (codeArray: Array<any>): Array<any> {
+	if (getLastNumber(codeArray) !== null) {
+		const ret = withoutLastNumber(codeArray)
+		ret.push(new CalculatorElement(`Math.pow(${getLastNumber(codeArray).code},` ))
+		return ret
+	} else {
+		return codeArray
+	}
+}
+
+function strchars (str: string, char: string): number {
+	let ret = 0
+	let ptr = 0
+
+	while (str[ptr]) {
+		if (str[ptr] === char) {
+			ret++
+		}
+		ptr++
+	}
+	return ret
+}
+
+
+export function autoCloseBrackets (string: string): string {
+	if (!strchars(string, '(') || strchars(string, '(') === strchars(string, ')')) {
+		return string
+	} else {
+		while (strchars(string, '(') !== strchars(string, ')'))
+			string += ')'
+		return string
+	}
 }

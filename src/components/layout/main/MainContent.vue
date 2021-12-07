@@ -6,12 +6,12 @@
         <MainTool :tool="leftRight"/>
       </div>
       <router-view class="Content"/>
-      <div class="MainContentRightTools" v-if="rightLeft || rightRight || true">
+      <div class="MainContentRightTools" v-if="rightLeft || rightRight">
         <MainTool :tool="rightLeft"/>
         <MainTool :tool="rightRight"/>
       </div>
     </section>
-    <section class="MainContentBottomTools" v-if="bottomLeft || bottomRight || true">
+    <section class="MainContentBottomTools" v-if="bottomLeft || bottomRight">
       <MainTool :tool="bottomLeft"/>
       <MainTool :tool="bottomRight"/>
     </section>
