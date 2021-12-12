@@ -1,16 +1,16 @@
 <template>
-  <div class="Calculate" @mouseenter="focused = true" @mouseleave="focused = false">
-    <div class="CalculateHeader">
+  <div class="Calculate">
+    <div class="CalculateHeader" :class="{CalculateHeaderActive: active}">
       <p>Calculate:</p>
     </div>
     <div class="CalculateMain">
       <div class="CalculateBodyAside">
         <div class="CalculateBodyAsideItem" v-for="(item, index) of items" :key="index" @click="item.handler()">
           <component v-bind="{ ...item, handler: undefined }"/>
-          <div class="CalculateBodyAsideItemName"v-if="asideOpened && item.name && !item.name.includes('Hide')">{{ item.name }}</div>
+          <div class="CalculateBodyAsideItemName" v-if="asideOpened && item.name && !item.name.includes('Hide')">{{ item.name }}</div>
         </div>
       </div>
-      <component class="CalculateMainComponent" :is="currentComponent" :focused="focused"></component>
+      <component class="CalculateMainComponent" :is="currentComponent" :active="active"></component>
     </div>
   </div>
 </template>
@@ -31,8 +31,13 @@ export default Vue.extend({
         BaseIconDivider: () => import('@/components/base/icon/BaseIconDivider.vue')
       },
       items: [],
-      asideOpened: false,
-      focused: true
+      asideOpened: false
+    }
+  },
+  props: {
+    active: {
+      type: Boolean,
+      required: true
     }
   },
   computed: {
@@ -96,6 +101,11 @@ export default Vue.extend({
         }
       }
     ]
+  },
+  methods: {
+    click () {
+      console.log('click')
+    }
   }
 })
 </script>
@@ -105,16 +115,22 @@ export default Vue.extend({
   display: flex;
   flex-direction: column;
   .CalculateHeader {
-    height: 27px;
+    height: 28px;
     width: 100%;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 3px;
+    border-bottom: 1px solid #323232;
 
-    background: #3B4754;
-    p { padding: 3px }
+    &Active {
+      background: #3B4754;
+    }
+    p {
+      padding: 6px 0 5px 6px;
+      font-size: 12px;
+      line-height: 15px;
+    }
   }
   .CalculateMain {
     height: 100%;

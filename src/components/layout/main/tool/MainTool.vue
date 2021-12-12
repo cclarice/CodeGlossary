@@ -1,7 +1,5 @@
 <template>
-  <component class="Tool" :is="toolComponent">
-
-  </component>
+  <component class="Tool" :is="toolComponent" :active="active"/>
 </template>
 
 <script lang='ts'>
@@ -12,6 +10,10 @@ export default Vue.extend({
   props: {
     tool: {
       default: null
+    },
+    active: {
+      type: Boolean,
+      required: true
     }
   },
   computed: {
@@ -34,7 +36,6 @@ export default Vue.extend({
 <style lang='scss' scoped>
 .Tool {
   display: flex;
-  height: 100%;
-  // background: #3C3F41;
+  background: #3C3F41;
 }
 </style>

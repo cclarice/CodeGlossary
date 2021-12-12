@@ -1,6 +1,7 @@
 <template>
   <div class="WebGLCube">
-    <canvas class="WebGLCubeCanvas" width="1280" height="720" ref="canvas">
+    <code ref="framerate"/>
+    <canvas class="WebGLCubeCanvas" :width="settings.width" :height="settings.height" ref="canvas">
       Your browser does not support HTML5
     </canvas>
     <br />
@@ -19,8 +20,8 @@ export default Vue.extend({
   data () {
     return {
       settings: {
-        width: 720,
-        height: 1280
+        width: 1280,
+        height: 720
       }
     }
   },
@@ -28,19 +29,12 @@ export default Vue.extend({
     ...mapMutations('balloons', ['addBalloon'])
   },
   async mounted () {
+    const frameContainer = this.$refs.framerate
     const addBalloon = this.addBalloon
-    const {
-			webGL,
-			WebGLMatrix,
-			worldMatrix,
-			viewMatrix,
-			projMatrix,
-			matWorldUniformLocation,
-			matViewUniformLocation,
-			matProjUniformLocation
-		} = await initWebGL(this.$refs.canvas, { addBalloon: addBalloon, preset: 'CUBE', ...this.settings })
-
-    if (!webGL) return;
+    const { wgl, glm, mat } = await initWebGL(this.$refs.canvas,
+      { addBalloon: addBalloon, preset: '3D', ...this.settings })
+    const { world, view, proj, worldLocation, viewLocation, projLocation } = mat
+    if (!wgl) return;
 
     let boxVertices = [
       //  X  |  Y  |  Z  | |  R  |  G  |  B  \\
@@ -80,7 +74,6 @@ export default Vue.extend({
 		  1.0, -1.0, 1.0,     0.0, 1.0, 0.0,
 		  1.0, -1.0, -1.0,    0.0, 0.0, 1.0,
 	  ]
-
     let boxIndices = [
       // Top
       0, 1, 2,
@@ -107,33 +100,43 @@ export default Vue.extend({
       22, 20, 23
     ]
 
-    // webGL.bufferData(webGL.ARRAY_BUFFER, new Float32Array(triangleVertices), webGL.STATIC_DRAW)
-    // webGL.drawArrays(webGL.TRIANGLES, 0, 6)
+    // wgl.bufferData(wgl.ARRAY_BUFFER, new Float32Array(triangleVertices), wgl.STATIC_DRAW)
+    // wgl.drawArrays(wgl.TRIANGLES, 0, 6)
 
-
-    webGL.bufferData(webGL.ARRAY_BUFFER, new Float32Array(boxVertices), webGL.STATIC_DRAW)
-    webGL.bufferData(webGL.ELEMENT_ARRAY_BUFFER, new Uint16Array(boxIndices), webGL.STATIC_DRAW)
+    wgl.bufferData(wgl.ARRAY_BUFFER, new Float32Array(boxVertices), wgl.STATIC_DRAW)
+    wgl.bufferData(wgl.ELEMENT_ARRAY_BUFFER, new Uint16Array(boxIndices), wgl.STATIC_DRAW)
 
     let xRotationMatrix = new Float32Array(16)
     let yRotationMatrix = new Float32Array(16)
 
     let angle = 0
     let identityMatrix = new Float32Array(16)
-    WebGLMatrix.mat4.identity(identityMatrix)
+    glm.mat4.identity(identityMatrix)
+    let framerate = performance.now()
+    let frame = 0
 
     let loop = function () {
-      angle = performance.now() / 1000 / 6 * 2 * Math.PI
-      WebGLMatrix.mat4.rotate(xRotationMatrix, identityMatrix, angle / 4, [1, 0, 0])
-      WebGLMatrix.mat4.rotate(yRotationMatrix, identityMatrix, angle, [0, 1, 0])
-      WebGLMatrix.mat4.mul(worldMatrix, yRotationMatrix, xRotationMatrix)
-      webGL.uniformMatrix4fv(matWorldUniformLocation, false, worldMatrix)
+      frame++
+      angle = performance.now() / 1000 / 12 * 2 * Math.PI
+      if (!(frame % 6)) {
+        frameContainer.innerHTML = (1000 / (performance.now() - framerate)).toString().slice(0, 5)
+      }
+      framerate = performance.now()
+      glm.mat4.rotate(xRotationMatrix, identityMatrix, angle / 4, [1, 0, 0])
+      glm.mat4.rotate(yRotationMatrix, identityMatrix, angle, [0, 1, 0])
+      glm.mat4.mul(world, yRotationMatrix, xRotationMatrix)
+      wgl.uniformMatrix4fv(worldLocation, false, world)
 
-      webGL.clearColor(0, 0, 0, 0)
-      webGL.clear(webGL.DEPTH_BUFFER_BIT | webGL.COLOR_BUFFER_BIT)
-      webGL.drawElements(webGL.TRIANGLES, boxIndices.length, webGL.UNSIGNED_SHORT, 0)
+      wgl.clearColor(0, 0, 0, 0)
+      wgl.clear(wgl.DEPTH_BUFFER_BIT | wgl.COLOR_BUFFER_BIT)
+      wgl.drawElements(wgl.TRIANGLES, boxIndices.length, wgl.UNSIGNED_SHORT, 0)
 
       requestAnimationFrame(loop)
     };requestAnimationFrame(loop)
+  },
+  beforeDestroy() {
+    console.log('beforeDestroy')
+    location.reload()
   }
 })
 </script>

@@ -21,8 +21,8 @@ export default Vue.extend({
   },
   async mounted () {
     const addBalloon = this.addBalloon
-    const webGL = await initWebGL(this.$refs.canvas, { addBalloon: addBalloon })
-    if (!webGL) return;
+    const { wgl } = await initWebGL(this.$refs.canvas, { addBalloon: addBalloon })
+    if (!wgl) return;
 
     // Создание буфера
     let triangleVertices = [
@@ -44,8 +44,8 @@ export default Vue.extend({
       rgbCycle(0)
       rgbCycle(1)
       rgbCycle(2)
-      webGL.bufferData(webGL.ARRAY_BUFFER, new Float32Array(triangleVertices), webGL.STATIC_DRAW)
-      webGL.drawArrays(webGL.TRIANGLES, 0, 3)
+      wgl.bufferData(wgl.ARRAY_BUFFER, new Float32Array(triangleVertices), wgl.STATIC_DRAW)
+      wgl.drawArrays(wgl.TRIANGLES, 0, 3)
     }
 
     function rgbCycle(offset) {

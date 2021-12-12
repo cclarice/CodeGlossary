@@ -46,4 +46,5 @@ export interface IMainLayoutStripeButton {
   active: boolean
   location: string | null
   side: string | null
+  hidden: boolean
 }

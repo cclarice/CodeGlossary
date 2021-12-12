@@ -24,7 +24,7 @@ export default Vue.extend({
     BaseIcon
   },
   props: {
-    focused: {
+    active: {
       type: Boolean,
       default: false
     }
@@ -77,7 +77,7 @@ export default Vue.extend({
   },
   methods: {
     calculator (event) {
-      if (this.focused && codeKeys.includes(event.key)) {
+      if (this.active && codeKeys.includes(event.key)) {
         if (typeof codeList[event.key] === 'function') {
           this.codeArray = codeList[event.key](this.codeArray)
         } else {

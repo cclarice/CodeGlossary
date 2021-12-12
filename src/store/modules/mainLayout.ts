@@ -23,21 +23,33 @@ const initialState = (): IMainLayout => (
       stripes: [
         {
           id: 0,
+          icon: require('@/assets/icons/stripes/navigation.svg'),
+          name: 'Navigation',
+          component: () => import('@/components/layout/main/tool/navigation/MainToolNavigation.vue'),
+          active: false,
+          location: 'stripeLeft',
+          side: 'right',
+          hidden: false
+        },
+        {
+          id: 1,
           icon: require('@/assets/icons/stripes/favorites.svg'),
           name: 'Favorites',
           component: null,
           active: false,
           location: 'stripeLeft',
-          side: 'left'
+          side: 'left',
+          hidden: false
         },
         {
-          id: 1,
-          icon: require('@/assets/icons/stripes/favorites.svg'),
+          id: 2,
+          icon: require('@/assets/icons/stripes/calculate.svg'),
           name: 'Calculate',
           component: () => import('@/components/layout/main/tool/calculate/MainToolCalculate.vue'),
           active: false,
           location: 'stripeLeft',
-          side: 'left'
+          side: 'left',
+          hidden: false
         }
       ],
       navbar: {
@@ -57,16 +69,12 @@ const mutations = <MutationTree<IMainLayout>> {
 
   /** Stripe Mutations **/
   setDefaultStripes (state: IMainLayout) {
-    const favorites = state.elems.stripes.find(stripe => stripe.name === 'Favorites')
+    const stripes = state.elems.stripes
 
-    if (favorites && !state.elems.stripeLeft.left.find(stripe => stripe.name === favorites.name)) {
-      state.elems[favorites.location][favorites.side].push(favorites)
-    }
-
-    const calculate = state.elems.stripes.find(stripe => stripe.name === 'Calculate')
-
-    if (calculate && !state.elems.stripeLeft.left.find(stripe => stripe.name === calculate.name)) {
-      state.elems[calculate.location][calculate.side].push(calculate)
+    for (const stripe of stripes) {
+      if (!stripe.hidden) {
+        state.elems[stripe.location][stripe.side].push(stripe)
+      }
     }
   },
   toggleStripe (state: IMainLayout, stripeId: number) {

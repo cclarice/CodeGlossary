@@ -1,19 +1,41 @@
 <template>
   <div class="MainContent">
     <section class="MainContentMain">
-      <div class="MainContentLeftTools" v-if="leftLeft || leftRight">
-        <MainTool :tool="leftLeft"/>
-        <MainTool :tool="leftRight"/>
+      <div class="MainContentLeftTools"
+           v-if="leftLeft || leftRight">
+        <MainTool :tool="leftLeft"
+                  :active="focused === 'leftLeft'"
+                  @click.native="focus('leftLeft')"/>
+        <div class="MainContentToolsDivider"
+             v-if="leftLeft && leftRight"/>
+        <MainTool :tool="leftRight"
+                  :active="focused === 'leftRight'"
+                  @click.native="focus('leftRight')"/>
       </div>
-      <router-view class="Content"/>
-      <div class="MainContentRightTools" v-if="rightLeft || rightRight">
-        <MainTool :tool="rightLeft"/>
-        <MainTool :tool="rightRight"/>
+      <router-view class="Content"
+                   @click.native="focus('Content')"/>
+      <div class="MainContentRightTools"
+           v-if="rightLeft || rightRight">
+        <MainTool :tool="rightLeft"
+                  :active="focused === 'rightLeft'"
+                  @click.native="focus('rightLeft')"/>
+        <div class="MainContentToolsDivider"
+             v-if="leftLeft && leftRight"/>
+        <MainTool :tool="rightRight"
+                  :active="focused === 'rightRight'"
+                  @click.native="focus('rightRight')"/>
       </div>
     </section>
-    <section class="MainContentBottomTools" v-if="bottomLeft || bottomRight">
-      <MainTool :tool="bottomLeft"/>
-      <MainTool :tool="bottomRight"/>
+    <section class="MainContentBottomTools"
+             v-if="bottomLeft || bottomRight">
+      <MainTool :tool="bottomLeft"
+                :active="focused === 'bottomLeft'"
+                @click.native="focus('bottomLeft')"/>
+      <div class="MainContentToolsDivider"
+           v-if="leftLeft && leftRight"/>
+      <MainTool :tool="bottomRight"
+                :active="focused === 'bottomRight'"
+                @click.native="focus('bottomRight')"/>
     </section>
   </div>
 </template>
@@ -27,6 +49,11 @@ export default Vue.extend({
   name: 'MainContent',
   components: {
     MainTool
+  },
+  data () {
+    return {
+      focused: 'Content'
+    }
   },
   computed: {
     ...mapGetters('mainLayout', ['getStripes']),
@@ -52,6 +79,10 @@ export default Vue.extend({
   methods: {
     isActiveTool (tool) {
       return !!tool.active
+    },
+    focus(element) {
+      console.log(element)
+      this.focused = element
     }
   }
 })
@@ -64,6 +95,12 @@ export default Vue.extend({
   width: 100%;
   height: 100%;
 
+  .MainContentToolsDivider {
+    width: 1px;
+    height: 100%;
+    background-color: #323232;
+    cursor: col-resize;
+  }
   &Main {
     display: flex;
     flex-grow: 1;
@@ -91,6 +128,17 @@ export default Vue.extend({
       background: cyan;
       min-width: 25px;
       height: 100%;
+    }
+    .MainContentToolsDivider {
+      width: 100%;
+      height: 1px;
+      cursor: row-resize;
+      :before {
+        content: "";
+        background-color: red;
+        height: 3px;
+        width: 100%;
+      }
     }
   }
   .MainContentBottomTools {
