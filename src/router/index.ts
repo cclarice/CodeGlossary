@@ -1,25 +1,36 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
-
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+import {
+  createRouter,
+  createWebHistory,
+  NavigationGuardNext,
+  RouteLocationNormalized
+} from 'vue-router'
+import routes from '@/router/routes'
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    next: NavigationGuardNext
+  ): void => {
+  const favicon: HTMLLinkElement =
+    <HTMLLinkElement>document.getElementById('favicon') ||
+    <HTMLLinkElement>document.createElement('link')
+
+  if (favicon.id !== 'favicon') {
+    favicon.rel = 'icon'
+    favicon.id = 'favicon'
+    document.head.appendChild(favicon)
+  }
+
+  favicon.href = to.meta.favicon || require('@/assets/favicons/favicon.svg')
+
+  /*** Title */
+  document.title = to.meta.title || 'CodeGlossary'
+  next()
 })
 
 export default router

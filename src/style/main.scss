@@ -1,0 +1,98 @@
+* {
+  padding:    0;
+  margin:     0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: red;
+}
+
+
+html,
+body {
+  width:      100vw;
+  min-width:  100vw;
+  max-width:  100vw;
+  height:     100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+
+  background-color: var(--main-background);
+
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ *  Typography
+ */
+
+* {
+  font-family: 'SF Pro Text', 'Segoe UI', sans-serif;
+  color:        var(--default);
+  font-size:    13px;
+  line-height:  16px;
+  font-weight:  400;
+  &::selection {
+    color: var(--selected);
+    background-color: var(--selection-active);
+  }
+  &.b {
+    font-weight: 600;
+  }
+}
+
+h1,
+h2 {
+  font-size:    25px;
+  line-height:  30px;
+  font-weight:  600;
+}
+
+h3 {
+  font-size:    22px;
+  line-height:  27px;
+  font-weight:  600;
+}
+
+h4 {
+  font-size:    18px;
+  line-height:  22px;
+  font-weight:  500;
+}
+
+h5 {
+  font-size:    16px;
+  line-height:  20px;
+}
+
+p {
+  font-size:    13px;
+  line-height:  19px;
+}
+
+.m {
+  font-size:    12px;
+  line-height:  15px;
+}
+
+.u {
+  text-decoration-line: underline;
+}
+
+small {
+  font-size:    11px;
+  line-height:  14px;
+}
+
+code {
+  font-family: 'JetBrains Mono SemiBold', 'JetBrains Mono NL SemiBold', 'Consolas', monospace;
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--code-default);
+}
+
+code.LineNumbers {
+  font-size: 11px;
+}
