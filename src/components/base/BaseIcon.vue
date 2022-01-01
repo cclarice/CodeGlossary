@@ -1,12 +1,14 @@
 <template>
 	<div class="BaseIcon" @iconClick="$emit('iconClick', $event)">
-		<div	class="BaseIconWrapper"
-					:style="{ backgroundImage: iconImage }"/>
+		<div	class="BaseIconWrapper">
+      <img :src="icon" :style="{ filter: autoColor && getTheme === 'light' ? 'grayscale(100%) brightness(0.625)' : '' }" alt="">
+    </div>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
 	name: 'BaseIcon',
@@ -14,12 +16,14 @@ export default defineComponent({
 		icon: {
 			type: String,
 			default: require('@/assets/icons/stub.svg')
-		}
+		},
+    autoColor: {
+      type: Boolean,
+      default: true
+    }
 	},
 	computed: {
-		iconImage () {
-			return 'url("' + this.icon + '")'
-		}
+    ...mapGetters('theme', ['getTheme'])
 	}
 })
 </script>
@@ -37,6 +41,7 @@ export default defineComponent({
 	&:active > .BaseIconWrapper {
 		background-color: var(--toolbar-button-pressed);
 	}
+  cursor: pointer;
 }
 
 .BaseIconWrapper {
@@ -45,5 +50,10 @@ export default defineComponent({
 	border-radius: 3px;
 	width: 22px;
 	height: 22px;
+  padding: 3px;
+}
+
+img {
+  user-select: none;
 }
 </style>

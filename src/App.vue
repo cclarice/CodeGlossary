@@ -8,6 +8,7 @@ import { defineComponent } from 'vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import EmptyLayout from '@/layouts/EmptyLayout.vue'
 import Theme from '@/style/Theme.vue'
+import { mapMutations } from 'vuex'
 
 export default defineComponent({
   name: 'App',
@@ -20,7 +21,13 @@ export default defineComponent({
 		layout (): string {
 			return (this.$route.meta.layout || 'Main') + 'Layout'
 		}
-	}
+	},
+  methods: {
+    ...mapMutations('lang', ['initLang'])
+  },
+  created () {
+    this.initLang()
+  }
 })
 </script>
 

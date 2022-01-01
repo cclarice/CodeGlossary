@@ -3,7 +3,7 @@ import dark from '@/style/dark'
 import light from '@/style/light'
 import store from '@/store'
 
-interface IThemeState {
+export interface IThemeState {
 	theme: 'light' | 'dark' | null
 	themes: {
 		dark: string,
@@ -12,7 +12,7 @@ interface IThemeState {
 	style: HTMLStyleElement | null
 }
 
-const state: IThemeState = {
+const initialState: IThemeState = {
 	theme: null,
 	themes: {
 		dark,
@@ -36,10 +36,7 @@ function reloadTheme (state: IThemeState): void {
 
 const mutations: MutationTree<IThemeState> = {
 	setTheme (state: IThemeState, theme: 'light' | 'dark'): void {
-		console.log('setTheme', theme)
 		state.theme = theme
-		window.localStorage.setItem('Theme', state.theme)
-		reloadTheme(state)
 	},
 	loadTheme (state: IThemeState): void {
 		state.theme = <'light' | 'dark'>window.localStorage.getItem('Theme') ||
@@ -63,7 +60,7 @@ const mutations: MutationTree<IThemeState> = {
 
 export default {
 	namespaced: true,
-	state,
+	state: initialState,
 	mutations,
 	getters
 }

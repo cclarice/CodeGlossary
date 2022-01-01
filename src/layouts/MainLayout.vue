@@ -2,22 +2,29 @@
 	<header id="Header">
 		<MainNavigation id="Navigation">
 		</MainNavigation>
-		<nav id="Icons">
+		<nav class="Icons">
 			<BaseIcon :icon="iconTheme"
 								@click="setTheme(getTheme === 'light' ? 'dark' : 'light')"/>
+			<BaseIcon :icon="getIcons[getLang]"
+								@click="setLang(getLang === 'en_us' ? 'ru_ru' : 'en_us')"/>
 		</nav>
 	</header>
 	<main id="Main">
 		<nav class="Stripes" id="StripesLeft">
 			<div class="Stripe" id="StripeLeftLeft">
-
+        Stripe Left Left
 			</div>
 			<div class="Stripe" id="StripeLeftRight">
-
+        Stripe Left Right
 			</div>
 		</nav>
 		<aside class="Tool" id="ToolLeft">
-			Tool Left
+			<div class="Stripe" id="ToolLeftLeft">
+        Tool Left Left
+			</div>
+			<div class="Stripe" id="ToolLeftRight">
+        Tool Left Right
+			</div>
 		</aside>
 		<section id="Content">
 			<router-view/>
@@ -61,13 +68,15 @@ export default defineComponent({
 	},
 	computed: {
 		...mapGetters('theme', ['getTheme']),
+    ...mapGetters('lang', ['getIcons', 'getLang']),
 		iconTheme (): string {
 			return this.getTheme === 'light' ?	require('@/assets/icons/theme/light.svg') :
 																					require('@/assets/icons/theme/dark.svg')
 		}
 	},
 	methods: {
-		...mapMutations('theme', ['setTheme'])
+		...mapMutations('theme', ['setTheme']),
+    ...mapMutations('lang', ['setLang'])
 	}
 })
 </script>
@@ -94,6 +103,11 @@ export default defineComponent({
 	display: flex;
 	// background-color: #0000ff44;
 	justify-content: space-between;
+}
+
+.Icons {
+  display: flex;
+  flex-flow: row-reverse;
 }
 
 // Main
