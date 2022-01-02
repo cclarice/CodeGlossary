@@ -1,5 +1,5 @@
 <template>
-	<header id="Header">
+	<header id="Header" v-show="!loading">
 		<MainNavigation id="Navigation">
 		</MainNavigation>
 		<nav class="Icons">
@@ -9,46 +9,66 @@
 								@click="setLang(getLang === 'en_us' ? 'ru_ru' : 'en_us')"/>
 		</nav>
 	</header>
-	<main id="Main">
-		<nav class="Stripes" id="StripesLeft">
-			<div class="Stripe" id="StripeLeftLeft">
+	<main id="Main" v-show="!loading">
+		<nav class="Stripe" id="StripeLeft">
+			<div id="StripeLeftLeft">
         Stripe Left Left
 			</div>
-			<div class="Stripe" id="StripeLeftRight">
+			<div id="StripeLeftRight">
         Stripe Left Right
 			</div>
 		</nav>
-		<aside class="Tool" id="ToolLeft">
-			<div class="Stripe" id="ToolLeftLeft">
+		<aside id="ToolLeft">
+			<div class="Tool">
         Tool Left Left
 			</div>
-			<div class="Stripe" id="ToolLeftRight">
+			<div class="Tool">
         Tool Left Right
 			</div>
 		</aside>
 		<section id="Content">
 			<router-view/>
 		</section>
-		<aside class="Tools Right">
-			Tool Right
+		<aside id="ToolRight">
+			<div class="Tool">
+        Tool Right Left
+			</div>
+			<div class="Tool">
+        Tool Right Right
+			</div>
 		</aside>
-		<nav class="Stripe Right">
-			Stripe Right
+		<nav class="Stripe" id="StripeRight">
+			<div id="StripeRightLeft">
+        Stripe Right Left
+			</div>
+			<div id="StripeRightRight">
+        Stripe Right Right
+			</div>
 		</nav>
 	</main>
-	<footer id="Footer">
-		<aside class="Tools Bottom">
-			Tool Bottom
+	<footer id="Footer" v-show="!loading">
+		<aside id="ToolBottom">
+      <div class="Tool">
+        Tool Bottom Left
+      </div>
+      <div class="Tool">
+        Tool Bottom Right
+      </div>
 		</aside>
-		<nav class="Stripe Bottom">
-			ButtonBarBottom
+		<nav class="Stripe" id="StripeBottom">
+			<div class="StripeLeft">
+        Stripe Bottom Left
+      </div>
+      <div class="StripeRight">
+        Stripe Bottom Right
+      </div>
 		</nav>
 		<nav id="Status">
 			<section class="StatusLeft">
-
+        Status Left
 			</section>
 			<section class="StatusRight">
-
+        Status Right
 			</section>
 		</nav>
 	</footer>
@@ -59,6 +79,8 @@ import { defineComponent } from 'vue'
 import MainNavigation from '@/layouts/main/MainNavigation.vue'
 import BaseIcon from '@/components/base/BaseIcon.vue'
 import { mapGetters, mapMutations } from 'vuex'
+import dynamic from '@/library/dynamic'
+import store from '@/store'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -77,7 +99,29 @@ export default defineComponent({
 	methods: {
 		...mapMutations('theme', ['setTheme']),
     ...mapMutations('lang', ['setLang'])
-	}
+	},
+  async created () {
+    const tool = await dynamic(import('@/store/modules/tool'))
+
+    if (tool) {
+      store.registerModule('tool', tool.default)
+    } else {
+      console.error('Cannot find module @/store/modules/tool')
+    }
+  },
+  props: {
+    loaded: {
+      type: Function,
+      required: true
+    },
+    loading: {
+      type: Boolean,
+      required: true
+    }
+  },
+  mounted () {
+    this.loaded()
+  }
 })
 </script>
 
@@ -87,7 +131,8 @@ export default defineComponent({
 #Main,
 #Footer {
 	display: flex;
-	flex-direction: row;
+	flex-flow: row;
+  width: 100%;
 }
 
 // Header
@@ -114,6 +159,57 @@ export default defineComponent({
 #Main {
 	// background-color: #00ff0044;
 	flex: 1 1 auto;
+}
+
+.Stripe {
+  display: flex;
+  border: 1px solid var(--panel-border);
+  background-color: var(--panel-background);
+  justify-content: space-between;
+  align-items: center;
+}
+
+#StripeLeft,
+#StripeRight {
+  border-bottom: none;
+  border-top: none;
+  writing-mode: vertical-rl;
+  width: 23px;
+}
+
+#StripeLeft {
+  transform: rotate(180deg);
+}
+
+#StripeLeftLeft,
+#StripeLeftRight {
+
+}
+
+#StripeRight {
+}
+
+#StripeBottom {
+  border-bottom: none;
+  height: 22px;
+}
+
+.Tool {
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: var(--panel-border);
+  flex-grow: 1;
+}
+
+#ToolBottom,
+#ToolRight,
+#ToolLeft {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+#ToolBottom {
+  flex-flow: row nowrap;
 }
 
 #Content {

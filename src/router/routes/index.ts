@@ -8,21 +8,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Home.vue'),
     meta: {
       title: 'CodeGlossary',
-      favicon: null,
       parent: null
     }
   },
-  ...test,
-  {
-    path: '/bleb',
-    name: 'Bleb',
-    component: () => import('@/views/Home.vue'),
-    meta: {
-      title: 'Bleb',
-      favicon: require('@/assets/favicons/cmd.svg'),
-      parent: '/'
-    }
-  }
+  ...test
 ]
 
 routes.forEach((route: RouteRecordRaw) => {

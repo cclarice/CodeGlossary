@@ -1,6 +1,6 @@
 {
-  "name": "codeglo-vue-3",
-  "version": "0.1.0",
+  "name": "code-glossary",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 6367",

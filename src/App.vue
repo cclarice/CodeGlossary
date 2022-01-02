@@ -1,32 +1,43 @@
 <template>
-	<component v-if="layout" :is="layout"/>
-	<Theme/>
+	<component :is="layout" :loaded="loaded" :loading="loading"></component>
+  <main v-if="loading">
+    <div>Loading...</div>
+    <progress/>
+  </main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import MainLayout from '@/layouts/MainLayout.vue'
-import EmptyLayout from '@/layouts/EmptyLayout.vue'
-import Theme from '@/style/Theme.vue'
+import { defineComponent, defineAsyncComponent } from 'vue'
 import { mapMutations } from 'vuex'
+import AppLoading from '@/components/AppLoading.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-		MainLayout,
-		EmptyLayout,
-		Theme
+    AppLoading,
+    MainLayout: defineAsyncComponent(() => import('./layouts/MainLayout.vue')),
+    EmptyLayout: defineAsyncComponent(() => import('./layouts/EmptyLayout.vue'))
 	},
-	computed: {
-		layout (): string {
-			return (this.$route.meta.layout || 'Main') + 'Layout'
-		}
-	},
+  data () {
+    return {
+      loading: true
+    }
+  },
+  computed: {
+    layout (): string {
+      return this.$route.meta?.layout || 'MainLayout'
+    }
+  },
   methods: {
-    ...mapMutations('lang', ['initLang'])
+    ...mapMutations('lang', ['initLang']),
+    ...mapMutations('theme', ['initTheme']),
+    loaded () {
+      this.loading = false
+    }
   },
   created () {
     this.initLang()
+    this.initTheme()
   }
 })
 </script>

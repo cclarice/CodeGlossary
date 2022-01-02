@@ -1,4 +1,4 @@
-# codeglo-vue-3
+# Code Glossary
 
 ## Project setup
 ```

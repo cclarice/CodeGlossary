@@ -37,6 +37,8 @@ function reloadTheme (state: IThemeState): void {
 const mutations: MutationTree<IThemeState> = {
 	setTheme (state: IThemeState, theme: 'light' | 'dark'): void {
 		state.theme = theme
+		window.localStorage.setItem('Theme', state.theme)
+		reloadTheme(state)
 	},
 	loadTheme (state: IThemeState): void {
 		state.theme = <'light' | 'dark'>window.localStorage.getItem('Theme') ||

@@ -21,6 +21,49 @@ body {
   display: flex;
   flex-direction: column;
 }
+body {
+  justify-content: center;
+  align-items: center;
+}
+
+progress {
+  width: 20em;
+  max-width: 80vw;
+  -webkit-appearance: none;
+  border-radius: 5px;
+  height: 4px;
+  &::-webkit-progress-bar {
+    background-color: #696969;
+  }
+  &::-webkit-progress-value {
+    background-color: #696969;
+  }
+  &::-webkit-progress-inner-element {
+    border-radius: 5px;
+  }
+  &:not([value]) {
+    background-image: linear-gradient(270deg, #828282 0%, #6A6A6A 50%, #828282 100%);
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: 6em;
+    animation-name: progress-inter;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    &::-webkit-progress-bar {
+      background: #00000000;
+    }
+  }
+}
+
+@keyframes progress-inter {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 6em 6em;
+  }
+}
 
 /**
  *  Typography

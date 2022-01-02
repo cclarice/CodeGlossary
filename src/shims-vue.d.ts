@@ -11,7 +11,8 @@ declare module '*.vue' {
 declare module 'vue-router' {
   interface RouteMeta {
     favicon?: string | null
-    title:?   string | null
-    parent:?  RouteRecordRaw | string | undefined
+    title?:   string | null
+    parent?:  RouteRecordRaw | string | null
+    layout?:  'MainLayout' | 'EmptyLayout'
   }
 }
