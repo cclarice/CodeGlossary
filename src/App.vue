@@ -1,7 +1,7 @@
 <template>
-	<component :is="layout" :loaded="loaded" :loading="loading"></component>
+	<component v-if="$route.meta" :is="layout" :loaded="loaded" :loading="loading"/>
   <main v-if="loading">
-    <div>Loading...</div>
+    <div>Загрузка...</div>
     <progress/>
   </main>
 </template>
@@ -20,12 +20,12 @@ export default defineComponent({
 	},
   data () {
     return {
-      loading: true
+      loading: false
     }
   },
   computed: {
-    layout (): string {
-      return this.$route.meta?.layout || 'MainLayout'
+    layout (): string | null {
+      return this.$route.meta?.layout || null
     }
   },
   methods: {
@@ -36,6 +36,8 @@ export default defineComponent({
     }
   },
   created () {
+    console.log(this.$route)
+    setTimeout(() => {console.log(this.$route)}, 200)
     this.initLang()
     this.initTheme()
   }

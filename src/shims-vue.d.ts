@@ -13,6 +13,6 @@ declare module 'vue-router' {
     favicon?: string | null
     title?:   string | null
     parent?:  RouteRecordRaw | string | null
-    layout?:  'MainLayout' | 'EmptyLayout'
+    layout:  'MainLayout' | 'EmptyLayout'
   }
 }

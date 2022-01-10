@@ -26,9 +26,13 @@
         Tool Left Right
 			</div>
 		</aside>
-		<section id="Content">
-			<router-view/>
-		</section>
+    <BaseScrollable id="Viewport">
+      <router-view id="Content"></router-view>
+    </BaseScrollable>
+		<!--<section id="Viewport">
+      <div class="Scroll"><div class="VScroll"/><div class="HScroll"/></div>
+      <router-view id="Content"/>
+		</section>-->
 		<aside id="ToolRight">
 			<div class="Tool">
         Tool Right Left
@@ -81,10 +85,12 @@ import BaseIcon from '@/components/base/BaseIcon.vue'
 import { mapGetters, mapMutations } from 'vuex'
 import dynamic from '@/library/dynamic'
 import store from '@/store'
+import BaseScrollable from '@/components/base/BaseScrollable.vue'
 
 export default defineComponent({
   name: 'MainLayout',
 	components: {
+    BaseScrollable,
 		MainNavigation,
 		BaseIcon
 	},
@@ -101,12 +107,14 @@ export default defineComponent({
     ...mapMutations('lang', ['setLang'])
 	},
   async created () {
-    const tool = await dynamic(import('@/store/modules/tool'))
+    if (!Object.keys({ 'tool': 'tool' }).includes('tool')) {
+      const tool = await dynamic(import('@/store/modules/tool'))
 
-    if (tool) {
-      store.registerModule('tool', tool.default)
-    } else {
-      console.error('Cannot find module @/store/modules/tool')
+      if (tool) {
+        store.registerModule('tool', tool.default)
+      } else {
+        console.error('Cannot find module @/store/modules/tool')
+      }
     }
   },
   props: {
@@ -121,6 +129,9 @@ export default defineComponent({
   },
   mounted () {
     this.loaded()
+  },
+  beforeUnmount () {
+    console.log('unmount MainLayout')
   }
 })
 </script>
@@ -158,7 +169,9 @@ export default defineComponent({
 // Main
 #Main {
 	// background-color: #00ff0044;
-	flex: 1 1 auto;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
 }
 
 .Stripe {
@@ -197,7 +210,7 @@ export default defineComponent({
 .Tool {
   display: flex;
   flex-flow: column nowrap;
-  background-color: var(--panel-border);
+  background-color: var(--panel-background);
   flex-grow: 1;
 }
 
@@ -210,14 +223,25 @@ export default defineComponent({
 
 #ToolBottom {
   flex-flow: row nowrap;
+  border: var(--panel-border) solid 1px;
+  border-bottom: none;
+}
+
+#ToolRight {
+  border-left: var(--panel-border) solid 1px;
+}
+#ToolLeft {
+  border-right: var(--panel-border) solid 1px;
+}
+
+#Viewport {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 100%;
 }
 
 #Content {
-	flex: 1 1 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+  margin: auto;
 }
 
 // Footer

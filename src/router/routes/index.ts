@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
-import test from '@/router/routes/test'
+import develop from '@/router/routes/test'
+import { MAIN_LAYOUT } from '@/router/routes/consts/layouts'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -8,10 +9,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Home.vue'),
     meta: {
       title: 'CodeGlossary',
-      parent: null
+      parent: null,
+      layout: MAIN_LAYOUT
     }
   },
-  ...test
+  ...develop
 ]
 
 routes.forEach((route: RouteRecordRaw) => {
