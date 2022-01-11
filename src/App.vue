@@ -1,22 +1,20 @@
 <template>
-	<component v-if="$route.meta" :is="layout" :loaded="loaded" :loading="loading"/>
-  <main v-if="loading">
-    <div>Загрузка...</div>
-    <progress/>
-  </main>
+	<component :is="layout" :loaded="loaded" :loading="loading"/>
 </template>
 
 <script lang="ts">
-import { defineComponent, defineAsyncComponent } from 'vue'
+import { defineComponent } from 'vue'
 import { mapMutations } from 'vuex'
 import AppLoading from '@/components/AppLoading.vue'
+import MainLayout from '@/layouts/MainLayout.vue'
+import EmptyLayout from '@/layouts/EmptyLayout.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
     AppLoading,
-    MainLayout: defineAsyncComponent(() => import('./layouts/MainLayout.vue')),
-    EmptyLayout: defineAsyncComponent(() => import('./layouts/EmptyLayout.vue'))
+    MainLayout,
+    EmptyLayout
 	},
   data () {
     return {
@@ -36,8 +34,6 @@ export default defineComponent({
     }
   },
   created () {
-    console.log(this.$route)
-    setTimeout(() => {console.log(this.$route)}, 200)
     this.initLang()
     this.initTheme()
   }

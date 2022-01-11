@@ -20,6 +20,7 @@
 		</nav>
 		<aside id="ToolLeft">
 			<div class="Tool">
+        <component v-if="component" :is="component"></component>
         Tool Left Left
 			</div>
 			<div class="Tool">
@@ -29,16 +30,14 @@
     <BaseScrollable id="Viewport">
       <router-view id="Content"></router-view>
     </BaseScrollable>
-		<!--<section id="Viewport">
-      <div class="Scroll"><div class="VScroll"/><div class="HScroll"/></div>
-      <router-view id="Content"/>
-		</section>-->
 		<aside id="ToolRight">
 			<div class="Tool">
         Tool Right Left
+        <BaseError/>
 			</div>
 			<div class="Tool">
         Tool Right Right
+        <BaseLoading/>
 			</div>
 		</aside>
 		<nav class="Stripe" id="StripeRight">
@@ -79,20 +78,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineAsyncComponent, defineComponent } from 'vue'
 import MainNavigation from '@/layouts/main/MainNavigation.vue'
 import BaseIcon from '@/components/base/BaseIcon.vue'
 import { mapGetters, mapMutations } from 'vuex'
-import dynamic from '@/library/dynamic'
-import store from '@/store'
 import BaseScrollable from '@/components/base/BaseScrollable.vue'
+import BaseLoading from '@/components/base/BaseLoading.vue'
+import BaseError from '@/components/base/BaseError.vue'
+
+const defaultComponentOptions = {
+  delay: 200,
+  timeout: 5000,
+  errorComponent: BaseError,
+  loadingComponent: BaseLoading
+}
 
 export default defineComponent({
   name: 'MainLayout',
 	components: {
     BaseScrollable,
 		MainNavigation,
-		BaseIcon
+		BaseIcon,
+    StringManipulation: defineAsyncComponent({ loader: () => import('@/layouts/main/tools/StringManipulation.vue'), ...defaultComponentOptions}),
+    BaseLoading,
+    BaseError
 	},
 	computed: {
 		...mapGetters('theme', ['getTheme']),
@@ -100,23 +109,16 @@ export default defineComponent({
 		iconTheme (): string {
 			return this.getTheme === 'light' ?	require('@/assets/icons/theme/light.svg') :
 																					require('@/assets/icons/theme/dark.svg')
-		}
+		},
+    ...mapGetters('tool', ['getTools']),
+    component () {
+      return (this.getTools && this.getTools[0]?.component) || null
+    }
 	},
 	methods: {
 		...mapMutations('theme', ['setTheme']),
     ...mapMutations('lang', ['setLang'])
 	},
-  async created () {
-    if (!Object.keys({ 'tool': 'tool' }).includes('tool')) {
-      const tool = await dynamic(import('@/store/modules/tool'))
-
-      if (tool) {
-        store.registerModule('tool', tool.default)
-      } else {
-        console.error('Cannot find module @/store/modules/tool')
-      }
-    }
-  },
   props: {
     loaded: {
       type: Function,
@@ -129,9 +131,6 @@ export default defineComponent({
   },
   mounted () {
     this.loaded()
-  },
-  beforeUnmount () {
-    console.log('unmount MainLayout')
   }
 })
 </script>
@@ -244,9 +243,7 @@ export default defineComponent({
   margin: auto;
 }
 
-// Footer
 #Footer {
-	// background-color: #0000ff44;
 	flex-direction: column;
 	flex: 0 0 fit-content;
 }
