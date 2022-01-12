@@ -1,7 +1,6 @@
 <template>
 	<header id="Header" v-show="!loading">
-		<MainNavigation id="Navigation">
-		</MainNavigation>
+		<MainNavigation id="Navigation"/>
 		<nav class="Icons">
 			<BaseIcon :icon="iconTheme"
 								@click="setTheme(getTheme === 'light' ? 'dark' : 'light')"/>
@@ -10,20 +9,20 @@
 		</nav>
 	</header>
 	<main id="Main" v-show="!loading">
-		<nav class="Stripe" id="StripeLeft">
-			<div id="StripeLeftLeft">
-        Stripe Left Left
+		<nav class="Stripe" id="StripeLeft" v-if="(getStripes.leftLeft.length || getStripes.leftRight.length) && stripesShown">
+			<div id="StripeLeftLeft" v-if="getStripes.leftLeft.length">
+        <MainStripeButton v-for="stripe of getStripes.leftLeft" :key="stripe.id" :tool="stripe"/>
 			</div>
-			<div id="StripeLeftRight">
-        Stripe Left Right
+			<div id="StripeLeftRight" v-if="getStripes.leftRight.length">
+        <MainStripeButton v-for="stripe of getStripes.leftRight" :key="stripe.id" :tool="stripe"/>
 			</div>
 		</nav>
-		<aside id="ToolLeft">
-			<div class="Tool">
-        <component v-if="component" :is="component"></component>
+		<aside id="ToolLeft" v-if="getATools.leftLeft || getATools.leftRight">
+			<div class="Tool" v-if="getATools.leftLeft">
+        <component v-if="component" :is="component"/>
         Tool Left Left
 			</div>
-			<div class="Tool">
+			<div class="Tool" v-if="getATools.leftRight">
         Tool Left Right
 			</div>
 		</aside>
@@ -31,44 +30,51 @@
       <router-view id="Content"></router-view>
     </BaseScrollable>
 		<aside id="ToolRight">
-			<div class="Tool">
+			<div class="Tool" v-if="getATools.rightLeft">
         Tool Right Left
         <BaseError/>
 			</div>
-			<div class="Tool">
+			<div class="Tool" v-if="getATools.rightRight">
         Tool Right Right
         <BaseLoading/>
 			</div>
 		</aside>
-		<nav class="Stripe" id="StripeRight">
-			<div id="StripeRightLeft">
-        Stripe Right Left
+		<nav id="StripeRight"
+         class="Stripe"
+         v-if="getStripes.rightLeft.length || getStripes.rightRight.length && stripesShown">
+			<div id="StripeRightLeft" v-if="getStripes.rightLeft.length">
+        <MainStripeButton v-for="stripe of getStripes.rightLeft" :key="stripe.id" :tool="stripe"/>
 			</div>
-			<div id="StripeRightRight">
-        Stripe Right Right
+			<div id="StripeRightRight" v-if="getStripes.rightRight.length">
+        <MainStripeButton v-for="stripe of getStripes.rightRight" :key="stripe.id" :tool="stripe"/>
 			</div>
 		</nav>
 	</main>
 	<footer id="Footer" v-show="!loading">
-		<aside id="ToolBottom">
-      <div class="Tool">
+		<aside id="ToolBottom" v-if="getATools.bottomRight || getATools.bottomRight">
+      <div class="Tool" v-if="getATools.bottomLeft">
         Tool Bottom Left
       </div>
-      <div class="Tool">
+      <div class="Tool" v-if="getATools.bottomRight">
         Tool Bottom Right
       </div>
 		</aside>
-		<nav class="Stripe" id="StripeBottom">
-			<div class="StripeLeft">
-        Stripe Bottom Left
+
+		<nav class="Stripe" id="StripeBottom" v-if="getStripes.bottomLeft.length || getStripes.bottomLeft.length && stripesShown">
+			<div class="StripeLeft" v-if="getStripes.bottomLeft.length">
+        <MainStripeButton v-for="stripe of getStripes.bottomLeft" :key="stripe.id" :tool="stripe"/>
       </div>
-      <div class="StripeRight">
-        Stripe Bottom Right
+      <div class="StripeRight" v-if="getStripes.bottomRight.length">
+        <MainStripeButton v-for="stripe of getStripes.bottomRight" :key="stripe.id" :tool="stripe"/>
       </div>
 		</nav>
 		<nav id="Status">
 			<section class="StatusLeft">
-        Status Left
+        <div id="ToggleStripes" @click="toggleStripesShown()">
+          <img :src="stripesShown ? require('@/assets/icons/stripe/visible.svg')
+                                  : require('@/assets/icons/stripe/hidden.svg')"
+               alt="">
+        </div>
 			</section>
 			<section class="StatusRight">
         Status Right
@@ -85,6 +91,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import BaseScrollable from '@/components/base/BaseScrollable.vue'
 import BaseLoading from '@/components/base/BaseLoading.vue'
 import BaseError from '@/components/base/BaseError.vue'
+import MainStripeButton from '@/layouts/main/MainStripeButton.vue'
 
 const defaultComponentOptions = {
   delay: 200,
@@ -96,6 +103,7 @@ const defaultComponentOptions = {
 export default defineComponent({
   name: 'MainLayout',
 	components: {
+    MainStripeButton,
     BaseScrollable,
 		MainNavigation,
 		BaseIcon,
@@ -106,18 +114,19 @@ export default defineComponent({
 	computed: {
 		...mapGetters('theme', ['getTheme']),
     ...mapGetters('lang', ['getIcons', 'getLang']),
+    ...mapGetters('tool', ['getTools', 'getATools', 'getStripes', 'stripesShown']),
 		iconTheme (): string {
 			return this.getTheme === 'light' ?	require('@/assets/icons/theme/light.svg') :
 																					require('@/assets/icons/theme/dark.svg')
 		},
-    ...mapGetters('tool', ['getTools']),
     component () {
       return (this.getTools && this.getTools[0]?.component) || null
     }
 	},
 	methods: {
 		...mapMutations('theme', ['setTheme']),
-    ...mapMutations('lang', ['setLang'])
+    ...mapMutations('lang', ['setLang']),
+    ...mapMutations('tool', ['initTools', 'toggleStripesShown'])
 	},
   props: {
     loaded: {
@@ -131,6 +140,7 @@ export default defineComponent({
   },
   mounted () {
     this.loaded()
+    this.initTools()
   }
 })
 </script>
@@ -187,6 +197,21 @@ export default defineComponent({
   border-top: none;
   writing-mode: vertical-rl;
   width: 23px;
+  &Right,
+  &Left {
+    width: 100%;
+  }
+  .StripeButton {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    padding: 10px 0;
+    user-select: none;
+    &:hover {
+      background-color: #353739;
+    }
+  }
 }
 
 #StripeLeft {
@@ -194,8 +219,12 @@ export default defineComponent({
 }
 
 #StripeLeftLeft,
-#StripeLeftRight {
-
+#StripeLeftRight,
+#StripeRightLeft,
+#StripeRightRight,
+#StripeBottomLeft,
+#StripeBottomRight, {
+  display: flex;
 }
 
 #StripeRight {
@@ -249,6 +278,19 @@ export default defineComponent({
 }
 
 #Status {
+  display: flex;
+  height: 22px;
+  align-items: center;
 	justify-content: space-between;
+  background-color: var(--panel-background);
+  border: var(--panel-border) solid 1px;
+}
+
+#ToggleStripes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 4px;
 }
 </style>

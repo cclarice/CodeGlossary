@@ -1,0 +1,64 @@
+*{
+	padding: 0;
+	margin: 0;
+    box-sizing: border-box;
+}
+html{
+	width: 100%;
+	height: 100%;
+	background: white;
+}
+div{
+
+	
+
+
+}
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+
+}
+img{
+	background: url(https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5eeea355389655.59822ff824b72.gif);
+height: 100%;
+size: 100%;
+background-repeat:no-repeat ;
+}
+.card{
+	margin: 2em;
+	padding: 2.5em 2rem;
+	color: #2c3039;
+}
+.card-list{
+	font-size: 14px;
+}
+.list-style-square{
+	list-style-type: square;
+}
+.list-style-none{
+	list-style-type: none;
+	margin-left: 1em;
+}
+.list-style-height{
+	list-style-height: 10px ;
+}
+@media(max-width: 1520px){
+	.card{
+		pading: 0;
+		margin: 0;
+	}
+	img{
+        size: 80%;
+        height: 80%;
+        width: avto;
+	}
+}
+@media(max-width: 1240px){
+	body {
+		display: flex;
+		flex-direction: column;
+	}
+}

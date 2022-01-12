@@ -1,14 +1,17 @@
 import { GetterTree, MutationTree } from 'vuex'
 
 export interface IToolState {
-	stripes: { [key in 'leftRight' | 'leftLeft' | 'rightRight' | 'rightLeft' | 'bottomRight'| 'bottomLeft']: Array<ITool> },
-	aTools: { [key in 'leftRight' | 'leftLeft' | 'rightRight' | 'rightLeft' | 'bottomRight'| 'bottomLeft']: ITool | null },
+	stripes: { [key in 'leftRight' | 'leftLeft' | 'rightRight' | 'rightLeft' | 'bottomRight' | 'bottomLeft' | string]: Array<ITool> }
+	aTools: { [key in 'leftRight' | 'leftLeft' | 'rightRight' | 'rightLeft' | 'bottomRight' | 'bottomLeft' | string]: ITool | null }
 	tools: Array<ITool>
+	show: boolean
 }
 
 interface ITool {
 	id: number
 	name: string
+	icon?: string
+	data?: { [key: string]: string | number | null | [] | ITool['data'] }
 	visible: boolean
 	enabled: boolean
 	component: string
@@ -74,7 +77,8 @@ const initialState = (): IToolState => ({
 			...ve,
 			component: 'Calculate'
 		}
-	]
+	],
+	show: true
 })
 
 const mutations: MutationTree<IToolState> = {
@@ -93,12 +97,49 @@ const mutations: MutationTree<IToolState> = {
 		if (tool) {
 			tool.visible = !tool.visible
 		}
+	},
+	initTools (state: IToolState) {
+		const local = localStorage.getItem('tool') as string | null
+		const parse: IToolState | null = typeof local === 'string' ? JSON.parse(local) : null
+		const stripes = state.stripes
+		function addToolToStripe (toolName: string, where: IToolState['stripes'][string] ) {
+			const tool = state.tools.find(tool => tool.name === toolName) as ITool
+
+			if (tool) {
+				where.push(tool)
+			}
+		}
+		if (parse) {
+			state.stripes = parse.stripes
+			state.aTools = parse.aTools
+			state.tools = parse.tools
+			state.show = parse.show
+		} else if (!Object.values(state.stripes).map(stripe => stripe.length).reduce((a, b) => a + b)) {
+			addToolToStripe('Project', stripes.leftRight)
+			addToolToStripe('Bookmarks', stripes.leftLeft)
+			addToolToStripe('Calculate', stripes.leftLeft)
+		}
+	},
+	toggleStripesShown (state: IToolState) {
+		state.show = !state.show
 	}
 }
 
 const getters: GetterTree<IToolState, IToolState> = {
+	getStripes (state: IToolState): IToolState['stripes'] {
+		return state.stripes
+	},
+	getATools (state: IToolState): IToolState['aTools'] {
+		return state.aTools
+	},
 	getTools (state: IToolState): IToolState['tools'] {
 		return state.tools
+	},
+	getToolByIdent (state: IToolState, i: string | number): IToolState['tools'][number] | undefined {
+		return state.tools.find(t => t.id === i || t.name === i)
+	},
+	stripesShown (state: IToolState): IToolState['show'] {
+		return state.show
 	}
 }
 
