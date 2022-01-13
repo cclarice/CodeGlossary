@@ -36,6 +36,19 @@ const develop: Array<RouteRecordRaw> = [
 		}
 	},
 	{
+		path: '/develop/duck',
+		name: 'Duck',
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		component: () => import('@/views/test/Duck.vue'),
+		meta: {
+			title: 'Typography',
+			favicon: require('@/assets/favicons/cmd.svg'),
+			parent: '/develop',
+			layout: EMPTY_LAYOUT
+		}
+	},
+	{
 		path:				'/develop/large_image',
 		name:				'LargeImage',
 		component:  () => import('@/views/test/LargeImage.vue'),
