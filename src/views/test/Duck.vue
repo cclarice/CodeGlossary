@@ -29,7 +29,7 @@ export default defineComponent({
         duck.style.left = event.pageX - duck.clientWidth / 2 + 'px'
         if (event.pageY > 333) {
           duck.style.top = event.pageY - duck.clientHeight / 2 + 'px'
-          duck.style.zIndex = event.pageY
+          duck.style.zIndex = String(event.pageY)
         }
         const height = document.body.clientHeight
         const scale = Math.pow(parseInt(duck.style.top) / height * 2, 2)
