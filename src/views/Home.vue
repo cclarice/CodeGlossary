@@ -1,6 +1,6 @@
 <template>
 	<div class="Home">
-		<h1>CodeGlossary Hello World</h1>
+		<h1>CodeGlossary</h1>
 		<h3>Welcome to Coding Glossary</h3>
 		<div style="flex-grow: 1">
 			<img src="@/assets/images/CodeGlossarySquareLogo.svg" width="256" height="256" alt="CodeGlossary Logo Square">

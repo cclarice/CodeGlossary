@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { MAIN_LAYOUT, EMPTY_LAYOUT } from '@/router/routes/consts/layouts'
+import { EMPTY_LAYOUT, MAIN_LAYOUT } from '@/router/routes/consts/layouts'
 
 const develop: Array<RouteRecordRaw> = [
 	{
@@ -44,6 +44,17 @@ const develop: Array<RouteRecordRaw> = [
 			favicon:  require('@/assets/favicons/cmd.svg'),
 			layout:   MAIN_LAYOUT,
 			parent:		'/develop/empty'
+		}
+	},
+	{
+		path:				'/develop/navigator',
+		name:				'Navigator',
+		component:	() => import('@/views/test/Navigator.vue'),
+		meta: {
+			title:		'Navigator',
+			favicons:	require('@/assets/favicons/cmd.svg'),
+			layout:		MAIN_LAYOUT,
+			parent:		'/develop'
 		}
 	}
 ]

@@ -22,6 +22,15 @@ export default `
 	--scroll-color:								#A9A9A9AA;
 	--scroll-border:				 			#FFFFFF44;
 	
+	--button-background:					#FFFFFF;
+	--button-disabled:						#F2F2F2;
+	--button-border:							#C4C4C4;
+	--button-default:						  #528CC7;
+	--button-default-border:			#487EB8;
+	--button-focus-border:				#A8CEF6;
+	--button-focus-outline:				#97C3F3;
+	--button-default-color:				#FFFFFF;
+	
 	/* Typography */
 	--default:					#000000;
 	--disabled:					#8C8C8C;

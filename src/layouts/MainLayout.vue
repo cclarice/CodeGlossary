@@ -102,6 +102,27 @@ const defaultComponentOptions = {
 
 export default defineComponent({
   name: 'MainLayout',
+  data () {
+    return {
+      browserIcons: {
+        brave: require('@/assets/icons/browser/brave.svg'),
+        chrome: require('@/assets/icons/browser/chrome.svg'),
+        edge: require('@/assets/icons/browser/edge.svg'),
+        explorer: require('@/assets/icons/browser/explorer.svg'),
+        firefox: require('@/assets/icons/browser/firefox.svg'),
+        opera: require('@/assets/icons/browser/opera.svg'),
+        safari: require('@/assets/icons/browser/safari.svg'),
+        yandex: require('@/assets/icons/browser/yandex.svg')
+      },
+      platformIcons: {
+        windows: null,
+        linux: null,
+        macos: null,
+        android: null,
+        ios: null
+      }
+    }
+  },
 	components: {
     MainStripeButton,
     BaseScrollable,
