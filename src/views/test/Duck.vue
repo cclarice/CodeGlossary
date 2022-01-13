@@ -12,6 +12,7 @@
   <img src="@/assets/XOsX.gif" alt="" id="duck" width="240px" style="z-index: 10">
 </template>
 
+
 <script>
 import { defineComponent } from 'vue'
 
