@@ -1,5 +1,5 @@
 <template>
-  <button @click="$emit('click')" :class="'BaseButton' + type" :style="{ width: typeof width === 'string' ? width : `${width}px` }" :disabled="disabled">
+  <button @click="$emit('onClick')" :class="'BaseButton' + type" :style="{ width: typeof width === 'string' ? width : `${width}px` }" :disabled="disabled">
     {{ text }}
   </button>
 </template>
@@ -52,6 +52,7 @@ button {
   &:focus,
   &:active {
     outline: 2px solid var(--button-focus-outline);
+    border-color: var(--focus-border);
   }
   &[disabled] {
     background-color: var(--button-background-disabled);

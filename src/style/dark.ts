@@ -22,14 +22,24 @@ export default `
 	--scroll-color:								#696969AA;
 	--scroll-border:				 			#29292944;
 	
+	--horizontal-row:	  					#515151;
+	
+	--focus-outline:							#3D6185;
+	--focus-border:								#456A90;
+	--field-disabled:             #3C3F41;
+	--field-border-disabled:      #646464;
+	--field-border-error:         #73454B;
+	--field-outline-error:        #8B3C3C;;
+	
 	--button-background:					#4C5052;
 	--button-disabled:						#3C3F41;
 	--button-border:							#5E6060;
 	--button-default:						  #365880;
 	--button-default-border:			#4C708C;
-	--button-focus-border:				#456A90;
-	--button-focus-outline:				#3D6185;
+	--button-focus-border:				var(--focus-border);
+	--button-focus-outline:				var(--focus-outline);
 	--button-default-color:				#FEFEFE;
+	
 	
 	/* Typography */
 	--default:					#BBBBBB;

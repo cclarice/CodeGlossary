@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
-import develop from '@/router/routes/test'
-import { MAIN_LAYOUT } from '@/router/routes/consts/layouts'
+import develop from '@/router/routes/develop'
+import { MAIN_LAYOUT } from '@/consts/layouts'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -11,6 +11,16 @@ const routes: Array<RouteRecordRaw> = [
       title: 'CodeGlossary',
       parent: null,
       layout: MAIN_LAYOUT
+    }
+  },
+  {
+    path: '/routes',
+    name: 'Routes',
+    component: () => import('@/views/Explorer.vue'),
+    meta: {
+      title: 'CodeGlossary',
+      parent: '/',
+      layout: MAIN_LAYOUT,
     }
   },
   ...develop
