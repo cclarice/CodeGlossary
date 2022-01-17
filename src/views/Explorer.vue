@@ -38,13 +38,12 @@ import { RouteRecordRaw } from 'vue-router'
 
 export default defineComponent({
   name: 'Explorer',
-  data () {
-    return ({
-      routes: this.$router.getRoutes().filter(route => route?.meta?.parent && (route.meta.parent as RouteRecordRaw).path === this.$route.path)
-    })
-  },
-  mounted () {
-    console.log(this.routes)
+  computed: {
+    routes () {
+      console.log('Computing routes')
+      return this.$router.getRoutes()
+        .filter(route => route?.meta?.parent && (route.meta.parent as RouteRecordRaw).path === this.$route.path)
+    }
   }
 })
 </script>
