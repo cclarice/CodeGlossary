@@ -4,7 +4,10 @@
       <h1 style="margin-top: 32px">CodeGlossary</h1>
       <h3>Welcome to Coding Glossary</h3>
       <div style="flex-grow: 1">
-        <img src="@/assets/images/CodeGlossarySquareLogo.svg" width="256" height="256" alt="CodeGlossary Logo Square">
+        <img class="MainLogo"
+             src="@/assets/images/CodeGlossarySquareLogo.svg"
+             width="256" height="256" alt="CodeGlossary Logo Square"
+             @click="$router.push('/routes')">
       </div>
     </main>
     <aside class="HomeAside">
@@ -35,6 +38,7 @@ interface data {
   contributors: Array<contributor>
   commits: number,
   window: Window
+  intervalId: number
 }
 
 interface contributor {
@@ -50,7 +54,8 @@ export default defineComponent({
     return {
       contributors: [],
       commits: 0,
-      window: window
+      window: window,
+      intervalId: 0
     }
   },
   async created () {
@@ -59,9 +64,6 @@ export default defineComponent({
     this.contributors.forEach((contributor: { contributions: number }) => {
       this.commits += contributor.contributions
     })
-
-    const response1 = await fetch('https://api.github.com/repos/cclarice/codeglo')
-    console.log(await response1.json())
   }
 })
 </script>
@@ -107,6 +109,24 @@ export default defineComponent({
   }
 }
 
+.MainLogo {
+  transition: 0.2s linear;
+  animation: appear ease-in-out 0.2s;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1)
+  }
+}
+
+@keyframes appear {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 .Contributors {
   display: flex;
   flex-flow: column nowrap;
@@ -146,6 +166,7 @@ export default defineComponent({
   border-radius: 3px;
   padding: 7px;
   gap: 8px;
+  cursor: pointer;
   img {
     width: 48px;
     height: 48px;
