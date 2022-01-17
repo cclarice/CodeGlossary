@@ -1,26 +1,30 @@
 <template>
 	<div class="Home">
-		<h1>CodeGlossary</h1>
-		<h3>Welcome to Coding Glossary</h3>
-		<div style="flex-grow: 1">
-			<img src="@/assets/images/CodeGlossarySquareLogo.svg" width="256" height="256" alt="CodeGlossary Logo Square">
-		</div>
-    <div class="Contributors">
-      <div class="ContributorsHeader">
-        <h4>Contributors:</h4><h4 class="ContributorsHeaderCounter"> {{ contributors.length }} </h4>
+    <main class="HomeMain">
+      <h1 style="margin-top: 32px">CodeGlossary</h1>
+      <h3>Welcome to Coding Glossary</h3>
+      <div style="flex-grow: 1">
+        <img src="@/assets/images/CodeGlossarySquareLogo.svg" width="256" height="256" alt="CodeGlossary Logo Square">
       </div>
-      <div class="ContributorsContainer">
-        <div class="Contributor" v-for="contributor of contributors" :key="contributor.id" @click="window.open(contributor.html_url)">
-          <img :src="contributor.avatar_url" :alt="contributor.login" width="32">
-          <div class="ContributorText">
+    </main>
+    <aside class="HomeAside">
+      <div class="Contributors">
+        <div class="ContributorsHeader">
+          <h4>Contributors:</h4><h4 class="ContributorsHeaderCounter"> {{ contributors.length }} </h4>
+        </div>
+        <div class="ContributorsContainer">
+          <div class="Contributor" v-for="contributor of contributors" :key="contributor.id" @click="window.open(contributor.html_url)">
+            <img :src="contributor.avatar_url" :alt="contributor.login" width="32">
+            <div class="ContributorText">
             <span class="ContributorName">
               {{ contributor.login }}
             </span>
-            <span><code class="Contributions">{{ (contributor.contributions / commits * 100).toFixed(2) }}% | {{ contributor.contributions }}</code> <span>contributions</span></span>
+              <span><code class="Contributions">{{ (contributor.contributions / commits * 100).toFixed(2) }}% | {{ contributor.contributions }}</code> <span>contributions</span></span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </aside>
 	</div>
 </template>
 
@@ -55,19 +59,52 @@ export default defineComponent({
     this.contributors.forEach((contributor: { contributions: number }) => {
       this.commits += contributor.contributions
     })
+
+    const response1 = await fetch('https://api.github.com/repos/cclarice/codeglo')
+    console.log(await response1.json())
   }
 })
 </script>
 
 <style lang="scss" scoped>
 .Home {
-	display: flex;
-	flex-direction: column;
+  display: grid;
+  width: 100%;
+  min-height: 100%;
+  grid-template-columns: 320px auto 320px;
+  @media (max-width: 1024px) {
+    grid-template-columns: auto 320px;
+  }
+  @media (max-width: 720px) {
+    grid-template-columns: auto;
+  }
 	align-items: center;
-	flex: 0 1 400px;
+	flex: 1 1 400px;
 	gap: 8px;
 	padding: 8px;
 	height: 600px;
+  &Main {
+    grid-column-start: 2;
+    @media (max-width: 1024px) {
+      grid-column-start: 1;
+    }
+  }
+  &Aside {
+    grid-column-start: 3;
+    @media (max-width: 1024px) {
+      grid-column-start: 2;
+    }
+  }
+  &Main,
+  &Aside {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    min-height: 100%;
+    @media (max-width: 720px) {
+      grid-column-start: 1;
+    }
+  }
 }
 
 .Contributors {
