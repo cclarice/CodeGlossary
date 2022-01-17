@@ -40,7 +40,6 @@ export default defineComponent({
   name: 'Explorer',
   computed: {
     routes () {
-      console.log('Computing routes')
       return this.$router.getRoutes()
         .filter(route => route?.meta?.parent && (route.meta.parent as RouteRecordRaw).path === this.$route.path)
     }

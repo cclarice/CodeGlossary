@@ -1,6 +1,8 @@
 import { RouteRecordRaw } from 'vue-router'
 import develop from '@/router/routes/develop'
 import { MAIN_LAYOUT } from '@/consts/layouts'
+import { FAVICON, PROJECT_CODEGLO } from '@/consts/favicons'
+import users from '@/router/routes/users/users'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,6 +12,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'CodeGlossary',
       parent: null,
+      favicon: FAVICON,
       layout: MAIN_LAYOUT
     }
   },
@@ -21,9 +24,22 @@ const routes: Array<RouteRecordRaw> = [
       title: 'CodeGlossary',
       parent: '/',
       layout: MAIN_LAYOUT,
+      favicon: PROJECT_CODEGLO
     }
   },
-  ...develop
+  ...develop,
+  ...users,
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('@/views/Explorer.vue'),
+    meta: {
+      title: '404',
+      parent: '/',
+      layout: MAIN_LAYOUT,
+      favicon: PROJECT_CODEGLO
+    }
+  }
 ]
 
 routes.forEach((route: RouteRecordRaw) => {
