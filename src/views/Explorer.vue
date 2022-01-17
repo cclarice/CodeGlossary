@@ -57,7 +57,7 @@ export default defineComponent({
   grid-template-rows: 20px auto 20px;
   flex-flow: column;
   grid-column-gap: 1px;
-  background-color: var(--main-border);
+  background-color: var(--main-background);
 }
 
 header {
@@ -75,6 +75,9 @@ main {
   display: flex;
   padding: 8px;
   flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: fit-content;
   gap: 8px;
 }
 
@@ -86,6 +89,10 @@ main {
   width: 128px;
   max-height: 160px;
   height: 160px;
+  @media (max-width: 1024px) {
+    max-width: 64px;
+    max-height: 80px;
+  }
   gap: 8px;
   overflow: hidden;
   &Favicon {
