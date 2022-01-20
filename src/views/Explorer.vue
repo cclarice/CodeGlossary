@@ -100,7 +100,7 @@ main {
     width: 50%;
   }
   &Name {
-
+    text-align: center;
   }
 }
 
