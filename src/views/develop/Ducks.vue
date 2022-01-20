@@ -12,11 +12,11 @@
   <img src="@/assets/XOsX.gif" alt="" id="duck" width="240px" style="z-index: 10">
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Duck',
+  name: 'Ducks',
   mounted () {
     const ducks = [ document.getElementById('duck'),
                     document.getElementById('duck1'),
@@ -26,20 +26,22 @@ export default defineComponent({
       for (const duck of ducks) {
         const time = 400 + ducks.indexOf(duck) * 100
       setTimeout(()  => {
-        duck.style.left = event.pageX - duck.clientWidth / 2 + 'px'
-        if (event.pageY > 333) {
-          duck.style.top = event.pageY - duck.clientHeight / 2 + 'px'
-          duck.style.zIndex = String(event.pageY)
+        if (duck) {
+          duck.style.left = event.pageX - duck.clientWidth / 2 + 'px'
+          if (event.pageY > 333) {
+            duck.style.top = event.pageY - duck.clientHeight / 2 + 'px'
+            duck.style.zIndex = String(event.pageY)
+          }
+          const height = document.body.clientHeight
+          const scale = Math.pow(parseInt(duck.style.top) / height * 2, 2)
+          duck.style.transform = `scale(${scale})`
         }
-        const height = document.body.clientHeight
-        const scale = Math.pow(parseInt(duck.style.top) / height * 2, 2)
-        duck.style.transform = `scale(${scale})`
       }, time)}
     })
   }
 })
 </script>
-<style>
+<style lang="scss" scoped>
 #duck, #duck1, #duck2, #duck3 {
   position: absolute;
   top: calc(50% - 100px);

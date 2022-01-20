@@ -39,7 +39,7 @@ const develop: Array<RouteRecordRaw> = [
 	{
 		path: '/develop/duck',
 		name: 'Duck',
-		component: () => import('@/views/develop/Duck.vue'),
+		component: () => import('@/views/develop/Ducks.vue'),
 		meta: {
 			title: 'Typography',
 			favicon: FILE_DEV,
