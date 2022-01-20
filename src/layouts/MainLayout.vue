@@ -81,6 +81,7 @@
 			</section>
 		</nav>
 	</footer>
+  <BaseBalloons v-show="!loading"/>
 </template>
 
 <script lang="ts">
@@ -92,6 +93,7 @@ import BaseScrollable from '@/components/base/BaseScrollable.vue'
 import BaseLoading from '@/components/base/BaseLoading.vue'
 import BaseError from '@/components/base/BaseError.vue'
 import MainStripeButton from '@/layouts/main/MainStripeButton.vue'
+import BaseBalloons from '@/components/balloon/BaseBalloons.vue'
 
 const defaultComponentOptions = {
   delay: 200,
@@ -124,6 +126,7 @@ export default defineComponent({
     }
   },
 	components: {
+    BaseBalloons,
     MainStripeButton,
     BaseScrollable,
 		MainNavigation,
