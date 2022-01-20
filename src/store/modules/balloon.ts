@@ -1,7 +1,7 @@
 import { GetterTree, MutationTree } from 'vuex'
 
 interface IBalloonAction {
-	action: () => {}
+	action: () => boolean
 	text: string
 }
 
@@ -15,22 +15,33 @@ interface IBalloon {
 }
 
 interface IBalloonState {
-	balloons: IBalloon[]
+	balloons: IBalloon[],
+	icons: { [key: string]: string }
 }
 
 const initialState = (): IBalloonState => ({
-	balloons: []
+	balloons: [],
+	icons: {
+		info:			require('@/assets/icons/status/info.svg'),
+		question:	require('@/assets/icons/status/question.svg'),
+		success:	require('@/assets/icons/status/success.svg'),
+		warning:	require('@/assets/icons/status/warning.svg'),
+		error:		require('@/assets/icons/status/error.svg'),
+	}
 })
 
-const getters: GetterTree<IBalloonAction, IBalloonAction> = {
-	getBalloons (state: IBalloonState): IBalloon[] {
+const getters: GetterTree<IBalloonState, IBalloonState> = {
+	getBalloons (state: IBalloonState): IBalloonState['balloons'] {
 		return state.balloons
 	}
 }
 
 const mutations: MutationTree<IBalloonState> = {
-	addBalloons (state: IBalloonState, balloon) {
+	addBalloons (state: IBalloonState, balloon: ) {
 
+	},
+	removeBalloonById (state: IBalloonState, id: number) {
+		state.balloons.filter(balloon => balloon.id !== id)
 	}
 }
 
