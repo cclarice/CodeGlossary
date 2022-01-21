@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: NPM run serve
+name: Build
 
 on:
   push:
@@ -25,5 +25,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
+    - run: echo "building..."
+    - run: npm install
+    - run: npm run build
     - run: npm run serve
+    - run: echo "Build successfully"
+    - run: echo "the project directory is - $CI_PROJECT_DIR"
+    - run: echo $CI_PROJECT_DIR ; echo
+    - run: echo "and where am I? - $PWD"
