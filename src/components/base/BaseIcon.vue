@@ -1,6 +1,6 @@
 <template>
 	<div class="BaseIcon" @iconClick="$emit('iconClick', $event)">
-		<div	class="BaseIconWrapper">
+		<div class="BaseIconWrapper" :class="{ BaseIconWrapperActive: active }">
       <img :src="icon" :style="{ filter: autoColor && getTheme === 'light' ? 'grayscale(100%) brightness(0.625)' : '' }" alt="">
     </div>
 	</div>
@@ -20,6 +20,10 @@ export default defineComponent({
     autoColor: {
       type: Boolean,
       default: true
+    },
+    active: {
+      type: Boolean,
+      default: false
     }
 	},
 	computed: {
@@ -51,6 +55,9 @@ export default defineComponent({
 	width: 22px;
 	height: 22px;
   padding: 3px;
+  &Active {
+		background-color: var(--toolbar-button-pressed);
+  }
 }
 
 img {
