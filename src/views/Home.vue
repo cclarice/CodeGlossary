@@ -138,7 +138,7 @@ export default defineComponent({
     align-items: center;
     height: 33px;
     padding: 0 8px;
-    background-color: #4A4E52;
+    background-color: var(--field-background);
     border-bottom: 1px solid var(--panel-border);
     gap: 0.5em;
     &Counter {
@@ -161,7 +161,7 @@ export default defineComponent({
 
 .Contributor {
   display: flex;
-  background-color: #4A4E52;
+  background-color: var(--field-background);
   border: 1px solid var(--panel-border);
   border-radius: 3px;
   padding: 7px;

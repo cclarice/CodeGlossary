@@ -240,6 +240,9 @@ export default defineComponent({
 
 #StripeLeft {
   transform: rotate(180deg);
+  ::v-deep img {
+    transform: rotate(180deg);
+  }
 }
 
 #StripeLeftLeft,

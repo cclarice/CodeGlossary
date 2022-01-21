@@ -65,9 +65,11 @@ const mutations: MutationTree<IBalloonState> = {
 		if (!balloon.type)			{ balloon.type = 'info' }
 		if (!balloon.duration)	{ balloon.duration = 5000 }
 		state.balloons.push(balloon)
-		setTimeout(() => {
-			state.balloons.filter(_balloon => _balloon.id !== balloon.id)
-		}, balloon.duration)
+		if (balloon.duration > 0) {
+			setTimeout(() => {
+				state.balloons.filter(_balloon => _balloon.id !== balloon.id)
+			}, balloon.duration)
+		}
 	},
 	removeBalloonById (state: IBalloonState, id: number) {
 		state.balloons = state.balloons.filter(balloon => balloon.id !== id)
