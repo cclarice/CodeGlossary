@@ -23,7 +23,8 @@
         </div>
       </div>
       <div class="BalloonColumn BalloonRight">
-        <img class="HoverableIcon" src="@/assets/icons/interface/close.svg" alt="Close">
+        <img class="HoverableIcon" src="@/assets/icons/interface/close.svg" alt="Close"
+             @click="removeBalloon($event, balloon.id)">
       </div>
     </div>
   </nav>
@@ -39,7 +40,18 @@ export default defineComponent({
     ...mapGetters('balloon', ['getBalloons', 'getBalloonsIcons'])
   },
   methods: {
-    ...mapMutations('balloon', ['removeBalloonById'])
+    ...mapMutations('balloon', ['removeBalloonById']),
+    removeBalloon (event: Event & { path: HTMLElement[] }, id: number) {
+      const target: HTMLElement | undefined = event.path.find(elem => elem.className === 'Balloon')
+
+      if (target) {
+        target.animate([{ opacity: 1 }, { opacity: 0 }],
+                          { duration: 500, easing: 'ease' });
+      }
+      setTimeout(() => {
+        this.removeBalloonById(id)
+      }, target ? 500 : 0)
+    }
   }
 })
 </script>
@@ -66,6 +78,7 @@ export default defineComponent({
   border: 1px solid var(--panel-border);
   box-shadow: 0 2px 8px #00000019;
   border-radius: 2px;
+  animation: appear .5s ease;
   &Main {
     display: flex;
     flex-flow: column;
@@ -92,6 +105,15 @@ export default defineComponent({
   }
   &Setting {
     padding: 0 6px;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>

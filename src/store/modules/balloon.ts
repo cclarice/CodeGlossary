@@ -70,7 +70,7 @@ const mutations: MutationTree<IBalloonState> = {
 		}, balloon.duration)
 	},
 	removeBalloonById (state: IBalloonState, id: number) {
-		state.balloons.filter(balloon => balloon.id !== id)
+		state.balloons = state.balloons.filter(balloon => balloon.id !== id)
 	}
 }
 
