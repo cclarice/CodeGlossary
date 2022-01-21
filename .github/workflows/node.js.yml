@@ -28,7 +28,7 @@ jobs:
     - run: echo "building..."
     - run: npm install
     - run: npm run build
-    - run: npm run serve
+    # - run: npm run serve
     - run: echo "Build successfully"
     - run: echo "the project directory is - $CI_PROJECT_DIR"
     - run: echo $CI_PROJECT_DIR ; echo
