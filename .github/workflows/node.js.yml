@@ -25,11 +25,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: echo "building..."
-    - run: npm install
-    - run: npm run build
+    - run: npm install && echo "Install successfully"
+    - run: npm run lint && echo "Lint successfully"
+    - run: npm run build && echo "Build successfully"
     # - run: npm run serve
-    - run: echo "Build successfully"
-    - run: echo "the project directory is - $CI_PROJECT_DIR"
-    - run: echo $CI_PROJECT_DIR ; echo
-    - run: echo "and where am I? - $PWD"
+    # - run: echo "the project directory is - $CI_PROJECT_DIR"
+    # - run: echo $CI_PROJECT_DIR ; echo
+    # - run: echo "and where am I? - $PWD"
