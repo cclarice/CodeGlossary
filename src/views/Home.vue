@@ -11,7 +11,8 @@
       </div>
     </main>
     <aside class="HomeAside">
-      <div class="Contributors">
+      <GitHubRepoPanel rep-link="/cclarice/codeglo"/>
+      <!--<div class="Contributors">
         <div class="ContributorsHeader">
           <h4>Contributors:</h4><h4 class="ContributorsHeaderCounter"> {{ contributors.length }} </h4>
         </div>
@@ -26,13 +27,14 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
     </aside>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import GitHubRepoPanel from '@/components/other/GitHubRepoPanel.vue'
 
 interface data {
   contributors: Array<contributor>
@@ -50,6 +52,7 @@ interface contributor {
 
 export default defineComponent({
 	name: 'Home',
+  components: { GitHubRepoPanel },
   data (): data {
     return {
       contributors: [],
