@@ -1,0 +1,292 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    text-decoration:none;
+}
+a{
+    color: #95999c;
+}
+html,body{
+    display: flex;
+    min-height: 100%;
+    width: 100%;
+    font-family: "Open-Sans" ,sans-serif;
+}
+#main{
+    flex-grow: 1;
+    display: flex;
+    flex-flow: column;
+}
+#header{
+    background-color: #1d232b;
+    color: #fdfdfe;
+    display: flex;
+    height: 80px;
+    width: 100%;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.16));
+}
+p{
+    font-size: 32px;
+    width: 84px;
+    height: 32px;
+    margin: 26px 300px 22px 58px;
+}
+#aside{
+    display: flex;
+    flex-direction: column;
+    width: 204px;
+    background: #15191d;
+    height: auto;
+}
+
+#logo{
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 118px;
+}
+li{
+    line-height: 40px;
+    list-style-type: none;
+    align-items: center;
+    margin: 0 16px;
+    color: #95999c;
+    padding: 8px 0 8px 0;
+    display: flex;
+
+
+
+}
+.icon-sidebar {
+    width: 40px;
+    height: 24px;
+    left: 64px;
+    top: 16px;
+}
+.huita{
+    background: #1d232c;
+}
+.ring{
+    background: #1d232c;
+    padding: 0 25px;
+}
+.ring:active{
+    transform: rotate(180deg);
+}
+.huita:active{
+    transform: rotate(180deg);
+}
+.avatar{
+    margin: 0 10px;
+
+}
+ul{
+    position: relative;
+    padding-top: 7px;
+    height: 50px;
+
+}
+#create{
+    background: #fdfdfe;
+    color: #047fdb;
+    margin: 20px 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 211px;
+    height: 40px;
+    padding: 8px;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+}
+h2{
+    font-size: 26px;
+    line-height: 32px;
+    font-weight: bold;
+    display: flex;
+
+}
+#pagevideos{
+    background: #1d232b;
+     display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    padding: 50px 225px;
+
+}
+.bord-text{
+    color: #fdfdfe;
+    padding: 16px 8px 0 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+}
+#section{
+    background: #2c343b;
+    border: #2c343b;
+    border-radius: 16px;
+    height: fit-content;
+    display: flex;
+    flex-flow: column;
+    max-width: fit-content;
+}
+.mini-avatar{
+    width: 32px;
+    margin: 0 10px 0 0;
+    display: flex;
+    align-items: flex-start;
+}
+.mini-text{
+    margin: 0;
+    padding: 0;
+}
+.column{
+    display: flex;
+    justify-content: flex-end;
+
+}
+.minutos{
+    display: flex;
+    flex-direction: column;
+
+}
+.play{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 40px;
+    padding: 8px;
+
+    border-radius: 8px;
+    background: #047fdb;
+    border: 0;
+}
+.button2{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+#main-page{
+    color: #fbfbfd;
+    height: fit-content;
+    display: flex;
+    border-radius: 15px;
+    gap: 10px;
+    width: 100%;
+
+
+
+}
+.page1{
+    background: #2c343b;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+
+
+}
+.page2{
+    display: flex;
+    flex-flow: column;
+
+    gap: 10px;
+}
+.img-shakal{
+    max-width: 256px;
+}
+
+.avatar-dead{
+    transform: translate(120px, -50%);
+    margin-left: 60px;
+}
+.column{
+    display: flex;
+    flex-flow: column;
+
+}
+.top-board{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    color: #fdfdfe;
+    background: #2c343b;
+    padding: 16px;
+    border-radius: 16px;
+    width: 256px;
+
+}
+.top-board li{
+    color: white;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-start;
+    display: flex;
+
+}
+.hah{
+    display: flex;
+    justify-content: flex-start;
+
+
+}
+.hah2{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+.hah3{
+    display: flex;
+
+
+}
+.bord-text h6{
+    color: #878b90;
+    display: flex;
+    margin: 5px 5px;
+    font-size: 13px;
+}
+h6 {
+    color: #878b90;
+    display: flex;
+}
+
+.delitel{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.delitel2{
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    width: 100%;
+}
+.amg{
+    display: flex;
+    flex-direction: row;
+}
+.page-app{
+    display: flex;
+    flex-direction: column;
+    width: 255px;
+    background: #2c343b;
+    border-radius: 15px;
+}
+.app-text{
+    margin-top: -40px;
+    padding: 0 8px 0 10px;
+}
+#pageHome{
+    background: #1d232c;
+    display: flex;
+    flex-grow: 1;
+}

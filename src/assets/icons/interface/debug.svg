@@ -1,0 +1,14 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.4247 10.1538V10.6923C12.4247 11.066 12.3604 11.4225 12.2687 11.7692H14V13.3846H11.4353C10.6345 14.3603 9.42582 15 8.06109 15C6.69636 15 5.48764 14.3603 4.68691 13.3846H2V11.7692H3.85345C3.76182 11.4225 3.69745 11.066 3.69745 10.6923V10.1538H2V8.53846H3.69745V7.46154C3.69745 7.27738 3.73018 7.10185 3.75309 6.92308H2V5.30769H4.30727C4.724 4.60446 5.33273 4.03262 6.06691 3.65462L4.53418 2.14262L5.69164 1L7.89091 3.17108C7.94873 3.16892 7.94218 3.16031 8 3.16031C8.02073 3.16031 8.09927 3.16892 8.12 3.17L10.3084 1L11.4658 2.14262L9.97673 3.61262C10.7458 3.98846 11.3829 4.57862 11.8149 5.30769H14V6.92308H12.3691C12.392 7.10185 12.4247 7.27738 12.4247 7.46154V8.53846H14V10.1538H12.4247ZM6.2 7V8.5H9.8V7H6.2ZM6.2 10V11.5H9.8V10H6.2Z" fill="url(#paint0_linear_998_19297)"/>
+<defs>
+<linearGradient id="paint0_linear_998_19297" x1="13.8965" y1="13.8179" x2="24.3965" y2="24.3179" gradientUnits="userSpaceOnUse">
+<stop stop-color="#59A869"/>
+<stop offset="0.463646" stop-color="#70D685"/>
+<stop offset="1" stop-color="#59A869"/>
+<animate attributeName="x1" values="-100%;200%" dur="2s" repeatCount="indefinite"/>
+<animate attributeName="y1" values="-100%;200%" dur="2s" repeatCount="indefinite"/>
+<animate attributeName="x2" values="-25%;275%" dur="2s" repeatCount="indefinite"/>
+<animate attributeName="y2" values="-25%;275%" dur="2s" repeatCount="indefinite"/>
+</linearGradient>
+</defs>
+</svg>

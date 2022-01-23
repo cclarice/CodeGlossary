@@ -5,6 +5,8 @@ export default `
 	--field-border:						  	#5E6060;
 	--field-border-disabled:			#646464;
 	
+	--popup-header:               #4A4E52;
+	
 	--panel-background:         	#3C3F41;
 	--panel-border:             	#323232;
 	

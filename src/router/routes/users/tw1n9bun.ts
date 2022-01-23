@@ -1,5 +1,5 @@
 import { FILE_USER } from '@/consts/favicons'
-import { EMPTY_LAYOUT, MAIN_LAYOUT } from '@/consts/layouts'
+import { MAIN_LAYOUT } from '@/consts/layouts'
 import { RouteRecordRaw } from 'vue-router'
 
 const tw1n9bun: Array<RouteRecordRaw>  = [
