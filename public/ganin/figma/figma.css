@@ -289,4 +289,78 @@ h6 {
     background: #1d232c;
     display: flex;
     flex-grow: 1;
+    padding: 50px 225px;
+
+
 }
+.loading{
+    background: #1d232c;
+    display: flex;
+    flex-grow: 1;
+    height: fit-content;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+}
+.delitel3{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.delitel4{
+    display: flex;
+    flex-direction: row;
+}
+.vl{
+    display: flex;
+    flex-direction: row;
+    border-left: 6px solid gray;
+    height: auto;
+    border-radius: 50px;
+    align-items: center;
+
+}
+.load{
+    background: #2c343b;
+    border-radius: 8px;
+    color: #90989b;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+}
+.videoload{
+    padding: 10px 10px 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+.buttoninput{
+    background: #047fdb;
+    height: 20px;
+    width: 120px;
+    border-radius: 8px;
+    margin: 10px 10px 10px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.videoinfo{
+    display: flex;
+    margin: 10px;
+
+}
+.information{
+    background: #2c343b;
+    display: flex;
+    border-radius: 8px;
+    padding: 10px 10px 0 10px;
+
+}
+.loads{
+    background: #2c343b;
+    display: flex;
+    border-radius: 8px;
+    gap: 10px;
+    padding: 10px 10px 0 10px;
+    flex-direction: column;
+}
+
