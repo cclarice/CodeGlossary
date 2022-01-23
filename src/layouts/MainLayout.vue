@@ -81,6 +81,7 @@
 			</section>
 		</nav>
 	</footer>
+  <BaseBalloons v-show="!loading"/>
 </template>
 
 <script lang="ts">
@@ -92,6 +93,7 @@ import BaseScrollable from '@/components/base/BaseScrollable.vue'
 import BaseLoading from '@/components/base/BaseLoading.vue'
 import BaseError from '@/components/base/BaseError.vue'
 import MainStripeButton from '@/layouts/main/MainStripeButton.vue'
+import BaseBalloons from '@/components/balloon/BaseBalloons.vue'
 
 const defaultComponentOptions = {
   delay: 200,
@@ -102,7 +104,29 @@ const defaultComponentOptions = {
 
 export default defineComponent({
   name: 'MainLayout',
+  data () {
+    return {
+      browserIcons: {
+        brave: require('@/assets/icons/browser/brave.svg'),
+        chrome: require('@/assets/icons/browser/chrome.svg'),
+        edge: require('@/assets/icons/browser/edge.svg'),
+        explorer: require('@/assets/icons/browser/explorer.svg'),
+        firefox: require('@/assets/icons/browser/firefox.svg'),
+        opera: require('@/assets/icons/browser/opera.svg'),
+        safari: require('@/assets/icons/browser/safari.svg'),
+        yandex: require('@/assets/icons/browser/yandex.svg')
+      },
+      platformIcons: {
+        windows: null,
+        linux: null,
+        macos: null,
+        android: null,
+        ios: null
+      }
+    }
+  },
 	components: {
+    BaseBalloons,
     MainStripeButton,
     BaseScrollable,
 		MainNavigation,
@@ -216,6 +240,9 @@ export default defineComponent({
 
 #StripeLeft {
   transform: rotate(180deg);
+  ::v-deep img {
+    transform: rotate(180deg);
+  }
 }
 
 #StripeLeftLeft,

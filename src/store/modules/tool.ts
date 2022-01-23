@@ -1,11 +1,13 @@
 import { GetterTree, MutationTree } from 'vuex'
 
 export interface IToolState {
-	stripes: { [key in 'leftRight' | 'leftLeft' | 'rightRight' | 'rightLeft' | 'bottomRight' | 'bottomLeft' | string]: Array<ITool> }
-	aTools: { [key in 'leftRight' | 'leftLeft' | 'rightRight' | 'rightLeft' | 'bottomRight' | 'bottomLeft' | string]: ITool | null }
+	stripes: { [key in toolPosition | string]: Array<ITool> }
+	aTools: { [key in toolPosition | string]: ITool | null }
 	tools: Array<ITool>
 	show: boolean
 }
+
+type toolPosition = 'leftRight' | 'leftLeft' | 'rightRight' | 'rightLeft' | 'bottomRight' | 'bottomLeft'
 
 interface ITool {
 	id: number
@@ -45,36 +47,42 @@ const initialState = (): IToolState => ({
 			id: 0,
 			name: 'Bookmarks',
 			...ve,
+			icon: require('@/assets/icons/stripe/bookmarks.svg'),
 			component: 'Bookmarks'
 		},
 		{
 			id: 1,
 			name: 'Project',
 			...ve,
+			icon: require('@/assets/icons/stripe/project.svg'),
 			component: 'Project'
 		},
 		{
 			id: 2,
 			name: 'Translate',
 			...ve,
+			icon: require('@/assets/icons/stub.svg'),
 			component: 'Translate'
 		},
 		{
 			id: 3,
 			name: 'String',
 			...ve,
+			icon: require('@/assets/icons/stub.svg'),
 			component: 'StringManipulator'
 		},
 		{
 			id: 4,
 			name: 'Color',
 			...ve,
+			icon: require('@/assets/icons/stub.svg'),
 			component: 'ColorEditor'
 		},
 		{
 			id: 5,
 			name: 'Calculate',
 			...ve,
+			icon: require('@/assets/icons/stripe/calculate.svg'),
 			component: 'Calculate'
 		}
 	],

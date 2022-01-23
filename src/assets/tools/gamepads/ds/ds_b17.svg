@@ -1,0 +1,50 @@
+<svg width="600" height="442" viewBox="0 0 600 442" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<path d="M188.9 81.5467H410.343L412.595 161.165H187.023L188.9 81.5467Z" fill="#2F2F2F"/>
+<path d="M188.9 81.5467H410.343L412.595 161.165H187.023L188.9 81.5467Z" fill="url(#pattern0)" fill-opacity="0.2"/>
+<path d="M188.9 81.5467H410.343L412.595 161.165H187.023L188.9 81.5467Z" fill="url(#paint0_linear_915_19174)" fill-opacity="0.2"/>
+<path d="M188.9 81.5467H410.343L412.595 161.165H187.023L188.9 81.5467Z" fill="url(#paint1_radial_915_19174)"/>
+<path d="M412.595 161.165H187.023C189.599 172.641 195.466 175.657 205.039 176.562H393.829C405.608 174.861 410.296 171.753 412.595 161.165Z" fill="#2F2F2F"/>
+<path d="M412.595 161.165H187.023C189.599 172.641 195.466 175.657 205.039 176.562H393.829C405.608 174.861 410.296 171.753 412.595 161.165Z" fill="url(#pattern1)" fill-opacity="0.2"/>
+<path d="M412.595 161.165H187.023C189.599 172.641 195.466 175.657 205.039 176.562H393.829C405.608 174.861 410.296 171.753 412.595 161.165Z" fill="url(#paint2_linear_915_19174)" fill-opacity="0.2"/>
+<path d="M412.595 161.165H187.023C189.599 172.641 195.466 175.657 205.039 176.562H393.829C405.608 174.861 410.296 171.753 412.595 161.165Z" fill="url(#paint3_radial_915_19174)"/>
+<path d="M188.9 81.5467H410.343C408.479 71.5258 409.2 67.2256 402.649 65.21H197.344C192.516 66.9968 190.224 72.4629 188.9 81.5467Z" fill="#2F2F2F"/>
+<path d="M188.9 81.5467H410.343C408.479 71.5258 409.2 67.2256 402.649 65.21H197.344C192.516 66.9968 190.224 72.4629 188.9 81.5467Z" fill="url(#pattern2)" fill-opacity="0.2"/>
+<path d="M188.9 81.5467H410.343C408.479 71.5258 409.2 67.2256 402.649 65.21H197.344C192.516 66.9968 190.224 72.4629 188.9 81.5467Z" fill="url(#paint4_linear_915_19174)" fill-opacity="0.2"/>
+<path d="M188.9 81.5467H410.343C408.479 71.5258 409.2 67.2256 402.649 65.21H197.344C192.516 66.9968 190.224 72.4629 188.9 81.5467Z" fill="url(#paint5_radial_915_19174)"/>
+<defs>
+<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.0709306" height="0.143688">
+<use xlink:href="#image0_915_19174" transform="scale(0.00110829 0.00224512)"/>
+</pattern>
+<pattern id="pattern1" patternContentUnits="objectBoundingBox" width="0.0709306" height="0.143688">
+<use xlink:href="#image0_915_19174" transform="scale(0.00110829 0.00224512)"/>
+</pattern>
+<pattern id="pattern2" patternContentUnits="objectBoundingBox" width="0.0709306" height="0.143688">
+<use xlink:href="#image0_915_19174" transform="scale(0.00110829 0.00224512)"/>
+</pattern>
+<linearGradient id="paint0_linear_915_19174" x1="299.809" y1="65.21" x2="299.809" y2="176.562" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-opacity="0.46"/>
+</linearGradient>
+<radialGradient id="paint1_radial_915_19174" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(299.809 120.886) rotate(90) scale(55.6762 112.786)">
+<stop offset="0.0833333" stop-color="#2F2F2F" stop-opacity="0"/>
+<stop offset="1" stop-color="#2F2F2F"/>
+</radialGradient>
+<linearGradient id="paint2_linear_915_19174" x1="299.809" y1="65.21" x2="299.809" y2="176.562" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-opacity="0.46"/>
+</linearGradient>
+<radialGradient id="paint3_radial_915_19174" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(299.809 120.886) rotate(90) scale(55.6762 112.786)">
+<stop offset="0.0833333" stop-color="#2F2F2F" stop-opacity="0"/>
+<stop offset="1" stop-color="#2F2F2F"/>
+</radialGradient>
+<linearGradient id="paint4_linear_915_19174" x1="299.809" y1="65.21" x2="299.809" y2="176.562" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-opacity="0.46"/>
+</linearGradient>
+<radialGradient id="paint5_radial_915_19174" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(299.809 120.886) rotate(90) scale(55.6762 112.786)">
+<stop offset="0.0833333" stop-color="#2F2F2F" stop-opacity="0"/>
+<stop offset="1" stop-color="#2F2F2F"/>
+</radialGradient>
+<image id="image0_915_19174" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAA1klEQVR4Xu3awQ3AIAzFUFDZf2IkOoQPHHi9V5GgsT+h8/u+M8Kz9w5vj7HWSu/X+tMC+AK0AAYUClUIgSAL0GDpwFFbUA4QhAQhQUgQKhiuFBaEbgehc05qgds7WOtPC+AL0AIYUDRYIXRboyDIAizAAizAAmEFaPDyaa5ugBzwfA4wFTYVNhVOQej2aa7WdzUGgiAIgiAYzkL5B4Wa5Vkg/qlKgzRIgzT4tgafH4hYADdDboYSBG9H2VrfWBwEQRAEQbAMRCqF60Cj1mcBFmABFnjaAj/czMDQdCt44QAAAABJRU5ErkJggg=="/>
+</defs>
+</svg>

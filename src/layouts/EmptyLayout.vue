@@ -1,5 +1,5 @@
 <template>
-  <main v-show="!loading" style="display: flex; flex-grow: 1; justify-content: center; align-items: center">
+  <main v-show="!loading" style="display: flex; flex-grow: 1; justify-content: center; align-items: center; width: 100%">
     <router-view/>
   </main>
 </template>
