@@ -4,7 +4,7 @@
       <div class="VScroll" ref="vScroll"><div class="VThumb Thumb"/></div>
       <div class="HScroll" ref="hScroll"><div class="HThumb Thumb"/></div>
     </div>
-    <slot class="ScrollableContent" ref="scrollableContent"/>
+    <slot class="ScrollableContent"/>
   </section>
 </template>
 
@@ -15,14 +15,31 @@ export default defineComponent({
   name: 'BaseScrollable',
   mounted () {
     const scrollable = this.$refs.scrollable as HTMLElement
-    const scroll  = this.$refs.scroll as HTMLElement
-    const vScroll = this.$refs.vScroll as HTMLElement
-    const hScroll = this.$refs.hScroll as HTMLElement
-    const content = scrollable.children[scrollable.children.length - 1] as HTMLElement
-    const vThumb  = vScroll.children[0] as HTMLElement
-    const hThumb  = hScroll.children[0] as HTMLElement
+    const scroll     = this.$refs.scroll as HTMLElement
+    const vScroll    = this.$refs.vScroll as HTMLElement
+    const hScroll    = this.$refs.hScroll as HTMLElement
+    let   content    = scrollable.children[scrollable.children.length - 1] as HTMLElement
+    const vThumb     = vScroll.children[0] as HTMLElement
+    const hThumb     = hScroll.children[0] as HTMLElement
+    let   contentObserver: ResizeObserver | null = null
 
-    const rContent = () => {
+    // if (this.$options && this.$options.mounted) {
+    //   this.$options.mounted()
+    // }
+    // console.log('BaseScrollable')
+    // console.log(this.$refs)
+
+    function scrollHandler () {
+      if (hThumb?.style) {
+        hThumb.style.left = `${ (hScroll.clientWidth + 5) / content.clientWidth * scrollable.scrollLeft }px`
+      }
+      if (vThumb?.style) {
+        vThumb.style.top = `${ vScroll.clientHeight / content.clientHeight * scrollable.scrollTop }px`
+      }
+    }
+    scrollable.addEventListener('scroll', scrollHandler)
+
+    function rContent () {
       if (content) {
         if (hThumb?.style) {
           hThumb.style.width =
@@ -36,7 +53,20 @@ export default defineComponent({
       scrollHandler()
     }
 
-    const rScrollable = () => {
+    function rScrollable () {
+      if (content !== scrollable.children[scrollable.children.length - 1]) {
+        if (contentObserver) {
+          contentObserver.unobserve(content)
+        }
+        content = scrollable.children[scrollable.children.length - 1] as HTMLElement
+        if (contentObserver) {
+          contentObserver.disconnect()
+          contentObserver = new ResizeObserver(rScrollable)
+          if (contentObserver) {
+            contentObserver.observe(content)
+          }
+        }
+      }
       if (scrollable && scroll?.style) {
         scroll.style.width = scrollable.clientWidth.toString() + 'px'
         scroll.style.height = scrollable.clientHeight.toString() + 'px'
@@ -57,17 +87,11 @@ export default defineComponent({
     }
 
     new ResizeObserver(rScrollable).observe(scrollable)
-    new ResizeObserver(rScrollable).observe(content)
-    setTimeout(rContent, 100)
-    const scrollHandler = () => {
-      if (hThumb?.style) {
-        hThumb.style.left = `${ (hScroll.clientWidth + 5) / content.clientWidth * scrollable.scrollLeft }px`
-      }
-      if (vThumb?.style) {
-        vThumb.style.top = `${ vScroll.clientHeight / content.clientHeight * scrollable.scrollTop }px`
-      }
+    contentObserver = new ResizeObserver(rScrollable)
+    if (contentObserver) {
+      contentObserver.observe(content)
     }
-    scrollable.addEventListener('scroll', scrollHandler)
+    rScrollable()
 
     /** Vertical Scroll */
     vScroll.addEventListener('click', (event: MouseEvent) => {
@@ -127,6 +151,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 .Scrollable {
   overflow: auto;
+  &::v-deep .ScrollableContent {
+    min-width: fit-content;
+    min-height: fit-content;
+  }
   &::-webkit-scrollbar {
     display: none;
   }
