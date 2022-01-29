@@ -1,15 +1,14 @@
 <template>
 	<nav id="Navigation">
-		<a v-for="(curr, index) of path"
-       :href="curr.path"
+		<div v-for="(curr, index) of path"
        :key="curr.name"
-       @mousedown="clickRoute($event, curr)"
+       @click="clickRoute($event, curr)"
        class="NavigationRoute">
 			<img :src="curr.meta.favicon || defaultFavicon" :alt="curr.name">
 			<span>{{ curr.name }}</span>
 			<div v-if="index !== path.length - 1"
 				:style="{ backgroundImage: navSeparator, minWidth: '5px', height: '15px'}"/>
-		</a>
+		</div>
 	</nav>
 </template>
 
