@@ -55,7 +55,7 @@ const develop: Array<RouteRecordRaw> = [
 			title: 		'Large Image',
 			favicon:  FILE_DEV,
 			layout:   MAIN_LAYOUT,
-			parent:		'/develop/empty'
+			parent:		'/develop'
 		}
 	},
 	{

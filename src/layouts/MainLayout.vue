@@ -27,7 +27,7 @@
 			</div>
 		</aside>
     <BaseScrollable id="Viewport">
-      <router-view id="Content"></router-view>
+      <router-view id="Content"/>
     </BaseScrollable>
 		<aside id="ToolRight">
 			<div class="Tool" v-if="getATools.rightLeft">
