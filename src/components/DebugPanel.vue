@@ -3,6 +3,7 @@
     <div class="DebugPanelHeader">
       <span>Debug Panel</span>
       <BaseIcon class="DebugPanelButton"
+                :style="{ animationIterationCount: times }"
                 :icon="require('@/assets/icons/interface/debug.svg')"
                 @mousedown="mouseDownDebugButton"/>
     </div>
@@ -18,7 +19,7 @@
   </div>
   <BaseIcon class="DebugButton"
             v-show="!open"
-            :style="{ left, top }"
+            :style="{ left, top, animationIterationCount: times }"
             :icon="require('@/assets/icons/interface/debug.svg')"
             @mousedown="mouseDownDebugButton"/>
 </template>
@@ -38,7 +39,8 @@ export default defineComponent({
     py: 0,
     ox: 0,
     oy: 0,
-    prevEvent: null
+    prevEvent: null,
+    times: 3
   }),
   computed: {
     left (): string {
@@ -49,14 +51,20 @@ export default defineComponent({
     }
   },
   components: { BaseIcon, BaseScrollable },
-  mounted () {
+  created () {
     const local = localStorage.getItem('debugPosition')
 
     if (local) {
       const pos = local.split(' ')
       this.x = Number(pos[0])
       this.y = Number(pos[1])
+      this.open = pos[2] === 'true'
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.times = 1
+    }, 3000)
   },
   methods: {
     moveDebug (event: MouseEvent): void {
@@ -72,10 +80,11 @@ export default defineComponent({
       document.addEventListener('mouseup', (event: MouseEvent): void => {
         if (this.px === event.pageX && this.py === event.pageY) {
           this.open = !this.open
+          localStorage.setItem('debugPosition', `${this.x} ${this.y} ${String(this.open)}`)
         } else if (event.pageX && event.pageY) {
           this.x = event.pageX - this.ox
           this.y = event.pageY - this.oy
-          localStorage.setItem('debugPosition', `${this.x} ${this.y}`)
+          localStorage.setItem('debugPosition', `${this.x} ${this.y} ${String(this.open)}`)
         }
         document.removeEventListener('mousemove', this.moveDebug)
       }, { once: true })
@@ -95,6 +104,7 @@ export default defineComponent({
   transform: translate(-50%, -50%);
   opacity: 0.33;
   transition: opacity .2s;
+  animation: pulse .75s 3 ease-in-out;
   &:hover {
     opacity: 1;
   }
@@ -113,14 +123,20 @@ export default defineComponent({
     background-color: var(--panel-background);
     border-radius: 5px;
     transform: translate(calc(-50% + 20px), -50%);
+    animation: pulse .75s 3 ease-in-out;
   }
   &Header {
+    white-space: nowrap;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 6px;
     max-height: 24px;
     background-color: var(--popup-header);
+  }
+  &Body {
+    display: flex;
+    max-height: 300px;
   }
   opacity: 0.33;
   transition: opacity .2s;
@@ -139,5 +155,17 @@ export default defineComponent({
 }
 .ScrollableContent {
   padding: 6px;
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 0 #59A86900;
+  }
+  25% {
+    box-shadow: 0 0 5px 5px #59A869;
+  }
+  to {
+    box-shadow: 0 0 0 #59A86900;
+  }
 }
 </style>

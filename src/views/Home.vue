@@ -11,7 +11,7 @@
       </div>
     </main>
     <aside class="HomeAside">
-      <GitHubRepoPanel rep-link="/cclarice/codeglo"/>
+      <GitHubRepoPanel rep-link="/cclarice/CodeGlossary" :logo="require('@/assets/logos/gitCodeglossary.svg')"/>
       <!--<div class="Contributors">
         <div class="ContributorsHeader">
           <h4>Contributors:</h4><h4 class="ContributorsHeaderCounter"> {{ contributors.length }} </h4>
@@ -60,13 +60,6 @@ export default defineComponent({
       window: window,
       intervalId: 0
     }
-  },
-  async created () {
-    const response = await fetch('https://api.github.com/repos/cclarice/codeglo/contributors')
-    this.contributors = await response.json()
-    this.contributors.forEach((contributor: { contributions: number }) => {
-      this.commits += contributor.contributions
-    })
   }
 })
 </script>
@@ -129,92 +122,4 @@ export default defineComponent({
     transform: scale(1);
   }
 }
-
-.Contributors {
-  display: flex;
-  flex-flow: column nowrap;
-  background-color: var(--panel-background);
-  border: 1px solid var(--panel-border);
-  width: 320px;
-  &Header {
-    display: flex;
-    align-items: center;
-    height: 33px;
-    padding: 0 8px;
-    background-color: var(--field-background);
-    border-bottom: 1px solid var(--panel-border);
-    gap: 0.5em;
-    &Counter {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      background-color: var(--panel-border);
-      border-radius: 12px;
-    }
-  }
-  &Container {
-    display: flex;
-    flex-flow: column;
-    padding: 8px;
-    gap: 8px;
-  }
-}
-
-.Contributor {
-  display: flex;
-  background-color: var(--field-background);
-  border: 1px solid var(--panel-border);
-  border-radius: 3px;
-  padding: 7px;
-  gap: 8px;
-  cursor: pointer;
-  img {
-    width: 48px;
-    height: 48px;
-    outline: 1px solid var(--panel-border);
-    border-radius: 50%;
-  }
-  &Text {
-    display: flex;
-    flex-flow: column;
-    justify-content: space-evenly;
-  }
-  &Name {
-    font-size: 16px;
-  }
-  .Contributions {
-    font-family: 'JetBrains Mono Medium', 'Consolas', monospace;
-    background-color: var(--panel-border);
-    border-radius: 8px;
-    height: 18px;
-    padding: 0 8px;
-  }
-}
-
-/*
-.Contributors {
-  border: 1px solid var(--panel-border);
-  border-radius: 3px;
-  background-color: var(--panel-background);
-  display: flex;
-  flex-flow: column;
-  padding: 8px;
-  gap: 8px;
-  min-width: 320px;
-}
-.Contributor {
-  display: flex;
-  gap: 8px;
-  padding: 8px;
-  align-items: center;
-  border: 1px solid var(--main-border);
-  border-radius: 3px;
-  background-color: var(--main-background);
-  img {
-    border-radius: 50%;
-  }
-}
-*/
 </style>
