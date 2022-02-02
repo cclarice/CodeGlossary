@@ -1,10 +1,12 @@
 <template>
-  <div class="stage" style="align-self: start">
-    <div class="sun"></div>
-    <div class="grass" style="transform: translateX(-300px)"></div>
-    <div class="grass" style="transform: translateX(300px)"></div>
-    <div class="square"></div>
-    <div class="round"></div>
+  <div class="background">
+    <div class="stage" style="align-self: start">
+      <div class="sun"></div>
+      <div class="grass" style="transform: translateX(-300px)"></div>
+      <div class="grass" style="transform: translateX(300px)"></div>
+      <div class="square"></div>
+      <div class="round"></div>
+    </div>
   </div>
   <img src="@/assets/XOsX.gif" alt="" id="duck3" width="40px" style="z-index: 13">
   <img src="@/assets/XOsX.gif" alt="" id="duck2" width="80px" style="z-index: 12">
@@ -76,6 +78,11 @@ BODY {
   box-shadow: 0 0 20px orange;
   animation: 15s infinite linear;
   animation-name: sun-move, sun-color;
+}
+.background {
+  background-color: black;
+  width: 100%;
+  height: 100%;
 }
 
 .grass {

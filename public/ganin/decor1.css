@@ -1,0 +1,59 @@
+html {
+    font: 18px/1.5 sans-serif;
+    background-color: white;
+}
+body{
+    padding: 20px;
+    font: 18px/1.5 sans-serif;
+}
+.textarea{
+    resize: none;
+}
+input{
+    max-width: 100%;
+    height: auto;
+}
+img {
+    max-width: 100%;
+    height: auto;
+
+
+    vertical-align: middle;
+}
+
+.w-500 {
+    width: 500px;
+}
+
+.border {
+    border: #2c3039 solid 7px ;
+    height: auto;
+    margin: 50px;
+}
+button{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 7px;
+
+    color: white;
+    font-weight: lighter;
+
+    background: #47cf73;
+
+    cursor: pointer;
+}
+from{
+    width: 300px;
+}
+fieldset{
+    margin: 0 0 20px;
+    padding: 20px 15px;
+
+    border: 1px solid #ae63e4;
+}
+.b1{
+    background: navy; /* Синий цвет фона */
+    color: white; /* Белые буквы */
+    font-size: 9pt; /* Размер шрифта в пунктах */
+    cursor: pointer;
+}
