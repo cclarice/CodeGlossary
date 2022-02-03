@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default function clickUrl (event: MouseEvent, url: string, router = false): void {
 	console.log('clickUrl')
 	if (event.target) {
