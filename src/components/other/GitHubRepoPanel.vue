@@ -19,16 +19,45 @@
     </div>
     <div class="GitBody">
       <div class="GitBodyInfo">
-
+        <h4>Info</h4>
       </div>
       <div class="GitBodyContributors">
-        <div v-for="contributor of contributors" :key="contributor.id" @mousedown="clickUrl($event, contributor.html_url)">
-          <img :src="contributor.avatar_url" alt="Avatar" width="32">
-          <span>{{ contributor.login}}</span>
+        <h4>
+          Contributors
+          <span>
+            {{ contributorsCount }}
+          </span>
+        </h4>
+        <div v-for="contributor of contributors"
+             :key="contributor.id"
+             @mousedown="clickUrl($event, contributor.html_url)"
+             class="GitBodyContributorsContributor">
+          <img :src="contributor.avatar_url"
+               alt="Avatar"
+               width="32">
+          <article>
+            <span class="username">
+              {{ contributor.login }}
+            </span>
+            <small>
+              Contributions:
+              <span class="count">
+                {{ contributor.contributions }}
+              </span>
+              <span class="count">
+                {{ (contributor.contributions / contributions * 100).toFixed(1) }}%
+              </span>
+            </small>
+          </article>
         </div>
       </div>
       <div class="GitBodyLanguages">
-
+        <h4>
+          Languages
+          <span>
+            {{ totalLanguages }}
+          </span>
+        </h4>
       </div>
     </div>
   </section>
@@ -41,7 +70,7 @@ import GitHub from '@/services/GitHub'
 import clickUrl from '@/library/clickUrl'
 
 interface Data {
-  [key: string]: Response | null
+  [key: string]: Response | Record<string, number> | null
 }
 
 export default defineComponent({
@@ -49,7 +78,8 @@ export default defineComponent({
   components: { DebugPanel },
   data: (): Data => ({
     repository: null,
-    contributors: null
+    contributors: null,
+    languages: null
   }),
   methods: {
     clickUrl,
@@ -67,23 +97,40 @@ export default defineComponent({
       default: null
     }
   },
+  computed: {
+    totalLanguages (): number {
+      return this.languages
+        ? Object.values(this.languages as Record<string, number>).reduce((prev: number, curr: number): number => {
+          return prev + curr
+        }, 0)
+        : 0
+    },
+    contributions (): number {
+      return Array.isArray(this.contributors)
+        ? this.contributors.reduce((prev, curr): number => {
+          return prev + curr.contributions
+        }, 0)
+        : 0
+    },
+    contributorsCount (): number {
+      return Array.isArray(this.contributors)
+        ? this.contributors.length
+        : 0
+    }
+  },
   created () {
-    console.log(this.$options.name, 'created')
     GitHub.getRepo(this.repLink)
       .then((xhr) => {
-        console.log('repo:', xhr.response)
-        this.repository = xhr.response
-      })
-      .catch((xhr) => {
         this.repository = xhr.response
       })
     GitHub.getRepoContributors(this.repLink)
       .then((xhr) => {
-        console.log('cont:', xhr.response)
         this.contributors = xhr.response
       })
-      .catch((xhr) => {
-        this.contributors = xhr.response
+    GitHub.getRepoLanguages(this.repLink)
+      .then((xhr) => {
+        console.log('lang:', xhr.response)
+        this.languages = xhr.response
       })
   }
 })
@@ -104,7 +151,75 @@ export default defineComponent({
     padding: 11px;
     border-bottom: 1px solid var(--panel-border);
     align-items: center;
-    h2 { color: white }
+  }
+  &Body {
+    display: flex;
+    flex-flow: column;
+    padding: 11px;
+    gap: 12px;
+    &Languages,
+    &Contributors {
+      display: flex;
+      flex-flow: column;
+      gap: 6px;
+      cursor: pointer;
+
+      h4 {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          width: 22px;
+          height: 22px;
+          min-width: fit-content;
+          padding: 0 4px 3px 4px;
+          font-size: 16px;
+          background-color: var(--panel-border);
+          border-radius: 10px;
+        }
+      }
+      &Contributor {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        img {
+          border-radius: 16px;
+          border: 1px solid var(--panel-border);
+          box-sizing: content-box;
+        }
+        .username {
+          font-size: 16px;
+        }
+        article {
+          display: flex;
+          flex-flow: column;
+          small {
+            display: flex;
+            gap: 4px;
+            align-items: baseline;
+          }
+          .count {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 6px;
+            border-radius: 6px;
+            min-width: 32px;
+            background-color: var(--panel-border);
+            height: 18px;
+          }
+          .count:last-child {
+            min-width: 52px;
+          }
+        }
+        .contributions {
+
+        }
+      }
+    }
   }
 }
 </style>

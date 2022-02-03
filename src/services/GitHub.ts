@@ -6,5 +6,8 @@ export default {
 	},
 	getRepoContributors (repLink: string): Promise<XMLHttpRequest> {
 		return GET(`https://api.github.com/repos${repLink}/contributors`)
+	},
+	getRepoLanguages (repLink: string): Promise<XMLHttpRequest> {
+		return GET(`https://api.github.com/repos${repLink}/languages`)
 	}
 }
