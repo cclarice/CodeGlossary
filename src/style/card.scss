@@ -1,0 +1,53 @@
+.card {
+	display: flex;
+	flex-flow: column;
+	min-width: 262px;
+	background-color: var(--card-body);
+	border: var(--card-border);
+	&__header {
+		display: flex;
+		align-items: center;
+		background-color: var(--card-header);
+		height: 24px;
+		font-size: 13px;
+		line-height: 16px;
+		font-weight: 500;
+		justify-content: center;
+	}
+	&__main {
+		padding: 4px 0;
+		min-height: 22px;
+		gap: 6px;
+	}
+	&__footer {
+		background-color: var(--card-footer);
+		color: var(--info-panel);
+		height: 22px;
+		font-size: 11px;
+		font-weight: 500;
+		line-height: 14px;
+		padding: 4px 8px;
+	}
+	&__div {
+		display: flex;
+		flex-flow: column;
+		padding: 0 12px;
+	}
+	&__info {
+		color: var(--info-panel);
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 15px;
+		padding: 2px 8px;
+	}
+	&__separator {
+		border: none;
+		margin: 4px 0;
+		min-height: 1px;
+		max-height: 1px;
+		background-color: var(--card-separator);
+		min-width: calc(100% + 2px);
+		position: relative;
+		right: 1px;
+	}
+}

@@ -49,5 +49,11 @@ export default `
 	--code-number:     	#1750EB;
 	--code-description:	#999999;
 	--code-caret-row:  	#FCFAED;
+	
+	--card-header:      #E6E6E6;
+	--card-border:      1px solid #D1D1D1;
+	--card-separator:   #D1D1D1;
+	--card-body:        #FFFFFF;
+	--card-footer:      #F2F2F2;
 }
 `
