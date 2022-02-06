@@ -79,6 +79,28 @@ const develop: Array<RouteRecordRaw> = [
 			layout:   MAIN_LAYOUT,
 			parent:   '/develop'
 		}
+	},
+	{
+		path: 			'/develop/progress',
+		name:			  'Progress',
+		component:  () => import('@/views/develop/Progress.vue'),
+		meta: {
+			title:		'Progress',
+			favicon:  FILE_DEV,
+			layout:   MAIN_LAYOUT,
+			parent:   '/develop'
+		}
+	},
+	{
+		path: 			'/develop/card',
+		name:			  'Card',
+		component:  () => import('@/views/develop/Card.vue'),
+		meta: {
+			title:		'Card',
+			favicon:  FILE_DEV,
+			layout:   MAIN_LAYOUT,
+			parent:   '/develop'
+		}
 	}
 ]
 
