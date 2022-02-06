@@ -65,5 +65,7 @@ export default `
 	--card-separator:   #323232;
 	--card-body:        #3C3F41;
 	--card-footer:      #45494A;
+	
+	--icon-filter:      unset;
 }
 `

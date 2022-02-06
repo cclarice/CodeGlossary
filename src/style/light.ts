@@ -55,5 +55,7 @@ export default `
 	--card-separator:   #D1D1D1;
 	--card-body:        #FFFFFF;
 	--card-footer:      #F2F2F2;
+	
+	--icon-filter:      grayscale(100%) brightness(0.625);
 }
 `
