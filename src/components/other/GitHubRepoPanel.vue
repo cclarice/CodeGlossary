@@ -20,6 +20,16 @@
     <div class="GitBody">
       <div class="GitBodyInfo">
         <h4>Info</h4>
+        <div class="GitBodyList">
+          <div class="GitBodyListElement">
+            <img>
+            <span>{{ codeSize }}</span>
+          </div>
+          <div class="GitBodyListElement">
+            <img>
+            <span>{{ totalSize }}</span>
+          </div>
+        </div>
       </div>
       <div class="GitBodyContributors">
         <h4>
@@ -55,9 +65,28 @@
         <h4>
           Languages
           <span>
-            {{ totalLanguages }}
+            {{ languages ? Object.keys(languages).length : 0 }}
           </span>
         </h4>
+        <div class="GitBodyLanguagesBar" v-if="languages">
+          <div v-for="key of Object.keys(languages)" :key="key"
+               style="height: 100%; flex-grow: 1; outline: 1px solid var(--panel-border);"
+               :style="{ width: `${languages[key] * 100 / totalLanguages}%`, background: colors[key] || '#888888' }">
+          </div>
+        </div>
+        <div class="GitBodyLanguagesList" v-if="languages">
+          <div v-for="key of Object.keys(languages)" :key="key"
+               style="display: flex; align-items: center; gap: 5px;">
+            <div style="width: 12px; height: 12px; border-radius: 6px; outline: 1px solid var(--panel-border)"
+                 :style="{ background: colors[key] || '#888888' }"/>
+            <p>
+              {{ key }}
+              <small style="color: var(--disabled)">
+                {{ `${(languages[key] * 100 / totalLanguages).toFixed(1)}%` }}
+              </small>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -68,9 +97,10 @@ import { defineComponent } from 'vue'
 import DebugPanel from '@/components/DebugPanel.vue'
 import GitHub from '@/services/GitHub'
 import clickUrl from '@/library/clickUrl'
+import { bytesToString } from '@/library/bytes'
 
 interface Data {
-  [key: string]: Response | Record<string, number> | null
+  [key: string]: Response | Record<string, number | string > | null
 }
 
 export default defineComponent({
@@ -79,7 +109,15 @@ export default defineComponent({
   data: (): Data => ({
     repository: null,
     contributors: null,
-    languages: null
+    languages: null,
+    colors: {
+      CSS: '#563D7C',
+      HTML: '#E34C26',
+      JavaScript: '#F1E05A',
+      SCSS: '#C6538C',
+      TypeScript: '#2B7489',
+      Vue: '#41B883'
+    }
   }),
   methods: {
     clickUrl,
@@ -98,6 +136,12 @@ export default defineComponent({
     }
   },
   computed: {
+    totalSize () {
+      return bytesToString((this.repository as { size: number } )?.size || 0, 'KB')
+    },
+    codeSize () {
+      return bytesToString(this.totalLanguages)
+    },
     totalLanguages (): number {
       return this.languages
         ? Object.values(this.languages as Record<string, number>).reduce((prev: number, curr: number): number => {
@@ -156,13 +200,29 @@ export default defineComponent({
     display: flex;
     flex-flow: column;
     padding: 11px;
-    gap: 12px;
+    gap: 20px;
+    &Languages {
+      &Bar {
+        display: flex;
+        width: 100%;
+        height: 8px;
+        border-radius: 4px;
+        overflow: hidden;
+        max-width: 100%;
+        justify-content: center;
+        outline: 1px solid var(--panel-border);
+      }
+      &List {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 4px 12px;
+      }
+    }
     &Languages,
     &Contributors {
       display: flex;
       flex-flow: column;
       gap: 6px;
-      cursor: pointer;
 
       h4 {
         display: flex;
@@ -185,6 +245,16 @@ export default defineComponent({
         display: flex;
         align-items: center;
         gap: 6px;
+        cursor: pointer;
+        border-radius: 2px;
+        outline: 4px solid transparent;
+        transition: outline 0.2s, background 0.2s;
+
+        &:hover {
+          background-color: var(--field-background);
+          outline: 4px solid var(--field-background);
+        }
+
         img {
           border-radius: 16px;
           border: 1px solid var(--panel-border);
