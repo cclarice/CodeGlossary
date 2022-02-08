@@ -1,0 +1,30 @@
+@import 'light';
+@import 'dark';
+@import 'odan';
+
+                          /* GLOBAL STYLES */
+:root {
+  /* Field */
+  --field-border:             1px solid var(--field-border-color);
+  --field-border-disabled:    1px solid var(--field-border-disabled-color);
+  --field-border-focused:     1px solid var(--field-border-focused-color);
+  --field-border-validated:   1px solid var(--field-border-validated-color);
+  --field-outline:            2px solid var(--field-outline-color);
+  --field-outline-focused:    2px solid var(--field-outline-focused-color);
+  --field-outline-validated:  2px solid var(--field-outline-validated-color);
+
+  /* Checkbox / Radio */
+  --check-border:                 1px solid var(--check-border-color);
+  --check-border-disabled:        1px solid var(--check-border-disabled-color);
+  --check-border-focusec:         1px solid var(--check-border-focused-color);
+  --check-outline:                2px solid var(--check-outline-color);
+  --check-outline-focused:        2px solid var(--check-outline-focused-color);
+    /* Checked */
+  --check-checked-border:         1px solid var(--check-checked-border-color);
+  --check-checked-focused-border: 1px solid var(--check-checked-focused-border-color);
+
+  /* Button */
+  --button-border:                1px solid var(--button-border-color);
+  --button-border-focused:        1px solid var(--button-border-focused-color);
+  --button-outline-focused:       2px solid var(--button-outline-focused-color);
+}

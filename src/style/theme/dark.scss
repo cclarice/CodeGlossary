@@ -1,0 +1,116 @@
+:root {
+  @media screen {
+    &[data-theme='dark'] {
+      /* Panel */
+      --panel-background:                   #3C3F41;
+      --panel-border:                       #323232;
+      --panel-alt-background:               #3F434C;
+
+      /* Field */
+      --field-background:                   #4C5052;
+      --field-background-disabled:          #F2F2F2;
+      --field-border-color:                 #5E6060;
+      --field-border-disabled-color:        #3C3F41;
+      --field-border-focused-color:         #456A90;
+      --field-border-validated-color:       #73454B;
+      --field-outline-color:                #FFFFFF00;
+      --field-outline-focused-color:        #3D6185;
+      --field-outline-validated-color:      #8B3C3C;
+      --field-button-background:            #3C3F41;
+      --field-button-background-disabled:   #3C3F41;
+
+      /* Checkbox / Radio */
+      --check-background:                   #43494A;
+      --check-background-disabled:          var(--field-background-disabled);
+      --check-border-color:                 #6B6B6B;
+      --check-border-disabled-color:        #BDBDBD;
+      --check-border-focused-color:         #7B9FC7;
+      --check-outline-color:                #FFFFFF00;
+      --check-outline-focused-color:        #97C3F3;
+      /* Checked */
+      --check-checked-background:           #4982CC;
+      --check-checked-border-color:         #4F9EE3;
+      --check-checked-focused-border-color: #ACCFF7;
+
+      /* Button */
+      --button-background:                  var(--field-background);
+      --button-background-disabled:         var(--field-background-disabled);
+      --button-background-default:          #528CC7;
+      --button-border-color:                var(--field-border-color);
+      --button-border-focused-color:        var(--field-border-focused-color);
+      --button-outline-focused-color:       var(--field-outline-focused-color);
+
+      /* Progress */
+      --progress-background:                #D5D5D5;
+      --progress-fill-background:           #1E82E6;
+      --progress-indeterminate-background:  linear-gradient(270deg,
+        #98CCFF 0%,
+        #0080F1 18.21%,
+        #98CCFF 36.41%,
+        #0080F1 55.4%,
+        #98CCFF 76.93%,
+        #0080F1 100%);
+
+      /* Card */
+      --card-header-background:             #E6E6E6;
+      --card-hint-background:               #F2F2F2;
+      --card-alt-background:                #E6EBF0;
+      --card-shadow:                        0px 0px 2px #0000004C, 0px 0px 30px #0000004C;
+
+      /* Icon */
+      --icon-background:                    #FFF;
+      --icon-hovered-background:            #DFDFDF;
+      --icon-pressed-background:            #CFCFCF;
+      --icon-fill:                          #6E6E6E;
+      --icon-dropdown:                      #333;
+      --icon-split:                         #FFF;
+      --icon-split-hovered:                 #B3B3B3;
+
+      /* SVG */
+      --svg-fill:                           #9AA7B0B0;
+
+      /* Scroll todo */
+      --scroll:                             unset;
+      --scroll-hovered:                     unset;
+      --scroll-active:                      unset;
+
+      /* Balloon */
+      --balloon-shadow:                     0 2px 8px 0 #00000033;
+      --balloon-icon-fill:                  #7F8B9100;
+      --balloon-hovered-icon-fill:          #7F8B9180;
+      --balloon-hovered-icon-hovered-fill:  #7F8B91B0;
+      --balloon-hovered-icon-active-fill:   #7F8B91FF;
+
+      /* Stripe */
+      --stripe-hovered-background:          #BFBFBF80;
+      --stripe-selected-background:         #BFBFBF;
+
+      /* Tool */
+      --tool-header:                        #E3E7ED;
+
+      /* Selection */
+      --selection-active:                   #2675BF;
+      --selection-hovered:                  #C5DFFC;
+
+      /* Typography */
+      --default:                            #000;
+      --disabled:                           #8C8C8C;
+      --selected:                           #FFF;
+      --link:                               #2470B3;
+      --info-panel:                         #808080;
+      --info-input:                         #999;
+      --error:                              #C7222D;
+      --success:                            #368746;
+
+      /* Typography Code */
+      --code-default:                       var(--default);
+      --code-keyword:                       #0033B3;
+      --code-variable:                      #871094;
+      --code-number:                        #1750EB;
+      --code-method:                        #00627A;
+      --code-caret-row:                     #FCFAED;
+      --code-description:                   #999;
+      --code-override:                      #9E880D;
+    }
+  }
+}
