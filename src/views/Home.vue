@@ -12,22 +12,6 @@
     </main>
     <aside class="HomeAside">
       <GitHubRepoPanel rep-link="/cclarice/CodeGlossary" :logo="require('@/assets/logos/gitCodeglossary.svg')"/>
-      <!--<div class="Contributors">
-        <div class="ContributorsHeader">
-          <h4>Contributors:</h4><h4 class="ContributorsHeaderCounter"> {{ contributors.length }} </h4>
-        </div>
-        <div class="ContributorsContainer">
-          <div class="Contributor" v-for="contributor of contributors" :key="contributor.id" @click="window.open(contributor.html_url)">
-            <img :src="contributor.avatar_url" :alt="contributor.login" width="32">
-            <div class="ContributorText">
-            <span class="ContributorName">
-              {{ contributor.login }}
-            </span>
-              <span><code class="Contributions">{{ (contributor.contributions / commits * 100).toFixed(2) }}% | {{ contributor.contributions }}</code> <span>contributions</span></span>
-            </div>
-          </div>
-        </div>
-      </div>-->
     </aside>
 	</div>
 </template>

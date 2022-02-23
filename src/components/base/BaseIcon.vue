@@ -1,7 +1,7 @@
 <template>
 	<div class="BaseIcon" @iconClick="$emit('iconClick', $event)">
 		<div class="BaseIconWrapper" :class="{ BaseIconWrapperActive: active }">
-      <img :src="icon" :style="{ filter: autoColor && getTheme === 'light' ? 'grayscale(100%) brightness(0.625)' : '' }" alt="">
+      <img :src="icon" :style="{ filter: autoColor && theme === 'light' ? 'grayscale(100%) brightness(0.625)' : '' }" alt="">
     </div>
 	</div>
 </template>
@@ -27,7 +27,9 @@ export default defineComponent({
     }
 	},
 	computed: {
-    ...mapGetters('theme', ['getTheme'])
+    ...mapGetters('theme', {
+      theme: 'getTheme'
+    })
 	}
 })
 </script>
@@ -40,10 +42,10 @@ export default defineComponent({
 	width: 26px;
 	height: 26px;
 	&:hover > .BaseIconWrapper {
-		background-color: var(--toolbar-button-hover);
+		background-color: var(--icon-hovered-background);
 	}
 	&:active > .BaseIconWrapper {
-		background-color: var(--toolbar-button-pressed);
+		background-color: var(--icon-pressed-background);
 	}
   cursor: pointer;
 }
@@ -56,7 +58,7 @@ export default defineComponent({
 	height: 22px;
   padding: 3px;
   &Active {
-		background-color: var(--toolbar-button-pressed);
+		background-color: var(--icon-pressed-background);
   }
 }
 

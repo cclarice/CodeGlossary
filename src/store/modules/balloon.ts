@@ -23,6 +23,7 @@ interface IBalloonState {
 
 const initialState = (): IBalloonState => ({
 	balloons: [
+		/*
 		{
 			id: 1,
 			type: 'info',
@@ -40,6 +41,7 @@ const initialState = (): IBalloonState => ({
 			],
 			duration: 5000
 		}
+		*/
 	],
 	icons: {
 		info:			require('@/assets/icons/status/info.svg'),

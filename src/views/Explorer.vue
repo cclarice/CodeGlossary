@@ -46,8 +46,8 @@
         Element: {{ routes.length }}
       </div>
       <div class="ExplorerFooterRight">
-        <BaseIcon :icon="require('@/assets/icons/stub.svg')" :active="table" @click="setTable(true)"/>
-        <BaseIcon :icon="require('@/assets/icons/stub.svg')" :active="!table" @click="setTable(false)"/>
+        <BaseIcon :icon="require('@/assets/elements/explorer/files_list.svg')" :active="table" @click="setTable(true)"/>
+        <BaseIcon :icon="require('@/assets/elements/explorer/files_icons.svg')" :active="!table" @click="setTable(false)"/>
       </div>
     </footer>
   </div>
@@ -111,7 +111,7 @@ header {
 }
 
 aside {
-  background-color: #313335;
+  background-color: var(--card-alt-background);
 }
 
 main {

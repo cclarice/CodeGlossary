@@ -16,11 +16,9 @@ export default defineComponent({
     MainLayout,
     EmptyLayout
 	},
-  data () {
-    return {
-      loading: false
-    }
-  },
+  data: () => ({
+    loading: false
+  }),
   computed: {
     layout (): string | null {
       return this.$route.meta?.layout || null
@@ -28,14 +26,14 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations('lang', ['initLang']),
-    ...mapMutations('theme', ['initTheme']),
+    ...mapMutations('theme', ['loadTheme']),
     loaded () {
       this.loading = false
     }
   },
   created () {
     this.initLang()
-    this.initTheme()
+    this.loadTheme()
   }
 })
 </script>
