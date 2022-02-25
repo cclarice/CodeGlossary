@@ -77,7 +77,7 @@
         </div>
 			</section>
 			<section class="StatusRight">
-        Status Right
+        <base-progress></base-progress>
 			</section>
 		</nav>
 	</footer>
@@ -88,12 +88,13 @@
 import { defineAsyncComponent, defineComponent } from 'vue'
 import MainNavigation from '@/layouts/main/MainNavigation.vue'
 import BaseIcon from '@/components/base/BaseIcon.vue'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 import BaseScrollable from '@/components/base/BaseScrollable.vue'
 import BaseLoading from '@/components/base/BaseLoading.vue'
 import BaseError from '@/components/base/BaseError.vue'
 import MainStripeButton from '@/layouts/main/MainStripeButton.vue'
 import BaseBalloons from '@/components/balloon/BaseBalloons.vue'
+import BaseProgress from '@/components/base/BaseProgress.vue'
 
 const defaultComponentOptions = {
   delay: 200,
@@ -126,6 +127,7 @@ export default defineComponent({
     }
   },
 	components: {
+    BaseProgress,
     BaseBalloons,
     MainStripeButton,
     BaseScrollable,
@@ -139,7 +141,8 @@ export default defineComponent({
 		...mapGetters('theme', ['getTheme']),
     ...mapGetters('lang', ['getIcons', 'getLang']),
     ...mapGetters('tool', ['getTools', 'getATools', 'getStripes', 'stripesShown']),
-		iconTheme (): string {
+    ...mapState('event', ['events', 'progress']),
+    iconTheme (): string {
 			return this.getTheme === 'light' ?	require('@/assets/icons/theme/light.svg') :
 																					require('@/assets/icons/theme/dark.svg')
 		},

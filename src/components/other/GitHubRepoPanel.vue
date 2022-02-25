@@ -163,19 +163,22 @@ export default defineComponent({
     }
   },
   created () {
-    GitHub.getRepo(this.repLink)
-      .then((xhr) => {
-        this.repository = xhr.response
+    Promise.allSettled([
+      GitHub.getRepo(this.repLink)
+        .then((response) => (() => this.repository = response.response)),
+      GitHub.getRepoContributors(this.repLink)
+        .then((response) => (() => this.contributors = response.response)),
+      GitHub.getRepoLanguages(this.repLink)
+        .then((response) => (() => this.languages = response.response))
+    ]).then((responses) => {
+      responses.forEach((response) => {
+        if (response.status === 'fulfilled' && response.value) {
+          response.value()
+        } else {
+          console.error('Error', this.$options.name, responses)
+        }
       })
-    GitHub.getRepoContributors(this.repLink)
-      .then((xhr) => {
-        this.contributors = xhr.response
-      })
-    GitHub.getRepoLanguages(this.repLink)
-      .then((xhr) => {
-        console.log('lang:', xhr.response)
-        this.languages = xhr.response
-      })
+    })
   }
 })
 </script>

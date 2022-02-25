@@ -25,8 +25,8 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapMutations('lang', ['initLang']),
-    ...mapMutations('theme', ['loadTheme']),
+    ...mapMutations('lang', { initLang: 'initLang' }),
+    ...mapMutations('theme', { loadTheme: 'loadTheme' }),
     loaded () {
       this.loading = false
     }
