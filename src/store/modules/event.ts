@@ -10,9 +10,11 @@ interface Event {
 	status: 'progress' | 'error' | 'abort' | 'done'
 	type: string
 	name: string
-	value: unknown
-	progress: number
-	toDone: number
+	value?: unknown
+	progress?: {
+		value: number
+		done: number
+	}
 	events?: Array<Event>
 }
 
