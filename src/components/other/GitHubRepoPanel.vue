@@ -95,7 +95,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import DebugPanel from '@/components/DebugPanel.vue'
-import GitHub from '@/services/GitHub'
+import GitHub from '@/services/github'
 import clickUrl from '@/library/clickUrl'
 import { bytesToString } from '@/library/bytes'
 
@@ -164,12 +164,9 @@ export default defineComponent({
   },
   created () {
     Promise.allSettled([
-      GitHub.getRepo(this.repLink)
-        .then((response) => (() => this.repository = response.response)),
-      GitHub.getRepoContributors(this.repLink)
-        .then((response) => (() => this.contributors = response.response)),
-      GitHub.getRepoLanguages(this.repLink)
-        .then((response) => (() => this.languages = response.response))
+      GitHub.getRepo(this.repLink).then((response: XMLHttpRequest['response']) => (() => console.log(response))),
+      GitHub.getRepoContributors(this.repLink).then((response: XMLHttpRequest['response']) => (() => console.log(response))),
+      GitHub.getRepoLanguages(this.repLink).then((response: XMLHttpRequest['response']) => (() => console.log(response)))
     ]).then((responses) => {
       responses.forEach((response) => {
         if (response.status === 'fulfilled' && response.value) {

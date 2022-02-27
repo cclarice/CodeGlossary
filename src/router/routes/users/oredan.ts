@@ -6,7 +6,7 @@ const oredan: Array<RouteRecordRaw> = [
 	{
     path: '/users/oredan',
     name: 'UserOredan',
-    component: () => import('@/views/Explorer.vue'),
+    component: () => import('@/views/RouteExplorer.vue'),
     meta: {
       title: 'Oredan',
       favicon: FILE_USER,

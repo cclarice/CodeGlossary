@@ -10,7 +10,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Context',
+  name: 'ContextMenu',
   created () {
     document.addEventListener('contextmenu', (event) => {
       event.preventDefault()

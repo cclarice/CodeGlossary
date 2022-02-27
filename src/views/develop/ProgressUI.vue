@@ -74,7 +74,7 @@ import BaseInputText from '@/components/base/BaseInputText.vue'
 import { mapMutations } from 'vuex'
 
 export default defineComponent({
-  name: 'Progress',
+  name: 'ProgressUI',
 	data: () => ({
 		label: BaseProgress.props.label.default,
 		status: BaseProgress.props.status.default,

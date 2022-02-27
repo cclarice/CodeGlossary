@@ -18,7 +18,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Ducks',
+  name: 'DucksPage',
   mounted () {
     const ducks = [ document.getElementById('duck'),
                     document.getElementById('duck1'),

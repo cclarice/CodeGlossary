@@ -54,7 +54,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Gamepad',
+  name: 'GamepadsTester',
   data (): { gamepads: Array<Gamepad | null> } {
     return {
       gamepads: [null, null, null, null]

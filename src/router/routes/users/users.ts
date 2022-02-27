@@ -8,7 +8,7 @@ const users: Array<RouteRecordRaw> = [
 	{
 		path: '/users',
 		name: 'Users',
-		component: () => import('@/views/Explorer.vue'),
+		component: () => import('@/views/RouteExplorer.vue'),
 		meta: {
 			title: 'Users',
 			favicon: PROJECT_USER,
@@ -19,7 +19,7 @@ const users: Array<RouteRecordRaw> = [
 	{
     path: '/users/tatcray',
     name: 'UserTatcray',
-    component: () => import('@/views/Explorer.vue'),
+    component: () => import('@/views/RouteExplorer.vue'),
     meta: {
       title: 'Tatcray',
       favicon: FILE_USER,

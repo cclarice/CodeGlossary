@@ -44,7 +44,7 @@ import BaseInputFile from '@/components/base/BaseInputFile.vue'
 import GroupHeader from '@/components/text/GroupHeader.vue'
 
 export default defineComponent({
-  name: 'Navigator',
+  name: 'NavigatorDebug',
   components: {
     GroupHeader,
     BaseInputFile,

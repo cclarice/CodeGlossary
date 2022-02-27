@@ -6,7 +6,7 @@ const develop: Array<RouteRecordRaw> = [
 	{
     path: '/develop',
     name: 'Develop',
-    component: () => import('@/views/Explorer.vue'),
+    component: () => import('@/views/RouteExplorer.vue'),
     meta: {
       title: 'Develop',
       favicon: PROJECT_DEV,
@@ -17,7 +17,7 @@ const develop: Array<RouteRecordRaw> = [
 	{
 		path: '/develop/typography',
 		name: 'Typography',
-		component: () => import('@/views/develop/Typography.vue'),
+		component: () => import('@/views/develop/TypographyUI.vue'),
 		meta: {
 			title: 'Typography',
 			favicon: TYPOGRAPHY,
@@ -28,7 +28,7 @@ const develop: Array<RouteRecordRaw> = [
 	{
 		path:      	'/develop/empty',
 		name:      	'EmptyLayout',
-		component: 	() => import('@/views/Home.vue'),
+		component: 	() => import('@/views/HomePage.vue'),
 		meta: {
 			title:   	'Home - Empty Layout',
 			favicon:  FILE_DEV,
@@ -39,7 +39,7 @@ const develop: Array<RouteRecordRaw> = [
 	{
 		path: '/develop/duck',
 		name: 'Duck',
-		component: () => import('@/views/develop/Ducks.vue'),
+		component: () => import('@/views/develop/DucksPage.vue'),
 		meta: {
 			title: 'Typography',
 			favicon: FILE_DEV,
@@ -61,7 +61,7 @@ const develop: Array<RouteRecordRaw> = [
 	{
 		path:				'/develop/navigator',
 		name:				'Navigator',
-		component:	() => import('@/views/develop/Navigator.vue'),
+		component:	() => import('@/views/develop/NavigatorDebug.vue'),
 		meta: {
 			title:		'Navigator',
 			favicon:  FILE_DEV,
@@ -72,7 +72,7 @@ const develop: Array<RouteRecordRaw> = [
 	{
 		path: 			'/develop/gamepad',
 		name:			  'Gamepad',
-		component:  () => import('@/views/develop/Gamepad.vue'),
+		component:  () => import('@/views/develop/GamepadsTester.vue'),
 		meta: {
 			title:		'Gamepad',
 			favicon:  FILE_DEV,
@@ -81,27 +81,28 @@ const develop: Array<RouteRecordRaw> = [
 		}
 	},
 	{
-		path: 			'/develop/progress',
-		name:			  'Progress',
-		component:  () => import('@/views/develop/Progress.vue'),
+		path: '/develop/progress',
+		name: 'Progress',
+		component: () => import('@/views/develop/ProgressUI.vue'),
 		meta: {
-			title:		'Progress',
-			favicon:  FILE_DEV,
-			layout:   MAIN_LAYOUT,
-			parent:   '/develop'
+			title: 'Progress',
+			favicon: FILE_DEV,
+			layout: MAIN_LAYOUT,
+			parent: '/develop'
 		}
 	},
 	{
-		path: 			'/develop/card',
-		name:			  'Card',
-		component:  () => import('@/views/develop/Card.vue'),
+		path: '/develop/xhr',
+		name: 'XHR',
+		component: () => import('@/views/develop/XHRDevelop.vue'),
 		meta: {
-			title:		'Card',
-			favicon:  FILE_DEV,
-			layout:   MAIN_LAYOUT,
-			parent:   '/develop'
+			title: 'XHR',
+			favicon: FILE_DEV,
+			layout: MAIN_LAYOUT,
+			parent: '/develop'
 		}
 	}
+
 ]
 
 export default develop

@@ -8,7 +8,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'CodeGlossary',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/views/HomePage.vue'),
     meta: {
       title: 'CodeGlossary',
       parent: null,
@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/routes',
     name: 'Routes',
-    component: () => import('@/views/Explorer.vue'),
+    component: () => import('@/views/RouteExplorer.vue'),
     meta: {
       title: 'CodeGlossary',
       parent: '/',
@@ -32,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    component: () => import('@/views/Explorer.vue'),
+    component: () => import('@/views/RouteExplorer.vue'),
     meta: {
       title: '404',
       parent: '/',

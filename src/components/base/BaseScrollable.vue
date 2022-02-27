@@ -151,7 +151,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .Scrollable {
   overflow: auto;
-  &:deep .ScrollableContent {
+  &:deep(.ScrollableContent) {
     min-width: fit-content;
     min-height: fit-content;
   }

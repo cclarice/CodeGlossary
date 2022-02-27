@@ -60,7 +60,7 @@ import BaseIcon from '@/components/base/BaseIcon.vue'
 import BaseScrollable from '@/components/base/BaseScrollable.vue'
 
 export default defineComponent({
-  name: 'Explorer',
+  name: 'RouteExplorer',
   components: { BaseScrollable, BaseIcon },
   data () {
     return ({

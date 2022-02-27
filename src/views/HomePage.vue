@@ -181,7 +181,7 @@ interface contributor {
 }
 
 export default defineComponent({
-	name: 'Home',
+	name: 'HomePage',
   components: { GitHubRepoPanel },
   data (): data {
     return {

@@ -243,7 +243,7 @@ export default defineComponent({
 
 #StripeLeft {
   transform: rotate(180deg);
-  :deep img {
+  :deep(img) {
     transform: rotate(180deg);
   }
 }

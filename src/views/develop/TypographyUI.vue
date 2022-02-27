@@ -32,8 +32,8 @@
 import { defineComponent } from 'vue'
 import { mapGetters, mapMutations } from 'vuex'
 
-export default defineComponent({
-	name: 'Typography',
+export default defineComponent({SYKA: 'ERRROR',
+	name: 'TypographyUI',
   computed: {
     ...mapGetters('lang', { local: 'getLocal' })
   },
