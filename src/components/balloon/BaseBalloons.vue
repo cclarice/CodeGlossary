@@ -80,6 +80,7 @@ export default defineComponent({
   border-radius: 2px;
   animation: appear .5s ease;
   &Main {
+    flex-grow: 1;
     display: flex;
     flex-flow: column;
     gap: 4px;
