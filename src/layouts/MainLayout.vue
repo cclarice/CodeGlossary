@@ -77,7 +77,7 @@
         </div>
 			</section>
 			<section class="StatusRight">
-        <base-progress></base-progress>
+        <base-progress @action="() => { null }" :label="'text'" :label-left="true"/>
 			</section>
 		</nav>
 	</footer>
