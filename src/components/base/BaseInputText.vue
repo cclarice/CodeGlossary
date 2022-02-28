@@ -2,7 +2,7 @@
 <template>
   <input type="text"
          :value="modelValue" @input="changeValue($event.target.value)"
-         :style="{ width: typeof width === 'string' ? width : `${width}px` }"
+         :style="{ width: typeof width === 'string' ? width : typeof width === 'number' ? `${width}px` : null }"
          :disabled="disabled"
          :maxlength="maxlength"
          :placeholder="placeholder"
@@ -20,8 +20,8 @@ export default defineComponent({
       default: ''
     },
     width: {
-      type: [String, Number],
-      default: '64px'
+      type: [String, Number, Object],
+      default: null
     },
     disabled: {
       type: Boolean,
