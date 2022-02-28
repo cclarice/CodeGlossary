@@ -6,7 +6,7 @@
     <span class="progress__label" v-if="label">
       {{ label }}
     </span>
-    <progress class="progress__bar"/>
+    <progress class="progress__bar" :value="value < 0 || value === NaN ? '' : value" :max="max"/>
     <span class="progress__status" v-if="!labelLeft && status">
       {{ status }}
     </span>
@@ -40,6 +40,14 @@ export default defineComponent({
     status: {
       type: String,
       default: 'Status...'
+    },
+    value: {
+      type: Number,
+      default: -1
+    },
+    max: {
+      type: Number,
+      default: 1
     }
   },
   methods: {
@@ -92,6 +100,17 @@ export default defineComponent({
     grid-row:    2;
     grid-column: 1;
     align-self:  center;
+    &::-webkit-progress-inner-element,
+    &::-webkit-progress-bar,
+    &::-webkit-progress-value {
+      border-radius: 3px;
+    }
+    &[value]::-webkit-progress-bar {
+      background-color: var(--progress-background);
+    }
+    &::-webkit-progress-value {
+      background-color: var(--progress-fill-background);
+    }
   }
 
   &__status {
@@ -116,7 +135,6 @@ export default defineComponent({
   }
 
 	&__button {
-		padding-top: 1px;
 		width: 72px;
 		height: 24px;
 		background-color: var(--button-background);
@@ -164,6 +182,7 @@ export default defineComponent({
 			width: fit-content;
 			justify-self: flex-end;
 			margin-right: 12px;
+      margin-bottom: 0;
 		}
 
 		& .progress__bar {
@@ -182,24 +201,4 @@ export default defineComponent({
   }
 }
 
-
-
-
-
-
-
-
-// label {
-//   display: grid;
-//   grid-template-rows: 16px 6px 4px 4px 14px;
-//   grid-template-columns: auto 10px 14px;
-//   max-width: 227px;
-// }
-//
-// progress {
-//   max-width: 200px;
-//   height: 4px;
-//   grid-row: 2;
-//   grid-column: 1;
-// }
 </style>
