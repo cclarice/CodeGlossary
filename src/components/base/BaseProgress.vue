@@ -6,7 +6,7 @@
     <span class="progress__label" v-if="label">
       {{ label }}
     </span>
-    <progress class="progress__bar" :value="value < 0 || value === NaN ? '' : value" :max="max"/>
+    <progress class="progress__bar" :value="displayValue" :max="max"/>
     <span class="progress__status" v-if="!labelLeft && status">
       {{ status }}
     </span>
@@ -24,6 +24,10 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'BaseProgress',
+  data: (): { displayValue: '' | number, frameId: number } => ({
+    displayValue: 0,
+    frameId: 0
+  }),
   props: {
     labelLeft: {
       type: Boolean,
@@ -50,7 +54,31 @@ export default defineComponent({
       default: 1
     }
   },
+  watch: {
+    value (v) {
+      cancelAnimationFrame(this.frameId)
+      if (v < 0 || Number.isNaN(v)) {
+        this.displayValue = ''
+      } else {
+        this.frameId = requestAnimationFrame(this.setNextDisplayValue)
+      }
+    }
+  },
   methods: {
+    setNextDisplayValue (): void {
+      const val = (this.value > this.max ? this.max : this.value)
+      if (this.displayValue) {
+        const dif = val - this.displayValue
+        if (Math.abs(dif) < this.max / 32) {
+          this.displayValue = val
+          return
+        }
+        this.displayValue += dif / 4
+      } else {
+        this.displayValue = val / 4
+      }
+      this.frameId = requestAnimationFrame(this.setNextDisplayValue)
+    },
     click (event: MouseEvent): void {
       this.$emit('action', event)
     }

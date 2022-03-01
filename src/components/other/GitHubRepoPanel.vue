@@ -164,9 +164,9 @@ export default defineComponent({
   },
   created () {
     Promise.allSettled([
-      GitHub.getRepo(this.repLink).then((response: XMLHttpRequest['response']) => (() => console.log(response))),
-      GitHub.getRepoContributors(this.repLink).then((response: XMLHttpRequest['response']) => (() => console.log(response))),
-      GitHub.getRepoLanguages(this.repLink).then((response: XMLHttpRequest['response']) => (() => console.log(response)))
+      GitHub.getRepo(this.repLink).then((response: XMLHttpRequest['response']) => (() => this.repository = response)),
+      GitHub.getRepoContributors(this.repLink).then((response: XMLHttpRequest['response']) => (() => this.contributors = response)),
+      GitHub.getRepoLanguages(this.repLink).then((response: XMLHttpRequest['response']) => (() => this.languages = response))
     ]).then((responses) => {
       responses.forEach((response) => {
         if (response.status === 'fulfilled' && response.value) {

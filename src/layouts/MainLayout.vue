@@ -77,7 +77,7 @@
         </div>
 			</section>
 			<section class="StatusRight">
-        <base-progress @action="() => { null }" :label="'text'" :label-left="true"/>
+        <base-progress v-if="progress.length" @action="() => { null }" :label="`${progress[0].name} ${bytesToString(progress[0].loaded)}`" :label-left="true"/>
 			</section>
 		</nav>
 	</footer>
@@ -95,6 +95,7 @@ import BaseError from '@/components/base/BaseError.vue'
 import MainStripeButton from '@/layouts/main/MainStripeButton.vue'
 import BaseBalloons from '@/components/balloon/BaseBalloons.vue'
 import BaseProgress from '@/components/base/BaseProgress.vue'
+import { bytesToString } from '@/library/bytes'
 
 const defaultComponentOptions = {
   delay: 200,
@@ -153,7 +154,8 @@ export default defineComponent({
 	methods: {
 		...mapMutations('theme', ['setTheme']),
     ...mapMutations('lang', ['setLang']),
-    ...mapMutations('tool', ['initTools', 'toggleStripesShown'])
+    ...mapMutations('tool', ['initTools', 'toggleStripesShown']),
+    bytesToString
 	},
   props: {
     loaded: {

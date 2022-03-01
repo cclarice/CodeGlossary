@@ -1,3 +1,6 @@
+import store from '@/store'
+import { EventLog } from '@/store/modules/event'
+
 interface XHROptions {
 	silent?: boolean
 	type: XMLHttpRequest['responseType']
@@ -8,8 +11,8 @@ type XHROptionsType = XHROptions | null
 
 const xhrDefaultOptions: XHROptions = {
 	silent: false,
-	type: 'json',
-	log: console.log
+	type: 'blob',
+	log: null // console.log
 }
 
 function createOnNotLoad (method: string, reason: string, name: string, reject: (reason: XMLHttpRequest) => void) {
@@ -32,20 +35,46 @@ function XHR (method: string, url: string, name = 'unknown', options = xhrDefaul
 	return new Promise((resolve, reject) => {
 		const log = options.log
 		const xhr = new XMLHttpRequest()
+		let   eventId  = -1
 		xhr.open(method, url)
 		xhr.responseType = options.type
 		// 1 On load start
-		xhr.onloadstart = (event) => {
+		xhr.onloadstart = async (event) => {
 			log && log(method, 'onloadstart', name, event)
+			eventId = await store.dispatch('event/add', <EventLog>{
+				status: 'progress',
+				name,
+				type: 'xhr',
+				loaded: event.loaded,
+				total: event.total,
+				abort: xhr.abort
+			})
 		}
 		// 2 On progress
 		xhr.onprogress = (event) => {
 			log && log(method, 'onprogress', name, event)
+			store.commit('event/progress', { id: eventId, loaded: event.loaded })
 		}
 		// 3 On load
 		xhr.onload = (event) => {
 			log && log(method, 'onload', name, event)
-			resolve((event.currentTarget as XMLHttpRequest).response)
+			const blob: Blob = (event.currentTarget as XMLHttpRequest).response
+			if (blob.type === 'application/json') {
+				blob.text()
+					.then((text) => {
+						store.commit('event/done', { id: eventId, value: event.loaded ? JSON.parse(text) : null })
+						resolve(event.loaded ? JSON.parse(text) : null)
+					})
+			} else if (blob.type === 'text/html') {
+				blob.text()
+					.then((text) => {
+						store.commit('event/done', { id: eventId, value: text })
+						resolve(text)
+					})
+			} else {
+				store.commit('event/done', { id: eventId, value: (event.currentTarget as XMLHttpRequest).response })
+				resolve((event.currentTarget as XMLHttpRequest).response)
+			}
 		}
 		// 3 Error | Abort | Timeout
 		xhr.onerror = createOnNotLoad(method, 'error', name, reject)
