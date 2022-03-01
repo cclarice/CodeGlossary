@@ -21,12 +21,12 @@
       <div class="GitBodyInfo">
         <h4>Info</h4>
         <div class="GitBodyList">
-          <div class="GitBodyListElement">
-            <img>
+          <div class="GitBodyListElement" v-if="codeSize">
+            <img class="icon" src="@/assets/icons/platform/git/code.svg" alt="Code size">
             <span>{{ codeSize }}</span>
           </div>
-          <div class="GitBodyListElement">
-            <img>
+          <div class="GitBodyListElement" v-if="totalSize">
+            <img class="icon" src="@/assets/icons/platform/git/branch.svg" alt="Main branch size">
             <span>{{ totalSize }}</span>
           </div>
         </div>
@@ -216,6 +216,18 @@ export default defineComponent({
         display: flex;
         flex-flow: row wrap;
         gap: 4px 12px;
+      }
+    }
+    &List {
+      padding: 8px 0 0;
+      display: flex;
+      flex-flow: column;
+      gap: 4px;
+
+      &Element {
+        display: flex;
+        align-items: center;
+        gap: 4px;
       }
     }
     &Languages,
