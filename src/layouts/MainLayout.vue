@@ -29,7 +29,7 @@
     <BaseScrollable id="Viewport">
       <router-view id="Content"/>
     </BaseScrollable>
-		<aside id="ToolRight">
+		<aside id="ToolRight" v-if="getATools.rightLeft || getATools.rightRight">
 			<div class="Tool" v-if="getATools.rightLeft">
         Tool Right Left
         <BaseError/>
@@ -71,7 +71,8 @@
 		<nav id="Status">
 			<section class="StatusLeft">
         <div id="ToggleStripes" @click="toggleStripesShown()">
-          <img :src="stripesShown ? require('@/assets/icons/stripe/visible.svg')
+          <img class="icon"
+               :src="stripesShown ? require('@/assets/icons/stripe/visible.svg')
                                   : require('@/assets/icons/stripe/hidden.svg')"
                alt="">
         </div>
@@ -193,10 +194,10 @@ export default defineComponent({
 
 // Header
 #Header {
-	border: 1px solid var(--panel-border);
+	border-bottom: 1px solid var(--panel-border);
 	background-color: var(--panel-background);
-	flex: 0 0 30px;
-	height: 30px;
+	flex: 0 0 29px;
+	height: 29px;
 	justify-content: space-between;
 }
 
@@ -221,7 +222,7 @@ export default defineComponent({
 
 .Stripe {
   display: flex;
-  border: 1px solid var(--panel-border);
+  // border: 1px solid var(--panel-border);
   background-color: var(--panel-background);
   justify-content: space-between;
   align-items: center;
@@ -229,8 +230,7 @@ export default defineComponent({
 
 #StripeLeft,
 #StripeRight {
-  border-bottom: none;
-  border-top: none;
+  border-left: 1px solid var(--panel-border);
   writing-mode: vertical-rl;
   width: 23px;
   &Right,
@@ -245,7 +245,10 @@ export default defineComponent({
     padding: 10px 0;
     user-select: none;
     &:hover {
-      background-color: #353739;
+      background-color: var(--stripe-hovered-background);
+    }
+    &:active {
+      background-color: var(--stripe-selected-background);
     }
   }
 }
@@ -264,9 +267,6 @@ export default defineComponent({
 #StripeBottomLeft,
 #StripeBottomRight, {
   display: flex;
-}
-
-#StripeRight {
 }
 
 #StripeBottom {
@@ -318,11 +318,11 @@ export default defineComponent({
 
 #Status {
   display: flex;
-  height: 22px;
+  height: 21px;
   align-items: center;
 	justify-content: space-between;
   background-color: var(--panel-background);
-  border: var(--panel-border) solid 1px;
+  border-top: var(--panel-border) solid 1px;
 }
 
 #ToggleStripes {
