@@ -130,26 +130,39 @@ main {
 }
 
 .ExplorerIconsElement {
-  display: flex;
-  flex-flow: column;
+  display:     flex;
+  flex-flow:   column;
   align-items: center;
-  max-width: 128px;
-  width: 128px;
-  max-height: 160px;
-  height: 160px;
+  max-width:   128px;
+  width:       128px;
+  max-height:  160px;
+  height:      160px;
   @media (max-width: 1024px) {
-    max-width: 64px;
+    max-width:  64px;
     max-height: 80px;
   }
-  gap: 8px;
-  overflow: hidden;
-  &Favicon {
-    display: flex;
-    max-width: 100%;
-    width: 50%;
+  gap:         8px;
+  overflow:    hidden;
+  padding-top: 8px;
+  user-select: none;
+
+  &:hover {
+    background-color: var(--field-background);
+    // outline: 1px dashed var(--field-border-color);
   }
+
+  &Favicon {
+    display:   flex;
+    max-width: 100%;
+    width:     75%;
+  }
+
   &Name {
     text-align: center;
+    font-size: 13px;
+    @media (max-width: 1024px) {
+      font-size: 11px;
+    }
   }
 }
 
