@@ -38,7 +38,6 @@ const mutations: MutationTree<IEventState> = {
 		}
 	},
 	done (state: IEventState, event: EventLog): void {
-		console.log(event)
 		if (event.id || event.id === 0) {
 			if (state.events[event.id].status === 'progress') {
 					state.progress = state.progress.filter((e) => e.id !== event.id)
