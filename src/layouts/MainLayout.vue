@@ -77,7 +77,14 @@
         </div>
 			</section>
 			<section class="StatusRight">
-        <base-progress v-if="progress.length" @action="() => { null }" :label="`${progress[0].name} ${bytesToString(progress[0].loaded)}`" :label-left="true"/>
+        <transition name="fade">
+          <base-progress v-if="progress.length"
+                         :label="`${progress[0].name} ${progress.length > 1 ? `[${progress.length}]` : ''}`"
+                         :label-left="true"
+                         :value="progress[0].loaded"
+                         :max="progress[0].total || 1"
+                         @action="() => { null }"/>
+        </transition>
 			</section>
 		</nav>
 	</footer>
