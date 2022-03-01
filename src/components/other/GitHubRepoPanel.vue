@@ -17,8 +17,8 @@
       </h2>
       <img v-if="logo" :src="logo" width="32" height="32" alt="" @click="test">
     </div>
-    <div class="GitBody">
-      <div class="GitBodyInfo">
+    <div class="GitBody" v-if="repository || contributors || languages">
+      <div class="GitBodyInfo" v-if="repository">
         <h4>Info</h4>
         <div class="GitBodyList">
           <div class="GitBodyListElement" v-if="codeSize">
@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-      <div class="GitBodyContributors">
+      <div class="GitBodyContributors" v-if="contributors">
         <h4>
           Contributors
           <span>
@@ -61,7 +61,7 @@
           </article>
         </div>
       </div>
-      <div class="GitBodyLanguages">
+      <div class="GitBodyLanguages" v-if="languages">
         <h4>
           Languages
           <span>
@@ -74,7 +74,7 @@
                :style="{ width: `${languages[key] * 100 / totalLanguages}%`, background: colors[key] || '#888888' }">
           </div>
         </div>
-        <div class="GitBodyLanguagesList" v-if="languages">
+        <div class="GitBodyLanguagesList">
           <div v-for="key of Object.keys(languages)" :key="key"
                style="display: flex; align-items: center; gap: 5px;">
             <div style="width: 12px; height: 12px; border-radius: 6px; outline: 1px solid var(--panel-border)"
@@ -89,6 +89,9 @@
         </div>
       </div>
     </div>
+    <div class="GitBodyLoading" v-else>
+      <base-loading/>
+    </div>
   </section>
 </template>
 
@@ -98,6 +101,7 @@ import DebugPanel from '@/components/DebugPanel.vue'
 import GitHub from '@/services/github'
 import clickUrl from '@/library/clickUrl'
 import { bytesToString } from '@/library/bytes'
+import BaseLoading from '@/components/base/BaseLoading.vue'
 
 interface Data {
   [key: string]: Response | Record<string, number | string > | null
@@ -105,7 +109,7 @@ interface Data {
 
 export default defineComponent({
   name: 'GitHubRepoPanel',
-  components: { DebugPanel },
+  components: { BaseLoading, DebugPanel },
   data: (): Data => ({
     repository: null,
     contributors: null,
@@ -301,6 +305,10 @@ export default defineComponent({
 
         }
       }
+    }
+
+    &Loading {
+      padding: 16px;
     }
   }
 }
