@@ -1,14 +1,13 @@
 <template>
 	<div class="BaseIcon" @iconClick="$emit('iconClick', $event)">
 		<div class="BaseIconWrapper" :class="{ BaseIconWrapperActive: active }">
-      <img :src="icon" :style="{ filter: autoColor && theme === 'light' ? 'grayscale(100%) brightness(0.625)' : '' }" alt="">
+      <img :src="icon" alt="">
     </div>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { mapGetters } from 'vuex'
 
 export default defineComponent({
 	name: 'BaseIcon',
@@ -25,11 +24,6 @@ export default defineComponent({
       type: Boolean,
       default: false
     }
-	},
-	computed: {
-    ...mapGetters('theme', {
-      theme: 'getTheme'
-    })
 	}
 })
 </script>
@@ -48,6 +42,9 @@ export default defineComponent({
 		background-color: var(--icon-pressed-background);
 	}
   cursor: pointer;
+  img {
+    filter: var(--filter-icon);
+  }
 }
 
 .BaseIconWrapper {

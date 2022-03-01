@@ -28,3 +28,11 @@
   --button-border-focused:        1px solid var(--button-border-focused-color);
   --button-outline-focused:       2px solid var(--button-outline-focused-color);
 }
+
+.icon__white {
+  filter: var(--filter-icon-white);
+}
+
+.icon {
+  filter: var(--filter-icon);
+}

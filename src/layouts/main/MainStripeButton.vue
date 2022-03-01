@@ -1,6 +1,6 @@
 <template>
   <div class="StripeButton">
-    <img :src="tool.icon || require('@/assets/icons/stub.svg')">
+    <img class="icon" :src="tool.icon || require('@/assets/icons/stub.svg')">
     {{ tool.name }}
   </div>
 </template>

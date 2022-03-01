@@ -11,7 +11,7 @@
       </span>
     </DebugPanel>
     <div class="GitHeader">
-      <img src="@/assets/logos/github.svg" width="32" height="32" alt="GitHubIcon">
+      <img class="icon__white" src="@/assets/logos/github.svg" width="32" height="32" alt="GitHubIcon">
       <h2 @mousedown="clickUrl($event, repository && repository.html_url)">
         {{ repository && repository.name || 'Loading...' }}
       </h2>
