@@ -1,7 +1,7 @@
 <template>
-	<div class="BaseIcon" @iconClick="$emit('iconClick', $event)">
-		<div class="BaseIconWrapper" :class="{ BaseIconWrapperActive: active }">
-      <img :src="icon" alt="">
+	<div class="base-icon" @iconClick="!disabled && $emit('iconClick', $event)">
+		<div class="base-icon__wrapper" :class="{ active, disabled }">
+      <img class="base-icon__icon" :src="icon" alt="" :class="{ disabled }" ref="iconElement">
     </div>
 	</div>
 </template>
@@ -23,47 +23,51 @@ export default defineComponent({
     active: {
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
 	}
 })
 </script>
 
 <style lang="scss" scoped>
-.BaseIcon {
+.base-icon {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 26px;
 	height: 26px;
-	&:hover > .BaseIconWrapper {
+	&:hover > .base-icon__wrapper:not(.disabled) {
 		background-color: var(--icon-hovered-background);
 	}
-	&:active > .BaseIconWrapper {
+	&:active > .base-icon__wrapper:not(.disabled) {
 		background-color: var(--icon-pressed-background);
 	}
   cursor: pointer;
-  img {
+  &__icon {
     filter: var(--filter-icon);
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-select: none;
+  }
+  &__icon.disabled {
+    opacity: .5
   }
 }
 
-.BaseIconWrapper {
+.base-icon__wrapper {
 	background-position: center;
 	background-repeat: no-repeat;
 	border-radius: 3px;
 	width: 22px;
 	height: 22px;
   padding: 3px;
-  &Active {
+  &.active:not(.disabled) {
 		background-color: var(--icon-pressed-background);
   }
-}
-
-img {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-select: none;
 }
 </style>
