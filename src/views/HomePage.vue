@@ -203,7 +203,7 @@ export default defineComponent({
   @media (max-width: 1024px) {
     grid-template-columns: auto 320px;
   }
-  @media (max-width: 720px) {
+  @media (max-width: 768px) {
     grid-template-columns: auto;
   }
 	align-items: center;
@@ -229,7 +229,7 @@ export default defineComponent({
     flex-flow: column;
     align-items: center;
     min-height: 100%;
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
       grid-column-start: 1;
     }
   }

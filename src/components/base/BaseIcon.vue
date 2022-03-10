@@ -1,7 +1,7 @@
 <template>
-	<div class="base-icon" @iconClick="!disabled && $emit('iconClick', $event)">
+	<div class="base-icon" @click="disabled ? null : $emit('cClick', $event)">
 		<div class="base-icon__wrapper" :class="{ active, disabled }">
-      <img class="base-icon__icon" :src="icon" alt="" :class="{ disabled }" ref="iconElement">
+      <img class="base-icon__icon" :src="icon" alt="" :class="{ disabled }">
     </div>
 	</div>
 </template>
@@ -28,7 +28,8 @@ export default defineComponent({
       type: Boolean,
       default: false
     }
-	}
+	},
+  events: ['cClick']
 })
 </script>
 

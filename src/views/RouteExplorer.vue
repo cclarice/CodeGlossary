@@ -1,10 +1,11 @@
 <template>
   <div class="Explorer">
     <header>
-
+      <base-icon :icon="require('@/assets/icons/interface/back.svg')" @cClick="$router.back()" :disabled="!back"/>
+      <base-icon :icon="require('@/assets/icons/interface/next.svg')" @cClick="$router.forward()" :disabled="!forward"/>
     </header>
     <aside>
-
+      <router-tree :tree="$router.options.routes[0].meta.children"></router-tree>
     </aside>
     <BaseScrollable class="Scrollable">
       <main v-if="!table"
@@ -22,9 +23,18 @@
             class="ExplorerTable">
         <thead>
           <tr>
-            <td> Name </td>
-            <td> DateCreated </td>
-            <td> Creator </td>
+            <td>
+              Name
+            </td>
+            <td>
+              Date Created
+            </td>
+            <td>
+              Date Updated
+            </td>
+            <td>
+              Creator
+            </td>
           </tr>
         </thead>
         <tbody>
@@ -55,18 +65,25 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { RouteRecordRaw } from 'vue-router'
+import { HistoryState, RouteRecordRaw } from 'vue-router'
 import BaseIcon from '@/components/base/BaseIcon.vue'
 import BaseScrollable from '@/components/base/BaseScrollable.vue'
+import RouterTree from '@/components/router/RouterTree.vue'
+
+interface Data {
+  back: HistoryState['back']
+  forward: HistoryState['forward']
+  table: boolean
+}
 
 export default defineComponent({
   name: 'RouteExplorer',
-  components: { BaseScrollable, BaseIcon },
-  data () {
-    return ({
-      table: false
-    })
-  },
+  components: { RouterTree, BaseScrollable, BaseIcon },
+  data: (): Data => ({
+    back: null,
+    forward: null,
+    table: false
+  }),
   computed: {
     routes () {
       return this.$router.getRoutes()
@@ -80,6 +97,9 @@ export default defineComponent({
     }
   },
   created () {
+    console.log(this.$router)
+    this.back = this.$router.options.history.state.back
+    this.forward = this.$router.options.history.state.forward
     const localTable = localStorage.getItem('ExplorerTable')
     if (localTable) {
       const parseTable = JSON.parse(localTable)
@@ -97,17 +117,19 @@ export default defineComponent({
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template-columns: 25% auto;
-  grid-template-rows: 20px auto 29px;
+  grid-template-columns: 384px auto;
+  grid-template-rows: 29px auto 29px;
   flex-flow: column;
-  grid-column-gap: 1px;
   background-color: var(--main-background);
 }
 
 header {
   grid-area: 1 / 1 / 1 / 3;
   background-color: var(--panel-background);
-  border-bottom: 1px var(--panel-border);
+  border-bottom: 1px solid var(--panel-border);
+  display: flex;
+  align-items: center;
+  padding: 0 2px;
 }
 
 aside {

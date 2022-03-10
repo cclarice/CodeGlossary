@@ -1,20 +1,22 @@
 <template>
 	<header id="Header" v-show="!loading">
-		<MainNavigation id="Navigation"/>
+		<main-navigation id="Navigation"/>
 		<nav class="Icons">
-			<BaseIcon :icon="iconTheme"
+			<base-icon :icon="iconTheme"
 								@click="setTheme(getTheme === 'light' ? 'dark' : 'light')"/>
-			<BaseIcon :icon="getIcons[getLang]"
+			<base-icon :icon="getIcons[getLang]"
 								@click="setLang(getLang === 'en_us' ? 'ru_ru' : 'en_us')"/>
+      <base-icon :icon="require('@/assets/icons/interface/next.svg')" @cClick="$router.forward()" :disabled="!forward"/>
+      <base-icon :icon="require('@/assets/icons/interface/back.svg')" @cClick="$router.back()" :disabled="!back"/>
 		</nav>
 	</header>
 	<main id="Main" v-show="!loading">
 		<nav class="Stripe" id="StripeLeft" v-if="(getStripes.leftLeft.length || getStripes.leftRight.length) && stripesShown">
 			<div id="StripeLeftLeft" v-if="getStripes.leftLeft.length">
-        <MainStripeButton v-for="stripe of getStripes.leftLeft" :key="stripe.id" :tool="stripe"/>
+        <main-stripe-button v-for="stripe of getStripes.leftLeft" :key="stripe.id" :tool="stripe"/>
 			</div>
 			<div id="StripeLeftRight" v-if="getStripes.leftRight.length">
-        <MainStripeButton v-for="stripe of getStripes.leftRight" :key="stripe.id" :tool="stripe"/>
+        <main-stripe-button v-for="stripe of getStripes.leftRight" :key="stripe.id" :tool="stripe"/>
 			</div>
 		</nav>
 		<aside id="ToolLeft" v-if="getATools.leftLeft || getATools.leftRight">
@@ -26,27 +28,27 @@
         Tool Left Right
 			</div>
 		</aside>
-    <BaseScrollable id="Viewport">
+    <base-scrollable id="Viewport">
       <router-view id="Content"/>
-    </BaseScrollable>
+    </base-scrollable>
 		<aside id="ToolRight" v-if="getATools.rightLeft || getATools.rightRight">
 			<div class="Tool" v-if="getATools.rightLeft">
         Tool Right Left
-        <BaseError/>
+        <base-error/>
 			</div>
 			<div class="Tool" v-if="getATools.rightRight">
         Tool Right Right
-        <BaseLoading/>
+        <base-loading/>
 			</div>
 		</aside>
 		<nav id="StripeRight"
          class="Stripe"
          v-if="getStripes.rightLeft.length || getStripes.rightRight.length && stripesShown">
 			<div id="StripeRightLeft" v-if="getStripes.rightLeft.length">
-        <MainStripeButton v-for="stripe of getStripes.rightLeft" :key="stripe.id" :tool="stripe"/>
+        <main-stripe-button v-for="stripe of getStripes.rightLeft" :key="stripe.id" :tool="stripe"/>
 			</div>
 			<div id="StripeRightRight" v-if="getStripes.rightRight.length">
-        <MainStripeButton v-for="stripe of getStripes.rightRight" :key="stripe.id" :tool="stripe"/>
+        <main-stripe-button v-for="stripe of getStripes.rightRight" :key="stripe.id" :tool="stripe"/>
 			</div>
 		</nav>
 	</main>
@@ -62,10 +64,10 @@
 
 		<nav class="Stripe" id="StripeBottom" v-if="getStripes.bottomLeft.length || getStripes.bottomLeft.length && stripesShown">
 			<div class="StripeLeft" v-if="getStripes.bottomLeft.length">
-        <MainStripeButton v-for="stripe of getStripes.bottomLeft" :key="stripe.id" :tool="stripe"/>
+        <main-stripe-button v-for="stripe of getStripes.bottomLeft" :key="stripe.id" :tool="stripe"/>
       </div>
       <div class="StripeRight" v-if="getStripes.bottomRight.length">
-        <MainStripeButton v-for="stripe of getStripes.bottomRight" :key="stripe.id" :tool="stripe"/>
+        <main-stripe-button v-for="stripe of getStripes.bottomRight" :key="stripe.id" :tool="stripe"/>
       </div>
 		</nav>
 		<nav id="Status">
@@ -89,7 +91,7 @@
 			</section>
 		</nav>
 	</footer>
-  <BaseBalloons v-show="!loading"/>
+  <base-balloons v-show="!loading"/>
 </template>
 
 <script lang="ts">
@@ -157,6 +159,12 @@ export default defineComponent({
 		},
     component () {
       return (this.getTools && this.getTools[0]?.component) || null
+    },
+    forward () {
+      return this.$route && this.$router.options.history.state.forward
+    },
+    back () {
+      return this.$route && this.$router.options.history.state.back
     }
 	},
 	methods: {

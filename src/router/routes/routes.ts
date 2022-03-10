@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
       title: 'CodeGlossary',
       parent: null,
       favicon: FAVICON,
-      layout: MAIN_LAYOUT
+      layout: MAIN_LAYOUT,
     }
   },
   {
@@ -37,7 +37,8 @@ const routes: Array<RouteRecordRaw> = [
       title: '404',
       parent: '/',
       layout: MAIN_LAYOUT,
-      favicon: PROJECT_CODEGLO
+      favicon: PROJECT_CODEGLO,
+      hidden: true
     }
   }
 ]
@@ -47,6 +48,14 @@ routes.forEach((route: RouteRecordRaw) => {
     route.meta.parent = routes.find(( route0: RouteRecordRaw ) => {
       return route.meta && route0.path === route.meta.parent
     })
+    if (route.meta.parent?.meta) {
+      if (!route.meta.parent.meta.children) {
+        route.meta.parent.meta.children = []
+      }
+      if (!route.meta.parent.meta.children.includes(route)) {
+        route.meta.parent.meta.children.push(route)
+      }
+    }
   }
 })
 
