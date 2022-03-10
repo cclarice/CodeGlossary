@@ -40,6 +40,17 @@ const routes: Array<RouteRecordRaw> = [
       favicon: PROJECT_CODEGLO,
       hidden: true
     }
+  },
+  {
+    path: '/ui',
+    name: 'UI Kit',
+    component: () => import('@/views/UIKit.vue'),
+    meta: {
+      title: 'UI Kit',
+      parent: '/routes',
+      layout: MAIN_LAYOUT,
+      favicon: PROJECT_CODEGLO
+    }
   }
 ]
 
