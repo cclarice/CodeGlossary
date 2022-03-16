@@ -1,28 +1,15 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <button @click="counter++"> {{ counter }} </button>
-  <pre>
-    {{ store }}
-  </pre>
-  <router-view/>
+  <component :is="layout"/>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
-import { useStore } from './store'
+import MainLayout from '@/layouts/MainLayout.vue'
+import { onMounted, reactive, ref, shallowReactive, shallowRef, watch } from 'vue'
 
-const store = useStore()
-
-const { name, doubleCount } = store
-
-const counter = ref(0)
-
-watch(counter, (newCounter, oldCounter) => {
-  console.log(newCounter, oldCounter)
-})
+const layout = shallowRef(MainLayout)
 
 onMounted(() => {
-  console.log('pinia', name, doubleCount)
+  console.log('mounted')
 })
 </script>
 
