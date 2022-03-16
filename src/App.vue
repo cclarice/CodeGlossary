@@ -1,16 +1,24 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <button @click="counter++"> {{ counter }} </button>
 </template>
 
+<script setup lang="ts">
+import { onMounted, ref, watch } from 'vue'
+
+const counter = ref(0)
+
+watch(counter, (newCounter, oldCounter) => {
+  console.log(newCounter, oldCounter)
+})
+
+onMounted(() => {
+  console.log('props')
+})
+</script>
+
 <style>
-#app {
+#codeglo {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
