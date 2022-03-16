@@ -1,11 +1,19 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <button @click="counter++"> {{ counter }} </button>
+  <pre>
+    {{ store }}
+  </pre>
   <router-view/>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
+import { useStore } from './store'
+
+const store = useStore()
+
+const { name, doubleCount } = store
 
 const counter = ref(0)
 
@@ -14,7 +22,7 @@ watch(counter, (newCounter, oldCounter) => {
 })
 
 onMounted(() => {
-  console.log('props')
+  console.log('pinia', name, doubleCount)
 })
 </script>
 

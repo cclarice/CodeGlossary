@@ -1,16 +1,9 @@
 import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes: [{
-    path: '/',
-    name: 'Home',
-    component: () => import('./views/Home.vue')
-  }]
-})
+import router from './router'
+import pinia from './store'
 
 createApp(App)
   .use(router)
+  .use(pinia)
   .mount('#codeglo')
