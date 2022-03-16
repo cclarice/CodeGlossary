@@ -1,6 +1,7 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <button @click="counter++"> {{ counter }} </button>
+  <router-view/>
 </template>
 
 <script setup lang="ts">
