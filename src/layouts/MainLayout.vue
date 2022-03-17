@@ -1,10 +1,7 @@
 <template>
-  <header class="main-header">
-    Header
-    <nav class="main-top">
-      Top
-    </nav>
-  </header>
+  <main-header>
+    <main-tool position="top" />
+  </main-header>
   <main class="main-main">
     <nav class=main-left>
       Left
@@ -32,16 +29,15 @@
 </template>
 
 <script setup lang="ts">
-
+import MainHeader from '@/layouts/main-components/MainHeader.vue'
+import MainTool from './main-components/MainTool.vue'
 </script>
 
 <style lang="scss" scoped>
-.main- {
-  &header {
-    display: flex;
-  }
-  &main {
-    flex: 1 0;
-  }
+.main-header {
+  display: flex;
+}
+.main-main {
+  display: flex;
 }
 </style>
