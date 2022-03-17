@@ -4,10 +4,30 @@ const pinia = createPinia()
 
 export default pinia
 
-export const useStore = defineStore('main', {
+export const useTools = defineStore('Tools', {
   state: () => ({
-    counter: 0,
-    name: 'Eduardo',
-    isAdmin: true
+    buttons: {
+      topLeft: [],
+      topRight: [],
+      leftRight: [],
+		  leftLeft: [],
+		  rightRight: [],
+		  rightLeft: [],
+		  bottomRight: [],
+		  bottomLeft: []
+    },
+    activeTools: {
+      topLeft: null,
+      topRight: null,
+      leftRight: null,
+		  leftLeft: null,
+		  rightRight: null,
+		  rightLeft: null,
+		  bottomRight: null,
+		  bottomLeft: null
+    },
+    tools: [
+
+    ]
   })
 })

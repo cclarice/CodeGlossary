@@ -1,20 +1,20 @@
 <template>
-  <div>
-    <h1>
-      Home
-    </h1>
-    <p>
-      This is home page, no more info about it.
-    </p>
-  </div>
+  <section class="home">
+    <div>
+
+    </div>
+    <div>
+      <h1>CodeGlossary</h1>
+      <h3></h3>
+      <img src="@/assets/custom.svg" alt="">
+    </div>
+    <div>
+
+    </div>
+  </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'Home'
-})
+<script setup lang="ts">
 </script>
 
 <style lang="scss" scoped>
