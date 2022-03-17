@@ -1,0 +1,125 @@
+:root {
+  @media screen {
+    &:not([data-theme]),
+    &[data-theme='dark'] {
+      /* Panel */
+      --panel-background:                   #3C3F41;
+      --panel-border:                       #323232;
+      --panel-alt-background:               #3F434C;
+
+      /* Field */
+      --field-background:                   #4C5052;
+      --field-background-disabled:          var(--panel-background);
+      --field-border-color:                 #5E6060;
+      --field-border-disabled-color:        #646464;
+      --field-border-focused-color:         #456A90;
+      --field-border-validated-color:       #73454B;
+      --field-outline-color:                #FFFFFF00;
+      --field-outline-focused-color:        #3D6185;
+      --field-outline-validated-color:      #8B3C3C;
+      --field-button-background:            #3C3F41;
+      --field-button-background-disabled:   #3C3F41;
+
+      /* Checkbox / Radio */
+      --check-background:                   #43494A;
+      --check-background-disabled:          var(--field-background-disabled);
+      --check-border-color:                 #6B6B6B;
+      --check-border-disabled-color:        #545556;
+      --check-border-focused-color:         #43698E;
+      --check-outline-color:                #97C3F300;
+      --check-outline-focused-color:        #3D6185;
+      /* Checked */
+      --check-checked-background:           var(--check-background);
+      --check-checked-border-color:         var(--check-border-color);
+      --check-checked-focused-border-color: var(--check-border-focused-color);
+
+      /* Button */
+      --button-background:                  var(--field-background);
+      --button-background-disabled:         var(--field-background-disabled);
+      --button-background-default:          #365880;
+      --button-border-color:                var(--field-border-color);
+      --button-border-default-color:        #4C708C;
+      --button-border-focused-color:        var(--field-border-focused-color);
+      --button-outline-focused-color:       var(--field-outline-focused-color);
+
+      /* Progress */
+      --progress-background:                #555555;
+      --progress-fill-background:           #A0A0A0;
+      background: linear-gradient(270deg,
+        #828282 0%,
+        #696969 18.21%,
+        #828282 36.41%,
+        #696969 55.4%,
+        #828282 76.93%,
+        #696969 100%);
+
+      /* Card */
+      --main-background:                    #2B2B2B;
+      --card-header-background:             #4A4E52;
+      --card-hint-background:               #45494A;
+      --card-alt-background:                #3F434C;
+      --card-shadow:                        0px 0px 2px #0000004C, 0px 0px 30px #0000004C;
+
+      /* Icon */
+      --icon-background:                    #3C3F41;
+      --icon-hovered-background:            #4C5052;
+      --icon-pressed-background:            #5C6164;
+      --icon-fill:                          #AFB1B3;
+      --icon-dropdown:                      #D6D6D6;
+      --icon-split:                         #3C3F41;
+      --icon-split-hovered:                 #6B6B6B;
+
+      /* SVG */
+      --svg-fill:                           #9AA7B0B0;
+
+      /* Scroll todo */
+      --scroll:                             unset;
+      --scroll-hovered:                     unset;
+      --scroll-active:                      unset;
+
+      /* Balloon */
+      --balloon-shadow:                     0 2px 8px 0 #00000033;
+      --balloon-icon-fill:                  #7F8B9100;
+      --balloon-hovered-icon-fill:          #7F8B9180;
+      --balloon-hovered-icon-hovered-fill:  #7F8B91B0;
+      --balloon-hovered-icon-active-fill:   #7F8B91FF;
+
+      /* Stripe */
+      --stripe-hovered-background:          #2D2F3080;
+      --stripe-selected-background:         #2D2F30;
+
+      /* Tool */
+      --tool-header:                        #3B4754;
+
+      /* Selection */
+      --selection-active:                   #2F65CA;
+      --selection-hovered:                  #113A5C;
+
+      /* Scrollbar */
+      --scroll-background:					        #49494966;
+      --scroll-color:								        #696969AA;
+      --scroll-border:				 			        #29292944;
+
+      /* Typography */
+      --default:                            #BBBBBB;
+      --disabled:                           #777777;
+      --selected:                           #FEFEFE;
+      --link:                               #589DF6;
+      --link-visited:                       #BA6F25;
+      --info-panel:                         #8C8C8C;
+      --info-input:                         #787878;
+      --error:                              #FF5261;
+      --success:                            #50A661;
+
+      /* Typography Code */
+      --code-default:                       #BABABA;
+      --code-keyword:                       #CB7832;
+      --code-variable:                      red; // #871094;
+      --code-number:                        #6896BA;
+      --code-method:                        red; // #00627A;
+      --code-caret-row:                     #323232;
+      --code-description:                   #7F7F7F;
+      --code-override:                      red; // #9E880D;
+    }
+  }
+}

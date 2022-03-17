@@ -1,9 +1,11 @@
+@import 'theme/theme';
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: -apple-system, 'SF Pro Text', 'Segoe UI',sans-serif;
-  color: #BBBBBB;
+  color: var(--default);
 }
 
 html {
@@ -20,5 +22,5 @@ body {
 }
 
 #codeglo {
-  background-color: #2B2B2B;
+  background-color: var(--main-background);
 }
