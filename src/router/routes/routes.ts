@@ -23,6 +23,17 @@ const routes: Array<RouteRecordRaw> = [
       favicon: '',
       layout: layouts.EmptyLayout
     }
+  },
+  {
+    path: '/large',
+    name: 'LargeBlock',
+    component: () => import('@/views/develop/LargeBlock.vue'),
+    meta: {
+      title: 'CodeGlossary',
+      parent: null,
+      favicon: '',
+      layout: layouts.EmptyLayout
+    }
   }
 ]
 

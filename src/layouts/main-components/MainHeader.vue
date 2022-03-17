@@ -1,5 +1,5 @@
 <template>
-  <header class="main-header" :class="{ 'main-header_slotted': slots.default }">
+  <header class="main-header" :class="{ 'main-header_slotted': hasSlot }">
     <nav class="main-header__path">
       path
     </nav>
@@ -13,12 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, useSlots } from 'vue'
-
-const slots = useSlots()
-
-onMounted(() => {
-  console.log(slots.default)
+defineProps({
+  hasSlot: {
+    type: Boolean,
+    default: false
+  }
 })
 </script>
 
@@ -27,6 +26,8 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   background-color: var(--panel-border);
+  min-height: 29px;
+  padding-bottom: 1px;
 
   &_slotted {
     display: grid;
@@ -35,6 +36,7 @@ onMounted(() => {
     grid-template-areas: "path actions"
                          "bar bar";
     row-gap: 1px;
+    padding: 0;
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <main-header>
+  <main-header has-slot>
     <template #default>
       <main-bar position="top">
         <template #bar_left>
@@ -11,7 +11,7 @@
       </main-bar>
     </template>
   </main-header>
-  <main class="main-main">
+  <main class="main-main" :style="{ maxHeight: `calc(100% - 50px - ${ (true ? 22 : 0) + (true ? 22 : 0)}px)` }">
     <main-bar position="left">
       <template #bar_left>
         left
@@ -20,13 +20,9 @@
         right
       </template>
     </main-bar>
-    <aside class="main-tool tool-bottom">
-      Tool Bottom
-    </aside>
-    <router-view class="main-view" />
-    <aside class="main-tool tool-bottom">
-      Tool Bottom
-    </aside>
+    <v-scrollable>
+      <router-view class="main-view" />
+    </v-scrollable>
     <main-bar position="right">
       <template #bar_left>
         left
@@ -36,29 +32,34 @@
       </template>
     </main-bar>
   </main>
-  <footer class="main-footer">
-    <aside class="main-tool tool-bottom">
-      Tool Bottom
-    </aside>
-    <nav class="main-bar bar-bottom">
-      Bar Bottom
-    </nav>
-    Footer
-  </footer>
+  <main-footer has-slot>
+    <main-bar position="bottom">
+      <template #bar_left>
+        left
+      </template>
+      <template #bar_right>
+        right
+      </template>
+    </main-bar>
+  </main-footer>
 </template>
 
 <script setup lang="ts">
 import MainHeader from '@/layouts/main-components/MainHeader.vue'
 import MainToolContainer from '@/layouts/main-components/MainToolContainer.vue'
 import MainBar from '@/layouts/main-components/MainBar.vue'
+import MainFooter from '@/layouts/main-components/MainFooter.vue'
+import VScrollable from '@/components/VScrollable.vue'
 </script>
 
 <style lang="scss" scoped>
 .main-main {
   display: flex;
-  flex: 1;
+  flex: 1 1;
+  position: relative;
 }
 .main-view {
+  overflow: hidden;
   flex: 1;
 }
 </style>

@@ -18,8 +18,9 @@ defineProps<{
 <style lang="scss" scoped>
 .main-bar {
   display: flex;
+  justify-content: space-between;
   background-color: var(--panel-background);
-  height: 100%;
+  // height: 100%;
   grid-area: bar;
   border-color: var(--panel-border);
   border-style: solid;
@@ -29,12 +30,14 @@ defineProps<{
     width: 100%;
     border-bottom-width: 1px;
   }
-  &_left, &right {
+  &_left, &_right {
     width: 21px;
     border-right-width: 1px;
+    writing-mode: vertical-rl;
   }
   &_left {
     border-right-width: 1px;
+    transform: rotate(180deg);
   }
   &_right {
     border-left-width: 1px;

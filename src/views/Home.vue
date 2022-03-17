@@ -6,7 +6,7 @@
     <div>
       <h1>CodeGlossary</h1>
       <h3></h3>
-      <img src="@/assets/custom.svg" alt="">
+      <img @click="router.push({ name: 'LargeBlock' })" src="@/assets/custom.svg" alt="">
     </div>
     <div>
 
@@ -15,6 +15,9 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 </script>
 
 <style lang="scss" scoped>
