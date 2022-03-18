@@ -20,7 +20,7 @@
         right
       </template>
     </main-bar>
-    <router-view class="main-view" />
+    <router-view class="main-view" v-scrollable/>
     <main-bar position="right">
       <template #bar_left>
         left

@@ -1,4 +1,5 @@
 import { Directive } from 'vue'
+import log from './log'
 
 interface VScrollableElement extends HTMLElement {
   scrollableData: {
@@ -45,9 +46,7 @@ const vScrollable: Directive = {
     scrollable.appendChild(verScroll)
     scrollable.appendChild(horScroll)
 
-    function scrollEventHandler (event: Event) {
-      console.log(event)
-
+    function scrollEventHandler () {
       // Positions for Thumbs
       verThumb.style.top = `${(verScroll.clientHeight - verThumb.clientHeight - 2) / (scrollable.scrollHeight - scrollable.clientHeight) * scrollable.scrollTop}px`
       horThumb.style.left = `${(horScroll.clientWidth - horThumb.clientWidth - 2) / (scrollable.scrollWidth - scrollable.clientWidth) * scrollable.scrollLeft}px`
@@ -55,7 +54,7 @@ const vScrollable: Directive = {
 
     const resizeObserverHandler = () => {
 
-      // Positions for Scrollbars
+      // Positions and sizes for Scrollbars
       const { x, y } = scrollable.getClientRects()[0]
       horScroll.style.width = `${scrollable.clientWidth - (verScroll.style.display === 'none' ? 0 : 10)}px`
       verScroll.style.height = `${scrollable.clientHeight}px`
@@ -64,39 +63,18 @@ const vScrollable: Directive = {
       verScroll.style.left = `${scrollable.clientWidth - 10 + x}px`
       verScroll.style.top = `${y}px`
 
-
+      // Sizes for Thumbs
       verScroll.style.display = horScroll.style.display = 'none'
-
       if (scrollable.scrollWidth > scrollable.clientWidth) {
         horScroll.style.display = 'flex'
+        horThumb.style.width = `${(horScroll.clientWidth - 2) * scrollable.clientWidth / scrollable.scrollWidth}px`
+
       }
       if (scrollable.scrollHeight > scrollable.clientHeight) {
         verScroll.style.display = 'flex'
+        verThumb.style.height = `${(verScroll.clientHeight - 2) * scrollable.clientHeight / scrollable.scrollHeight}px`
       }
-      // Horizontal
-      //if (scrollable.scrollWidth <= scrollable.clientWidth) {
-      //  return;
-      //} else {
-      //  if (scrollable.scrollLeft > scrollable.scrollWidth - scrollable.clientWidth) {
-      //    horScroll.style.display = verScroll.style.display = 'flex'
-      //    scrollable.scrollLeft = scrollable.scrollWidth - scrollable.clientWidth
-      //  } else {
-      //    horScroll.style.display = verScroll.style.display = 'flex'
-      //    scrollEventHandler(new Event('none'))
-      //  }
-      //}
-      //// Vertical
-      //if (scrollable.scrollHeight <= scrollable.clientHeight) {
-      //  return;
-      //} else {
-      //  if (scrollable.scrollTop > scrollable.scrollHeight - scrollable.clientHeight) {
-      //    horScroll.style.display = verScroll.style.display = 'flex'
-      //    scrollable.scrollTop = scrollable.scrollHeight - scrollable.clientHeight
-      //  } else {
-      //    horScroll.style.display = verScroll.style.display = 'flex'
-      //    scrollEventHandler(new Event('none'))
-      //  }
-      //}
+      scrollEventHandler()
     }
 
     // First Positions and sizes handling
@@ -111,19 +89,44 @@ const vScrollable: Directive = {
     }
 
     function verScrollClickEventHandler (event: PointerEvent): void {
-      // scrollable.scrollTop = event.offsetX
-      console.log(event)
+      scrollable.scrollTo({
+        top: (scrollable.scrollHeight - scrollable.clientHeight) * (event.offsetY - 1) / (verScroll.clientHeight - 2),
+        behavior: 'smooth'
+      })
     }
     function horScrollClickEventHandler (event: PointerEvent): void {
-      console.log(event)
+      scrollable.scrollTo({
+        left: (scrollable.scrollWidth - scrollable.clientWidth) * (event.offsetX - 1) / (horScroll.clientWidth - 2),
+        behavior: 'smooth'
+      })
     }
     function verThumbClickEventHandler (event: PointerEvent): void {
       event.stopImmediatePropagation()
-      console.log(event)
+      event.preventDefault()
+      const pageY = event.pageY
+      const scrollTop = scrollable.scrollTop
+
+      const listener = (event: PointerEvent) => {
+        scrollable.scrollTop = scrollTop + (event.pageY - pageY) * ((scrollable.scrollHeight - scrollable.clientHeight) / (scrollable.clientHeight - verThumb.clientHeight - 2))
+      }
+      window.addEventListener('pointermove', listener)
+      window.addEventListener('pointerup', () => {
+        window.removeEventListener('pointermove', listener)
+      }, { once: true })
     }
     function horThumbClickEventHandler (event: PointerEvent): void {
       event.stopImmediatePropagation()
-      console.log(event)
+      event.preventDefault()
+      const pageX = event.pageX
+      const scrollLeft = scrollable.scrollLeft
+
+      const listener = (event: PointerEvent) => {
+        scrollable.scrollLeft = scrollLeft + (event.pageX - pageX) * ((scrollable.scrollWidth - scrollable.clientWidth) / (scrollable.clientWidth - horThumb.clientWidth - 2))
+      }
+      window.addEventListener('pointermove', listener)
+      window.addEventListener('pointerup', () => {
+        window.removeEventListener('pointermove', listener)
+      }, { once: true })
     }
 
     // Creating scrollable data

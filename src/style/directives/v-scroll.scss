@@ -15,11 +15,18 @@
   position: absolute;
   display: flex;
   padding: 1px;
-  overflow: hidden;
 
   &__thumb {
     background-color: #00000088;
     position: relative;
+    &::before {
+      position: absolute;
+      left: -2px;
+      top: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      content: ' ';
+    }
 
     &_vertical {
       width: 8px;

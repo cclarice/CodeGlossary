@@ -1,5 +1,5 @@
 <template>
-  <div v-scrollable>
+  <div>
     <img @click="router.push({ name: 'CodeGlossary' })" src="../../assets/pattern4k.png"/>
   </div>
 </template>
