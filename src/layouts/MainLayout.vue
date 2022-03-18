@@ -20,9 +20,7 @@
         right
       </template>
     </main-bar>
-    <v-scrollable>
-      <router-view class="main-view" />
-    </v-scrollable>
+    <router-view class="main-view" />
     <main-bar position="right">
       <template #bar_left>
         left
@@ -49,7 +47,6 @@ import MainHeader from '@/layouts/main-components/MainHeader.vue'
 import MainToolContainer from '@/layouts/main-components/MainToolContainer.vue'
 import MainBar from '@/layouts/main-components/MainBar.vue'
 import MainFooter from '@/layouts/main-components/MainFooter.vue'
-import VScrollable from '@/components/VScrollable.vue'
 </script>
 
 <style lang="scss" scoped>
