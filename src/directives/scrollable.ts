@@ -48,12 +48,12 @@ const vScrollable: Directive = {
 
     function scrollEventHandler () {
       // Positions for Thumbs
-      verThumb.style.top = `${(verScroll.clientHeight - verThumb.clientHeight - 2) / (scrollable.scrollHeight - scrollable.clientHeight) * scrollable.scrollTop}px`
-      horThumb.style.left = `${(horScroll.clientWidth - horThumb.clientWidth - 2) / (scrollable.scrollWidth - scrollable.clientWidth) * scrollable.scrollLeft}px`
+      verThumb.style.top = `${(verScroll.clientHeight - 2 - verThumb.clientHeight) / (scrollable.scrollHeight - scrollable.clientHeight) * scrollable.scrollTop}px`
+      horThumb.style.left = `${(horScroll.clientWidth - 2 - horThumb.clientWidth) / (scrollable.scrollWidth - scrollable.clientWidth) * scrollable.scrollLeft}px`
+      document.getElementsByClassName('main-header__path')[0].innerHTML = `${verScroll.clientHeight - 2}, ${parseFloat(verThumb.style.top) + verThumb.clientHeight}`
     }
 
     const resizeObserverHandler = () => {
-
       // Positions and sizes for Scrollbars
       const { x, y } = scrollable.getClientRects()[0]
       horScroll.style.width = `${scrollable.clientWidth - (verScroll.style.display === 'none' ? 0 : 10)}px`
@@ -68,7 +68,6 @@ const vScrollable: Directive = {
       if (scrollable.scrollWidth > scrollable.clientWidth) {
         horScroll.style.display = 'flex'
         horThumb.style.width = `${(horScroll.clientWidth - 2) * scrollable.clientWidth / scrollable.scrollWidth}px`
-
       }
       if (scrollable.scrollHeight > scrollable.clientHeight) {
         verScroll.style.display = 'flex'
@@ -90,13 +89,18 @@ const vScrollable: Directive = {
 
     function verScrollClickEventHandler (event: PointerEvent): void {
       scrollable.scrollTo({
-        top: (scrollable.scrollHeight - scrollable.clientHeight) * (event.offsetY - 1) / (verScroll.clientHeight - 2),
+        top: (scrollable.scrollHeight - scrollable.clientHeight) * ((event.offsetY - 1 - verThumb.clientHeight / 2) / (verScroll.clientHeight - verThumb.clientHeight)),
+        // top: (scrollable.scrollHeight - scrollable.clientHeight) * (event.offsetY - 1) / (verScroll.clientHeight - 2),
         behavior: 'smooth'
       })
     }
     function horScrollClickEventHandler (event: PointerEvent): void {
+      // scrollable.scrollTo({
+      //   left: (scrollable.scrollWidth - scrollable.clientWidth) * (event.offsetX - 1) / (horScroll.clientWidth - 2),
+      //   behavior: 'smooth'
+      // })
       scrollable.scrollTo({
-        left: (scrollable.scrollWidth - scrollable.clientWidth) * (event.offsetX - 1) / (horScroll.clientWidth - 2),
+        left: ((scrollable.scrollWidth - scrollable.clientWidth) * (event.offsetX - 1 - horThumb.clientWidth / 2) / (horScroll.clientWidth - 2 - horThumb.clientWidth)),
         behavior: 'smooth'
       })
     }
