@@ -46,11 +46,17 @@ const vScrollable: Directive = {
     scrollable.appendChild(verScroll)
     scrollable.appendChild(horScroll)
 
+    // Some Data
+
+    let verThumbHeight = 30
+    let horThumbWidth = 30
+
     function scrollEventHandler () {
       // Positions for Thumbs
-      verThumb.style.top = `${(verScroll.clientHeight - 2 - verThumb.clientHeight) / (scrollable.scrollHeight - scrollable.clientHeight) * scrollable.scrollTop}px`
-      horThumb.style.left = `${(horScroll.clientWidth - 2 - horThumb.clientWidth) / (scrollable.scrollWidth - scrollable.clientWidth) * scrollable.scrollLeft}px`
-      document.getElementsByClassName('main-header__path')[0].innerHTML = `${verScroll.clientHeight - 2}, ${parseFloat(verThumb.style.top) + verThumb.clientHeight}`
+      verThumb.style.top = `${(verScroll.clientHeight - 2 - parseFloat(verThumb.style.height)) / (scrollable.scrollHeight - scrollable.clientHeight) * scrollable.scrollTop}px`
+      horThumb.style.left = `${(horScroll.clientWidth - 2 - parseFloat(horThumb.style.width)) / (scrollable.scrollWidth - scrollable.clientWidth) * scrollable.scrollLeft}px`
+      document.getElementsByClassName('main-header__path')[0].innerHTML =
+        `${verThumb.clientHeight} ${verThumb.style.height} | ${horThumb.clientWidth} ${parseFloat(horThumb.style.width)}`
     }
 
     const resizeObserverHandler = () => {
@@ -67,11 +73,13 @@ const vScrollable: Directive = {
       verScroll.style.display = horScroll.style.display = 'none'
       if (scrollable.scrollWidth > scrollable.clientWidth) {
         horScroll.style.display = 'flex'
-        horThumb.style.width = `${(horScroll.clientWidth - 2) * scrollable.clientWidth / scrollable.scrollWidth}px`
+        verThumbHeight = (horScroll.clientWidth - 2) * scrollable.clientWidth / scrollable.scrollWidth
+        horThumb.style.width = verThumbHeight + 'px'
       }
       if (scrollable.scrollHeight > scrollable.clientHeight) {
         verScroll.style.display = 'flex'
-        verThumb.style.height = `${(verScroll.clientHeight - 2) * scrollable.clientHeight / scrollable.scrollHeight}px`
+        horThumbWidth = (verScroll.clientHeight - 2) * scrollable.clientHeight / scrollable.scrollHeight
+        verThumb.style.height = horThumbWidth + 'px'
       }
       scrollEventHandler()
     }
