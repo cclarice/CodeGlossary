@@ -1,4 +1,5 @@
 # CodeGlossary
+![logo](https://github.com/codeglossary/CodeGlossary/blob/develop-vite/src/assets/custom.svg)
 
 ### Authors:
 * [oredan](https://github.com/oredan) (Petrov Danil)
@@ -6,9 +7,9 @@
 
 
 ### Current stack:
-### Vue 3 + TypeScript + Vuex + VueRouter + Vite + Jest
+Vue 3 + TypeScript + Vuex + VueRouter + Vite + Jest
 
-## The stack was changed three times in the project:
+### The stack was changed three times during development:
 ```mermaid
 graph LR;
     vue2[develop_vue2] === vue2u(Vue has been updated to version 3) ==> vue3[develop] === viteu0(Vue CLI replaced with Vite) ==> vite[develop_vite]
