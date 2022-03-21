@@ -1,7 +1,23 @@
 # CodeGlossary
 ![logo](https://github.com/codeglossary/CodeGlossary/blob/develop-vite/src/assets/custom.svg)
 
-### Authors:
+## Project Setup:
+
+```shell
+# Setup
+yarn install
+
+# Runs and Hot-reload for development
+yarn dev
+
+# Compile
+yarn build
+
+# Run Test
+yarn test
+```
+
+## Authors:
 * [oredan](https://github.com/oredan) (Petrov Danil)
 * [tatcray](https://github.com/tatcray) (Alina Yagubova)
 
