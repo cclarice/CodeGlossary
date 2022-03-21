@@ -1,4 +1,5 @@
 # CodeGlossary
+![logo](https://github.com/codeglossary/CodeGlossary/blob/develop-vite/src/assets/custom.svg)
 
 ### Authors:
 * [oredan](https://github.com/oredan) (Petrov Danil)
