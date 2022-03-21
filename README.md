@@ -17,6 +17,9 @@ yarn build
 yarn test
 ```
 
+## Documentation:
+* [SCSS Breakpoints](./docs/breakpoints.md)
+
 ## Authors:
 * [oredan](https://github.com/oredan) (Petrov Danil)
 * [tatcray](https://github.com/tatcray) (Alina Yagubova)
