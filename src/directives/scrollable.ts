@@ -1,5 +1,4 @@
 import { Directive } from 'vue'
-import log from './log'
 
 interface VScrollableElement extends HTMLElement {
   scrollableData: {
@@ -160,7 +159,7 @@ const vScrollable: Directive = {
 
     console.log('v-scrollable mounted end', scrollable)
   },
-  unmounted: (scrollable: VScrollableElement, object) => {
+  unmounted: (scrollable: VScrollableElement) => {
     console.log('v-scrollable unmounted', scrollable)
     scrollable.scrollableData.resizeObserver.unobserve(scrollable)
     for (let c = 0; scrollable.children[c]; c++) {
