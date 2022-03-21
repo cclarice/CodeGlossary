@@ -10,9 +10,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  position: 'top' | 'bottom' | 'left' | 'right'
-}>()
+defineProps<{ position: 'top' | 'bottom' | 'left' | 'right' }>()
 </script>
 
 <style lang="scss" scoped>
