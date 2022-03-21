@@ -17,31 +17,30 @@ defineProps<{
 
 <style lang="scss" scoped>
 .main-bar {
-  display: flex;
-  justify-content: space-between;
+  display:          flex;
+  justify-content:  space-between;
   background-color: var(--panel-background);
   // height: 100%;
-  grid-area: bar;
-  border-color: var(--panel-border);
-  border-style: solid;
-  border-width: 0;
+  grid-area:        bar;
+  border-color:     var(--panel-border);
+  border-style:     solid;
+  border-width:     0;
 
   &_top {
-    width: 100%;
+    width:               100%;
     border-bottom-width: 1px;
   }
+
   &_left, &_right {
-    width: 21px;
-    border-right-width: 1px;
-    writing-mode: vertical-rl;
+    width:             21px;
+    border-left-width: 1px;
+    writing-mode:      vertical-rl;
   }
+
   &_left {
-    border-right-width: 1px;
     transform: rotate(180deg);
   }
-  &_right {
-    border-left-width: 1px;
-  }
+
   &_bottom {
     border-top-width: 1px;
   }

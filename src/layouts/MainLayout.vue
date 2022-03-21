@@ -11,7 +11,7 @@
       </main-bar>
     </template>
   </main-header>
-  <main class="main-main" :style="{ maxHeight: `calc(100% - 50px - ${ (true ? 22 : 0) + (true ? 22 : 0)}px)` }">
+  <main class="main-main" :style="{ maxHeight: `calc(100% - 49px - ${ (true ? 22 : 0) + (true ? 22 : 0)}px)` }">
     <main-bar position="left">
       <template #bar_left>
         left

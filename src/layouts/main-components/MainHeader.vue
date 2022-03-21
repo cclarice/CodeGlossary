@@ -4,7 +4,11 @@
       path
     </nav>
     <nav class="main-header__actions">
-      actions
+      <input-icon :icon="stub" @i-click="log"/>
+      <input-icon :icon="stub" @i-click="log"/>
+      <input-icon :icon="stub" @i-click="log"/>
+      <input-icon :icon="stub" @i-click="log"/>
+      <input-icon :icon="icons[theme.theme]" @i-click="theme.cycleTheme()"/>
     </nav>
     <slot>
 
@@ -13,12 +17,20 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
-  hasSlot: {
-    type: Boolean,
-    default: false
-  }
-})
+import InputIcon from '@/components/inputs/InputIcon.vue'
+import stub from '@/assets/icons/stub.svg'
+import { useTheme } from '../../stores/theme'
+import dark from '@/assets/icons/theme/dark.svg'
+import light from '@/assets/icons/theme/light.svg'
+import odan from '@/assets/icons/theme/odan.svg'
+
+const icons = { dark, light, odan }
+const theme = useTheme()
+const { hasSlot = false } = defineProps<{ hasSlot: boolean }>()
+
+const log = () => {
+  console.log('i-click')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -31,7 +43,7 @@ defineProps({
 
   &_slotted {
     display: grid;
-    grid-template-rows: 29px 21px;
+    grid-template-rows: 28px 21px;
     grid-template-columns: 50% 50%;
     grid-template-areas: "path actions"
                          "bar bar";
