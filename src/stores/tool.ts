@@ -1,8 +1,4 @@
-import { createPinia, defineStore } from 'pinia'
-
-const pinia = createPinia()
-
-export default pinia
+import { defineStore } from 'pinia'
 
 type ToolPlace = 'leftRight' | 'leftLeft' | 'rightRight' | 'rightLeft' | 'bottomRight' | 'bottomLeft'
 
