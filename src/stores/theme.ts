@@ -33,8 +33,6 @@ export const useTheme = defineStore('Theme', {
       } else {
         this.setTheme(this.themes[index - 1] || this.themes[this.themes.length - 1])
       }
-
-      console.log('cycleTheme')
     }
   }
 })
