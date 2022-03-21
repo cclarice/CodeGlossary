@@ -1,9 +1,5 @@
 ## The stack was changed three times during development
 
-```mermaid
-graph LR;
-    vue2[develop_vue2] --> | Vue 3 Update | vue3[develop] --> | Vite Update, Vuex replaced with Pinia, Added Jest, Composition API is now used in most cases | vite3[develop_vite];
-```
 
 ```mermaid
 graph LR;
