@@ -5,9 +5,8 @@ interface themeState {
   themes: Array<string>
 }
 
-
 export const useTheme = defineStore('Theme', {
-  state: () => ({
+  state: (): themeState => ({
     theme: 'dark',
     themes: [
       'dark',
