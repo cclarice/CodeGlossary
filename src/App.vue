@@ -4,7 +4,12 @@
 
 <script setup lang="ts">
 import MainLayout from '@/layouts/MainLayout.vue'
-import { shallowRef } from 'vue'
+import { onBeforeMount, shallowRef } from 'vue'
+import { useTheme } from './stores/theme'
+
+onBeforeMount(() => {
+  useTheme().loadTheme()
+})
 
 const layout = shallowRef(MainLayout)
 </script>
