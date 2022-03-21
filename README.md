@@ -1,8 +1,8 @@
 # CodeGlossary
 
 ### Authors:
-* (oredan)[https://github.com/oredan] (Petrov Danil)
-* (tatcray)[https://github.com/tatcray] (Alina Yagubova)
+* [oredan](https://github.com/oredan) (Petrov Danil)
+* [tatcray](https://github.com/tatcray) (Alina Yagubova)
 
 
 ### Current stack:
