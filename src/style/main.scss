@@ -11,6 +11,10 @@
   touch-action: none;
 }
 
+div, header, footer, main, aside, nav, section {
+  transition: background-color .166s, border .166s;
+}
+
 html {
   width: 100%;
   height: 100%;

@@ -64,17 +64,10 @@
       --icon-hovered-background:            #DFDFDF;
       --icon-pressed-background:            #CFCFCF;
       --icon-fill:                          #6E6E6E;
+      --icon-filter:                        grayscale(1) brightness(0.625);
       --icon-dropdown:                      #333;
       --icon-split:                         #FFF;
       --icon-split-hovered:                 #B3B3B3;
-
-      /* SVG */
-      --svg-fill:                           #9AA7B0B0;
-
-      /* Scroll todo */
-      --scroll:                             unset;
-      --scroll-hovered:                     unset;
-      --scroll-active:                      unset;
 
       /* Balloon */
       --balloon-shadow:                     0 2px 8px 0 #00000033;
@@ -95,9 +88,10 @@
       --selection-hovered:                  #C5DFFC;
 
       /* Scrollbar */
-      --scroll-background:					        #C9C9C966;
-      --scroll-color:								        #A9A9A9AA;
-      --scroll-border:				 			        #FFFFFF44;
+      --scroll-background:					        #C9C9C944;
+      --scroll-thumb-color:								  #A9A9A9AA;
+      --scroll-thumb-active:								#A9A9A9CC;
+      --scroll-thumb-border:				 			  #FFFFFF44;
 
       /* Typography */
       --default:                            #000;

@@ -28,6 +28,7 @@
       --check-border-focused-color:         #43698E;
       --check-outline-color:                #97C3F300;
       --check-outline-focused-color:        #3D6185;
+
       /* Checked */
       --check-checked-background:           var(--check-background);
       --check-checked-border-color:         var(--check-border-color);
@@ -65,12 +66,10 @@
       --icon-hovered-background:            #4C5052;
       --icon-pressed-background:            #5C6164;
       --icon-fill:                          #AFB1B3;
+      --icon-filter:                        grayscale(0) brightness(1);
       --icon-dropdown:                      #D6D6D6;
       --icon-split:                         #3C3F41;
       --icon-split-hovered:                 #6B6B6B;
-
-      /* SVG */
-      --svg-fill:                           #9AA7B0B0;
 
       /* Balloon */
       --balloon-shadow:                     0 2px 8px 0 #00000033;
