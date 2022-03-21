@@ -18,8 +18,6 @@ interface VScrollableElement extends HTMLElement {
 
 const vScrollable: Directive = {
   mounted: (scrollable: VScrollableElement) => {
-    console.log('v-scrollable mounted start', scrollable)
-
     // Style out scrollable element
     scrollable.classList.add('v-scrollable')
 
@@ -156,11 +154,8 @@ const vScrollable: Directive = {
     verThumb.addEventListener('pointerdown', verThumbClickEventHandler)
     horThumb.addEventListener('pointerdown', horThumbClickEventHandler)
     scrollable.addEventListener('scroll', scrollEventHandler)
-
-    console.log('v-scrollable mounted end', scrollable)
   },
   unmounted: (scrollable: VScrollableElement) => {
-    console.log('v-scrollable unmounted', scrollable)
     scrollable.scrollableData.resizeObserver.unobserve(scrollable)
     for (let c = 0; scrollable.children[c]; c++) {
       scrollable.scrollableData.resizeObserver.unobserve(scrollable.children[c])
