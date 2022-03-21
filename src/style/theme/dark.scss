@@ -72,11 +72,6 @@
       /* SVG */
       --svg-fill:                           #9AA7B0B0;
 
-      /* Scroll todo */
-      --scroll:                             unset;
-      --scroll-hovered:                     unset;
-      --scroll-active:                      unset;
-
       /* Balloon */
       --balloon-shadow:                     0 2px 8px 0 #00000033;
       --balloon-icon-fill:                  #7F8B9100;
@@ -96,9 +91,10 @@
       --selection-hovered:                  #113A5C;
 
       /* Scrollbar */
-      --scroll-background:					        #49494966;
-      --scroll-color:								        #696969AA;
-      --scroll-border:				 			        #29292944;
+      --scroll-background:					        #49494944;
+      --scroll-thumb-color:								  #696969AA;
+      --scroll-thumb-active:								#696969CC;
+      --scroll-thumb-border:				 			  #29292944;
 
       /* Typography */
       --default:                            #BBBBBB;

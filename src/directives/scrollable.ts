@@ -47,16 +47,15 @@ const vScrollable: Directive = {
     scrollable.appendChild(horScroll)
 
     // Some Data
-
     let verThumbHeight = 30
     let horThumbWidth = 30
+    let verScrollFactor = 0
+    let horScrollFactor = 0
 
     function scrollEventHandler () {
       // Positions for Thumbs
-      verThumb.style.top = `${(verScroll.clientHeight - 2 - parseFloat(verThumb.style.height)) / (scrollable.scrollHeight - scrollable.clientHeight) * scrollable.scrollTop}px`
-      horThumb.style.left = `${(horScroll.clientWidth - 2 - parseFloat(horThumb.style.width)) / (scrollable.scrollWidth - scrollable.clientWidth) * scrollable.scrollLeft}px`
-      document.getElementsByClassName('main-header__path')[0].innerHTML =
-        `${verThumb.clientHeight} ${verThumb.style.height} | ${horThumb.clientWidth} ${parseFloat(horThumb.style.width)}`
+      horThumb.style.left = `${horScrollFactor * scrollable.scrollLeft}px`
+      verThumb.style.top = `${verScrollFactor * scrollable.scrollTop}px`
     }
 
     const resizeObserverHandler = () => {
@@ -73,14 +72,18 @@ const vScrollable: Directive = {
       verScroll.style.display = horScroll.style.display = 'none'
       if (scrollable.scrollWidth > scrollable.clientWidth) {
         horScroll.style.display = 'flex'
-        verThumbHeight = (horScroll.clientWidth - 2) * scrollable.clientWidth / scrollable.scrollWidth
-        horThumb.style.width = verThumbHeight + 'px'
+        horThumbWidth = (horScroll.clientWidth - 2) * scrollable.clientWidth / scrollable.scrollWidth
+        horThumb.style.width = horThumbWidth + 'px'
       }
       if (scrollable.scrollHeight > scrollable.clientHeight) {
         verScroll.style.display = 'flex'
-        horThumbWidth = (verScroll.clientHeight - 2) * scrollable.clientHeight / scrollable.scrollHeight
-        verThumb.style.height = horThumbWidth + 'px'
+        verThumbHeight = (verScroll.clientHeight - 2) * scrollable.clientHeight / scrollable.scrollHeight
+        verThumb.style.height = verThumbHeight + 'px'
       }
+
+      // Optimization
+      horScrollFactor = (horScroll.clientWidth - 2 - horThumbWidth) / (scrollable.scrollWidth - scrollable.clientWidth)
+      verScrollFactor = (verScroll.clientHeight - 2 - verThumbHeight) / (scrollable.scrollHeight - scrollable.clientHeight)
       scrollEventHandler()
     }
 
@@ -97,18 +100,13 @@ const vScrollable: Directive = {
 
     function verScrollClickEventHandler (event: PointerEvent): void {
       scrollable.scrollTo({
-        top: (scrollable.scrollHeight - scrollable.clientHeight) * ((event.offsetY - 1 - verThumb.clientHeight / 2) / (verScroll.clientHeight - verThumb.clientHeight)),
-        // top: (scrollable.scrollHeight - scrollable.clientHeight) * (event.offsetY - 1) / (verScroll.clientHeight - 2),
+        top: (scrollable.scrollHeight - scrollable.clientHeight) * (event.offsetY - 1 - verThumb.clientHeight / 2) / (verScroll.clientHeight - verThumb.clientHeight),
         behavior: 'smooth'
       })
     }
     function horScrollClickEventHandler (event: PointerEvent): void {
-      // scrollable.scrollTo({
-      //   left: (scrollable.scrollWidth - scrollable.clientWidth) * (event.offsetX - 1) / (horScroll.clientWidth - 2),
-      //   behavior: 'smooth'
-      // })
       scrollable.scrollTo({
-        left: ((scrollable.scrollWidth - scrollable.clientWidth) * (event.offsetX - 1 - horThumb.clientWidth / 2) / (horScroll.clientWidth - 2 - horThumb.clientWidth)),
+        left: (scrollable.scrollWidth - scrollable.clientWidth) * (event.offsetX - 1 - horThumb.clientWidth / 2) / (horScroll.clientWidth - 2 - horThumb.clientWidth),
         behavior: 'smooth'
       })
     }
@@ -119,7 +117,7 @@ const vScrollable: Directive = {
       const scrollTop = scrollable.scrollTop
 
       const listener = (event: PointerEvent) => {
-        scrollable.scrollTop = scrollTop + (event.pageY - pageY) * ((scrollable.scrollHeight - scrollable.clientHeight) / (scrollable.clientHeight - verThumb.clientHeight - 2))
+        scrollable.scrollTop = scrollTop + (event.pageY - pageY) * (1 / verScrollFactor)
       }
       window.addEventListener('pointermove', listener)
       window.addEventListener('pointerup', () => {
@@ -133,7 +131,7 @@ const vScrollable: Directive = {
       const scrollLeft = scrollable.scrollLeft
 
       const listener = (event: PointerEvent) => {
-        scrollable.scrollLeft = scrollLeft + (event.pageX - pageX) * ((scrollable.scrollWidth - scrollable.clientWidth) / (scrollable.clientWidth - horThumb.clientWidth - 2))
+        scrollable.scrollLeft = scrollLeft + (event.pageX - pageX) * (1 / horScrollFactor)
       }
       window.addEventListener('pointermove', listener)
       window.addEventListener('pointerup', () => {

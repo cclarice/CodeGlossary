@@ -14,11 +14,23 @@
 .v-scroll {
   position: absolute;
   display: flex;
-  padding: 1px;
+  background-color: transparent;
+  transition: background-color .2s;
+  &:hover {
+    background-color: var(--scroll-background);
+  }
 
   &__thumb {
-    background-color: #00000088;
+    background-color: var(--scroll-thumb-color);
+    background-clip: content-box;
+    border: 1px solid transparent;
     position: relative;
+    transition: background-color .2s;
+
+    &:hover {
+      background-color: var(--scroll-thumb-active);
+    }
+
     &::before {
       position: absolute;
       left: -2px;
@@ -29,11 +41,11 @@
     }
 
     &_vertical {
-      width: 8px;
+      width: 10px;
       min-height: 30px;
     }
     &_horizontal {
-      height: 8px;
+      height: 10px;
       min-width: 30px;
     }
   }
@@ -43,7 +55,6 @@
     top: 0;
     height: 100%;
     width: 10px;
-    background-color: #00FFFF88;
     flex-flow: column;
   }
 
@@ -52,7 +63,6 @@
     top: calc(100% - 10px);
     width: 100%;
     height: 10px;
-    background-color: #FF00FF88;
   }
 
   &_vertical ~ &_horizontal {
