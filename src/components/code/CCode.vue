@@ -1,44 +1,27 @@
 <template>
   <div class="code" :class="`code_lang-${lang}`">
     <gutter :lines="lines" v-if="lines"/>
-    <pre><code contenteditable="true" v-text="edited_code" @input="updateCode"></code></pre>
+    <pre><code v-text="props.code"></code></pre>
   </div>
 </template>
 
 <script setup lang="ts">
 import Gutter from '@/components/code/Gutter.vue'
-import { onMounted, ref } from 'vue'
+import { computed } from 'vue'
 
-const { code = '', lang } = defineProps<{ code?: string, lang?: 'html' }>()
-const lines = ref(1)
-const edited_code = ref<string>(code)
-const log = (event: Event) => {
-  console.log(event)
-}
+const props = defineProps<{ code: string, lang?: 'html' }>()
 
-const updateCode = ((event: Event) => {
-  const target: HTMLElement = event.target as HTMLElement
-  if (target) {
-    edited_code.value = target.innerText
-    console.log(target.innerText)
-  }
-  reCalculateLines()
-})
+const lines = computed(() => {
+  let lines = 1
 
-const reCalculateLines = (() => {
-  lines.value = 1
-
-  for (const char of edited_code.value) {
+  for (const char of props.code) {
     if (char === '\n') {
-      lines.value++;
+      lines++;
     }
   }
-  console.log(lines.value)
+  return lines
 })
 
-onMounted(() => {
-  reCalculateLines()
-})
 </script>
 
 <style lang="scss" scoped>
