@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
 import layouts  from '../../layouts/layouts'
+import develop from './develop'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -34,7 +35,8 @@ const routes: Array<RouteRecordRaw> = [
       favicon: '',
       layout: layouts.EmptyLayout
     }
-  }
+  },
+  ...develop
 ]
 
 export default routes
