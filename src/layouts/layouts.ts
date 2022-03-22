@@ -1,7 +1,12 @@
 import EmptyLayout from './EmptyLayout.vue'
 import MainLayout from './MainLayout.vue'
 
-export interface Layouts { [key: string]: typeof MainLayout }
+export type LayoutComponent = typeof EmptyLayout | typeof MainLayout
+
+export interface Layouts {
+  EmptyLayout: LayoutComponent
+  MainLayout: LayoutComponent
+}
 
 const layouts: Layouts = {
   EmptyLayout,
