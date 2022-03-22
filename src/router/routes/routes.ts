@@ -36,6 +36,17 @@ const routes: Array<RouteRecordRaw> = [
       layout: layouts.EmptyLayout
     }
   },
+  {
+    path: '/capibarochka',
+    name: 'Capibara',
+    component: () =>  import('@/views/capibarochka/CapiMain.vue'),
+    meta: {
+      title: 'CodeGlossary',
+      parent: null,
+      favicon: '',
+      layout: layouts.EmptyLayout
+    }
+  },
   ...develop
 ]
 
