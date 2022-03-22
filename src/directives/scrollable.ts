@@ -57,7 +57,7 @@ const vScrollable: Directive = {
 
     const resizeObserverHandler = () => {
       // Positions and sizes for Scrollbars
-      const { x, y } = scrollable.getClientRects()[0]
+      const { x = 0, y = 0 } = scrollable.getClientRects()[0] || { x: 0, y: 0 }
       horScroll.style.width = `${scrollable.clientWidth - (verScroll.style.display === 'none' ? 0 : 10)}px`
       verScroll.style.height = `${scrollable.clientHeight}px`
       horScroll.style.left = `${x}px`
