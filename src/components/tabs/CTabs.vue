@@ -1,8 +1,8 @@
 <template>
   <div class="tabs">
     <c-tabs-bar :tabs="ready_tabs" v-model="tab"></c-tabs-bar>
-      <div class="tabs__slide" v-for="rtab of ready_tabs" :key="rtab" v-show="rtab.id === tab" v-scrollable>
-        <slot :name="rtab.id">
+      <div class="tabs__slide" v-for="c_tab of ready_tabs" :key="c_tab" v-show="c_tab.id === tab" v-scrollable>
+        <slot :name="c_tab.id">
           ...
         </slot>
       </div>
@@ -18,10 +18,9 @@ interface CTabsWithoutId {
   icon?: string
 }
 
-const { tabs, defaultTab = 0, vertical = false } =
-  defineProps<{ tabs: Array<CTabsWithoutId>, defaultTab?: number, vertical?: boolean }>()
-const tab = ref(defaultTab)
-const ready_tabs = computed((): CTabs => tabs.map((tab, index)=> ({ id: index, ...tab })))
+const props = defineProps<{ tabs: Array<CTabsWithoutId>, defaultTab?: number, vertical?: boolean }>()
+const tab = ref(props.defaultTab || 0)
+const ready_tabs = computed((): CTabs => props.tabs.map((tab, index)=> ({ id: index, ...tab })))
 const slots = useSlots()
 </script>
 
