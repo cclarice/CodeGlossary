@@ -1,3 +1,21 @@
+* {
+  font-family:    -apple-system, 'SF Pro Text', 'Segoe UI', sans-serif; // 'SF Pro Text', 'Segoe UI', sans-serif;
+  color:          var(--default);
+  font-size:      13px;
+  line-height:    16px;
+  font-weight:    500;
+  text-rendering: optimizeLegibility;
+
+  &::selection {
+    color:            var(--selected);
+    background-color: var(--selection-active);
+  }
+
+  &.b {
+    font-weight: 600;
+  }
+}
+
 h1,
 h2 {
   font-size:    25px;
@@ -42,7 +60,7 @@ small {
 }
 
 code {
-  font-family: 'JetBrains Mono SemiBold', 'JetBrains Mono NL SemiBold', 'Consolas', monospace;
+  font-family: 'JetBrains Mono', 'JetBrains Mono NL', 'Consolas', monospace;
   font-size: 12px;
   line-height: 20px;
   color: var(--code-default);

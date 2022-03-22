@@ -52,6 +52,13 @@
         #98CCFF 76.93%,
         #0080F1 100%);
 
+      /* Tabs */
+      --tabs-background:                    var(--panel-background);
+      --tab-background:                    var(--tabs-background);
+      --tab-background-active:             #FFFFFF;
+      --tab-border:                        var(--panel-border);
+      --tab-border-active:                 #4083C9; // 4A88C7
+
       /* Card */
       --main-background:                    #FFF;
       --card-header-background:             #E6E6E6;
@@ -111,12 +118,14 @@
       --code-number:                        #1750EB;
       --code-method:                        #00627A;
       --code-caret-row:                     #FCFAED;
-      --code-description:                   #999;
+      --code-description:                   #999999;
       --code-override:                      #9E880D;
+      --code-tag:                           var(--default);
 
       /* Other */
-      --filter-icon-white:                  brightness(0);
-      --filter-icon:                        brightness(0.625);
+      --gutter-color:                       #999999;
+      --gutter-background:                  #F2F2F2;
+      --gutter-border:                      #D1D1D1;
     }
   }
 }

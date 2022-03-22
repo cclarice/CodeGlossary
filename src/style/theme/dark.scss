@@ -54,6 +54,14 @@
         #828282 76.93%,
         #696969 100%);
 
+      /* Tabs */
+      --tabs-background:                   var(--panel-background);
+      --tabs-border:                       var(--panel-border);
+      --tab-background:                    var(--tabs-background);
+      --tab-background-active:             #4E5254;
+      --tab-border:                        var(--tabs-border);
+      --tab-border-active:                 #4A88C7;
+
       /* Card */
       --main-background:                    #2B2B2B;
       --card-header-background:             #4A4E52;
@@ -115,6 +123,12 @@
       --code-caret-row:                     #323232;
       --code-description:                   #7F7F7F;
       --code-override:                      red; // #9E880D;
+      --code-tag:                           #E8BF6A;
+
+      /* Other */
+      --gutter-color:                       #999999;
+      --gutter-background:                  #313335;
+      --gutter-border:                      #555555;
     }
   }
 }
