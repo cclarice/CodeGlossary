@@ -36,10 +36,7 @@ import InputText from '@/components/inputs/InputText.vue'
 import CCode from '@/components/code/CCode.vue'
 
 const inputTextText0 =
-`<input-text />
-text
-text
-`
+`<input-text />`
 
 const tabs = [
   {
