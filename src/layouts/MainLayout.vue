@@ -52,6 +52,7 @@ import MainFooter from '@/layouts/main-components/MainFooter.vue'
 <style lang="scss" scoped>
 .main-main {
   display: flex;
+  justify-content: space-between;
   flex: 1 1;
   position: relative;
 }
