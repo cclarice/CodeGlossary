@@ -13,10 +13,10 @@
     "types": ["vite/client", "@types/jest"],
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "~@/*": [
-        "src/assets/*"
+        "./src/assets/*"
       ]
     }
   },
