@@ -1,6 +1,7 @@
 @import 'light';
 @import 'dark';
 @import 'odan';
+@import 'color';
 
                           /* GLOBAL STYLES */
 :root {
@@ -19,7 +20,8 @@
   --check-border-focusec:         1px solid var(--check-border-focused-color);
   --check-outline:                2px solid var(--check-outline-color);
   --check-outline-focused:        2px solid var(--check-outline-focused-color);
-    /* Checked */
+
+  /* Checked */
   --check-checked-border:         1px solid var(--check-checked-border-color);
   --check-checked-focused-border: 1px solid var(--check-checked-focused-border-color);
 
