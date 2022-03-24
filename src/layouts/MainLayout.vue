@@ -11,7 +11,10 @@
       </main-bar>
     </template>
   </main-header>
-  <main class="main-main" :style="{ maxHeight: `calc(100% - 49px - ${ (true ? 22 : 0) + (true ? 22 : 0)}px)` }">
+  <main
+    class="main-main"
+    :style="{ maxHeight: `calc(100% - 49px - ${ (true ? 22 : 0) + (true ? 22 : 0)}px)` }"
+  >
     <main-bar position="left">
       <template #bar_left>
         left
@@ -20,7 +23,10 @@
         right
       </template>
     </main-bar>
-    <router-view class="main-view" v-scrollable/>
+    <router-view
+      v-scrollable
+      class="main-view"
+    />
     <main-bar position="right">
       <template #bar_left>
         left
@@ -44,7 +50,6 @@
 
 <script setup lang="ts">
 import MainHeader from '@/layouts/main-components/MainHeader.vue'
-import MainToolContainer from '@/layouts/main-components/MainToolContainer.vue'
 import MainBar from '@/layouts/main-components/MainBar.vue'
 import MainFooter from '@/layouts/main-components/MainFooter.vue'
 </script>

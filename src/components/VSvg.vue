@@ -1,5 +1,5 @@
 <template>
-  <svg v-svg:[src]="src"></svg>
+  <svg v-svg:[src]="src" />
 </template>
 
 <script setup lang="ts">

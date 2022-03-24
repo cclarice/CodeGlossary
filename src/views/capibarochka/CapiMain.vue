@@ -1,6 +1,9 @@
 <template>
-  <div class="capibara" >
-    <img src="@/assets/ForCapibara/capibaraAnimated.svg">
+  <div class="capibara">
+    <img
+      src="@/assets/ForCapibara/capibaraAnimated.svg"
+      alt=""
+    >
     Mouse position is at: {{ x }}, {{ y }}
   </div>
 </template>
@@ -15,8 +18,8 @@ function update(event: PointerEvent) {
   y.value = event.pageY
 }
 
-onMounted(() => window.addEventListener('mousemove', update))
-onUnmounted(() => window.addEventListener('mousemove', update))
+onMounted(() => window.addEventListener('pointermove', update))
+onUnmounted(() => window.addEventListener('pointermove', update))
 
 </script>
 

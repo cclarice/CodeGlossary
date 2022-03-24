@@ -1,10 +1,13 @@
 <template>
-  <nav class="main-bar" :class="`main-bar_${position}`">
+  <nav
+    class="main-bar"
+    :class="`main-bar_${position}`"
+  >
     <div class="main-bar__left">
-      <slot name="bar_left"></slot>
+      <slot name="bar_left" />
     </div>
     <div class="main-bar__right">
-      <slot name="bar_right"></slot>
+      <slot name="bar_right" />
     </div>
   </nav>
 </template>

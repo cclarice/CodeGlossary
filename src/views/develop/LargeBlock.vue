@@ -1,6 +1,10 @@
 <template>
   <div>
-    <img @click="router.push({ name: 'CodeGlossary' })" src="../../assets/pattern4k.png" />
+    <img
+      src="../../assets/pattern4k.png"
+      alt=""
+      @click="router.push({ name: 'CodeGlossary' })"
+    >
   </div>
 </template>
 

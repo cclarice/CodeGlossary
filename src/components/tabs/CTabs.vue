@@ -1,16 +1,25 @@
 <template>
   <div class="tabs">
-    <c-tabs-bar :tabs="ready_tabs" v-model="tab"></c-tabs-bar>
-      <div class="tabs__slide" v-for="c_tab of ready_tabs" :key="c_tab" v-show="c_tab.id === tab" v-scrollable>
-        <slot :name="c_tab.id">
-          ...
-        </slot>
-      </div>
+    <c-tabs-bar
+      v-model="tab"
+      :tabs="ready_tabs"
+    />
+    <div
+      v-for="c_tab of ready_tabs"
+      v-show="c_tab.id === tab"
+      :key="c_tab"
+      v-scrollable
+      class="tabs__slide"
+    >
+      <slot :name="c_tab.id">
+        ...
+      </slot>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useSlots } from 'vue'
+import { computed, ref } from 'vue'
 import CTabsBar, { CTabs } from './CTabsBar.vue'
 
 interface CTabsWithoutId {
@@ -21,7 +30,6 @@ interface CTabsWithoutId {
 const props = defineProps<{ tabs: Array<CTabsWithoutId>, defaultTab?: number, vertical?: boolean }>()
 const tab = ref(props.defaultTab || 0)
 const ready_tabs = computed((): CTabs => props.tabs.map((tab, index)=> ({ id: index, ...tab })))
-const slots = useSlots()
 </script>
 
 <style lang="scss" scoped>

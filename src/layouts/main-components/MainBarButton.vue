@@ -1,7 +1,10 @@
 <template>
   <button class="main-bar-button">
-    <img src="" alt="">
-    <span></span>
+    <img
+      src=""
+      alt=""
+    >
+    <span />
   </button>
 </template>
 

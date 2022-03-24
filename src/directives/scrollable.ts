@@ -2,15 +2,20 @@ import { Directive } from 'vue'
 
 interface VScrollableElement extends HTMLElement {
   scrollableData: {
+    // eslint-disable-next-line no-unused-vars
     scrollEventHandler: { (event: Event): void }
     resizeObserver: ResizeObserver
     verScroll: HTMLElement
+    // eslint-disable-next-line no-unused-vars
     verScrollClickEventHandler: { (event: PointerEvent): void }
     horScroll: HTMLElement
+    // eslint-disable-next-line no-unused-vars
     horScrollClickEventHandler: { (event: PointerEvent): void }
     verThumb: HTMLElement
+    // eslint-disable-next-line no-unused-vars
     verThumbClickEventHandler: { (event: PointerEvent): void }
     horThumb: HTMLElement
+    // eslint-disable-next-line no-unused-vars
     horThumbClickEventHandler: { (event: PointerEvent): void }
   }
 }

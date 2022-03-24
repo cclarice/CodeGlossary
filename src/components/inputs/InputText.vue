@@ -1,24 +1,36 @@
 <template>
-  <label class="input-text" :class="props.error">
-    <span v-if="props.title"
-          class="input-text__title">
+  <label
+    class="input-text"
+    :class="props.error"
+  >
+    <span
+      v-if="props.title"
+      class="input-text__title"
+    >
       {{ props.title }}
     </span>
-    <input class="input-text__input"
-           :type="props.type || 'text'"
-           @input="$emit('update:modelValue', $event.target.value)"
-           :value="props.modelValue">
-    <small class="input-text__max" v-if="props.maxlength">
+    <input
+      class="input-text__input"
+      :type="props.type || 'text'"
+      :value="props.modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+    >
+    <small
+      v-if="props.maxlength"
+      class="input-text__max"
+    >
       {{ `${props.modelValue ? props.modelValue.length : 0}/${props.maxlength}` }}
     </small>
-    <small class="input-text__error" v-if="props.error">
+    <small
+      v-if="props.error"
+      class="input-text__error"
+    >
       {{ props.error }}
     </small>
   </label>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 
 interface Props {
   name?: string
@@ -37,21 +49,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-
-const name         = computed(() => props.name || null )
-const title        = computed(() => props.title || null )
-const error        = computed(() => props.error || null )
-const modelValue   = computed(() => props.modelValue || null )
-const icon         = computed(() => props.icon || null )
-const type         = computed(() => props.type || null )
-const placeholder  = computed(() => props.placeholder || null )
-const minlength    = computed(() => props.minlength || null )
-const maxlength    = computed(() => props.maxlength || null )
-const pattern      = computed(() => props.pattern || null )
-const disabled     = computed(() => props.disabled || null )
-const required     = computed(() => props.required || null )
-const autocomplete = computed(() => props.autocomplete || null )
-
+defineEmits(['update:modelValue'])
 </script>
 
 <style lang="scss" scoped>

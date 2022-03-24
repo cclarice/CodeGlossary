@@ -1,6 +1,9 @@
 <template>
-  <footer class="main-footer" :class="{ 'main-footer_slotted': hasSlot }">
-    <slot></slot>
+  <footer
+    class="main-footer"
+    :class="{ 'main-footer_slotted': hasSlot }"
+  >
+    <slot />
     <nav class="main-footer__left">
       left
     </nav>

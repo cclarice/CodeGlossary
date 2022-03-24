@@ -1,16 +1,16 @@
 <template>
   <section class="home">
-    <div>
-
-    </div>
+    <div />
     <div>
       <h1>CodeGlossary</h1>
-      <h3></h3>
-      <img @click="router.push({ name: 'LargeBlock' })" src="@/assets/custom.svg" alt="">
+      <h3 />
+      <img
+        src="@/assets/custom.svg"
+        alt=""
+        @click="router.push({ name: 'LargeBlock' })"
+      >
     </div>
-    <div>
-
-    </div>
+    <div />
   </section>
 </template>
 

@@ -1,12 +1,21 @@
 <template>
-  <div class="tabs" v-if="props.tabs">
-    <div v-for="tab of props.tabs" :key="tab.id"
-         class="tabs__tab"
-         @click="$emit('update:modelValue', tab.id)"
-         :class="{ active: tab.id === props.modelValue }">
-      <img v-if="tab.icon"
-           class="tabs__tab-icon"
-           :src="tab.icon" :alt="tab.name">
+  <div
+    v-if="props.tabs"
+    class="tabs"
+  >
+    <div
+      v-for="tab of props.tabs"
+      :key="tab.id"
+      class="tabs__tab"
+      :class="{ active: tab.id === props.modelValue }"
+      @click="$emit('update:modelValue', tab.id)"
+    >
+      <img
+        v-if="tab.icon"
+        class="tabs__tab-icon"
+        :src="tab.icon"
+        :alt="tab.name"
+      >
       <span class="tabs__tab-name">
         {{ tab.name }}
       </span>

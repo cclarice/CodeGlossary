@@ -1,6 +1,9 @@
 <template>
   <div class="interface">
-    <c-tabs :tabs="tabs" :default-tab="defaultTab">
+    <c-tabs
+      :tabs="tabs"
+      :default-tab="defaultTab"
+    >
       <template #0>
         <h2>
           Inputs
@@ -10,8 +13,11 @@
             Input Text
           </h3>
           <div class="interface__component-wrapper">
-            <input-text v-model="inputTextValue0"/>
-            <c-code lang="html" :code="inputTextText0" />
+            <input-text v-model="inputTextValue0" />
+            <c-code
+              lang="html"
+              :code="inputTextText0"
+            />
           </div>
         </div>
       </template>
@@ -29,7 +35,9 @@
             Simple Table
           </h3>
           <div class="interface__component-wrapper">
-            <c-table :table="table0"/>
+            <c-table
+              :table="table0"
+            />
           </div>
         </div>
       </template>
@@ -55,10 +63,8 @@ import CCode from '@/components/code/CCode.vue'
 import { ref } from 'vue'
 import CTable from '@/components/table/CTable.vue'
 import Table from '@/components/table/TTable'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
-const inputTextText0 = ref(`<input-text v-model="value"/>`)
+const inputTextText0 = ref('<input-text v-model="value"/>')
 const inputTextValue0 = ref('text')
 const tabs = [
   { id: 0, icon: stub, name: 'Inputs', },
@@ -67,7 +73,10 @@ const tabs = [
   { id: 3, icon: stub, name: 'Colors' },
   { id: 4, icon: stub, name: 'Other' }
 ]
-const defaultTab = document.URL.indexOf('#') !== -1 ? tabs.find((tab) => document.URL.substring(document.URL.indexOf('#') + 1) === tab.name.toLocaleLowerCase())?.id || 0 : 0
+const defaultTab = document.URL.indexOf('#') !== -1 ?
+                   tabs.find((tab) => document.URL.substring(document.URL.indexOf('#') + 1) ===
+                     tab.name.toLocaleLowerCase())?.id || 0 :
+                   0
 const table0: Table = {
   caption: 'Simple Table Caption',
   head: [
@@ -78,26 +87,19 @@ const table0: Table = {
     ]
   ],
   body: [
+    // eslint-disable-next-line max-len
     ['==', 'Checks if the values of two operands are equal or not. If yes, then the condition becomes true.', '(A == B) is not true.'],
+    // eslint-disable-next-line max-len
     ['!=', 'Checks if the values of two operands are equal or not. If the values are not equal, then the condition becomes true.',	'(A != B) is true.'],
+    // eslint-disable-next-line max-len
     ['>',	'Checks if the value of left operand is greater than the value of right operand. If yes, then the condition becomes true.',	'(A > B) is not true.'],
+    // eslint-disable-next-line max-len
     ['<',	'Checks if the value of left operand is less than the value of right operand. If yes, then the condition becomes true.',	'(A < B) is true.'],
+    // eslint-disable-next-line max-len
     ['>=',	'Checks if the value of left operand is greater than or equal to the value of right operand. If yes, then the condition becomes true.',	'(A >= B) is not true.'],
+    // eslint-disable-next-line max-len
     ['<=',	'Checks if the value of left operand is less than or equal to the value of right operand. If yes, then the condition becomes true.',	'(A <= B) is true.']
   ]
-}
-
-const table1: Table = {
-  head: [
-    [
-      {
-        content: 'head 1'
-      }
-    ]
-  ],
-  body: [],
-  foot: [],
-  caption: 'I am caption'
 }
 </script>
 

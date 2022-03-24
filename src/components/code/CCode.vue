@@ -1,7 +1,16 @@
 <template>
-  <div class="code" :class="`code_lang-${lang}`" v-scrollable>
-    <gutter :lines="lines" v-if="lines"/>
-    <pre><code v-text="code"></code></pre>
+  <div
+    v-scrollable
+    class="code"
+    :class="`code_lang-${props.lang}`"
+  >
+    <gutter
+      v-if="lines"
+      :lines="lines"
+    />
+    <pre>
+      <code v-text="props.code" />
+    </pre>
   </div>
 </template>
 
@@ -13,14 +22,14 @@ interface Props {
   lang?: 'html' | 'text'
 }
 
-const props = defineProps<{ code: string, lang?: 'html' | 'text' }>()
+const props = defineProps<Props>()
 
 const lines = computed(() => {
   let lines = 1
 
   for (const char of props.code) {
     if (char === '\n') {
-      lines++;
+      lines++
     }
   }
   return lines

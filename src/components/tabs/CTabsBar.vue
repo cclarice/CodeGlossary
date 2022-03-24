@@ -1,11 +1,21 @@
 <template>
-  <div class="tabs-bar" v-if="tabs">
-    <div v-for="tab of tabs" :key="tab.id"
-         class="tabs-bar__tab" :class="{ active: tab.id === modelValue}"
-         @click="$emit('update:modelValue', tab.id)">
-      <img v-if="tab.icon"
-           class="tabs-bar__tab-icon"
-           :src="tab.icon" :alt="tab.name">
+  <div
+    v-if="props.tabs"
+    class="tabs-bar"
+  >
+    <div
+      v-for="tab of props.tabs"
+      :key="tab.id"
+      class="tabs-bar__tab"
+      :class="{ active: tab.id === props.modelValue}"
+      @click="$emit('update:modelValue', tab.id)"
+    >
+      <img
+        v-if="tab.icon"
+        class="tabs-bar__tab-icon"
+        :src="tab.icon"
+        :alt="tab.name"
+      >
       <span class="tabs-bar__tab-name">
         {{ tab.name }}
       </span>
@@ -20,9 +30,14 @@ interface CTab {
   name?: string
 }
 
+interface Props {
+  tabs: CTabs
+  modelValue: CTab['id']
+}
+
 export type CTabs = Array<CTab>
 
-const { tabs, modelValue } = defineProps<{ tabs: CTabs, modelValue: CTab['id']}>()
+const props = defineProps<Props>()
 defineEmits(['update:modelValue'])
 </script>
 

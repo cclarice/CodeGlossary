@@ -1,32 +1,52 @@
 <template>
-  <header class="main-header" :class="{ 'main-header_slotted': hasSlot }">
+  <header
+    class="main-header"
+    :class="{ 'main-header_slotted': props.hasSlot }"
+  >
     <nav class="main-header__path">
       path
     </nav>
     <nav class="main-header__actions">
-      <input-icon :icon="stub" @i-click="log"/>
-      <input-icon :icon="stub" @i-click="log"/>
-      <input-icon :icon="stub" @i-click="log"/>
-      <input-icon :icon="stub" @i-click="log"/>
-      <input-icon :icon="icons[theme.theme]" @i-click="theme.cycleTheme()"/>
+      <input-icon
+        :icon="stub"
+        @i-click="log"
+      />
+      <input-icon
+        :icon="stub"
+        @i-click="log"
+      />
+      <input-icon
+        :icon="stub"
+        @i-click="log"
+      />
+      <input-icon
+        :icon="stub"
+        @i-click="log"
+      />
+      <input-icon
+        :icon="icons[theme.theme]"
+        @i-click="theme.cycleTheme()"
+      />
     </nav>
-    <slot>
-
-    </slot>
+    <slot />
   </header>
 </template>
 
 <script setup lang="ts">
 import InputIcon from '@/components/inputs/InputIcon.vue'
 import stub from '@/assets/icons/stub.svg'
-import { useTheme } from '../../stores/theme'
+import { useTheme } from '@/stores/theme'
 import dark from '@/assets/icons/theme/dark.svg'
 import light from '@/assets/icons/theme/light.svg'
 import odan from '@/assets/icons/theme/odan.svg'
 
+interface Props {
+  hasSlot: boolean
+}
+
 const icons = { dark, light, odan }
 const theme = useTheme()
-const { hasSlot = false } = defineProps<{ hasSlot: boolean }>()
+const props = defineProps<Props>()
 
 const log = () => {
   console.log('i-click')
