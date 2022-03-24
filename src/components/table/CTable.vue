@@ -6,9 +6,12 @@
     <colgroup>
       <col>
     </colgroup>
+    <c-table-block />
     <thead v-if="props.table.head">
-      <tr v-for="table_row of props.table.head" :key="table_row">
-        <td v-for="table_cell of table_row" :key="table_cell">
+      <tr v-for="table_row of props.table.head"
+          :key="table_row">
+        <td v-for="table_cell of table_row"
+            :key="table_cell">
           {{ typeof table_cell === 'string' ? table_cell : table_cell.content }}
         </td>
       </tr>
@@ -32,6 +35,7 @@
 
 <script setup lang="ts">
 import Table from '@/components/table/TTable'
+import CTableBlock from '@/components/table/CTableBlock.vue'
 
 interface Props {
   table: Table

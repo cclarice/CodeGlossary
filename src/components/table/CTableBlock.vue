@@ -1,11 +1,8 @@
 <template>
-  <component :is="props.tag">
-
-  </component>
+  <component :is="props.tag" />
 </template>
 
 <script setup lang="ts">
-import { Component } from 'vue'
 import { TableBlock } from '@/components/table/TTable'
 
 interface Props {
