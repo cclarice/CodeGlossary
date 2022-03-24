@@ -39,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/capibarochka',
     name: 'Capibara',
-    component: () =>  import('@/views/capibarochka/CapiMain.vue'),
+    component: () => import('@/views/capibarochka/CapiMain.vue'),
     meta: {
       title: 'CodeGlossary',
       parent: null,

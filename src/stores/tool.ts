@@ -23,21 +23,21 @@ export const useTools = defineStore('Tools', {
       topLeft: [],
       topRight: [],
       leftRight: [],
-		  leftLeft: [],
-		  rightRight: [],
-		  rightLeft: [],
-		  bottomRight: [],
-		  bottomLeft: []
+      leftLeft: [],
+      rightRight: [],
+      rightLeft: [],
+      bottomRight: [],
+      bottomLeft: []
     },
     activeTools: {
       topLeft: null,
       topRight: null,
       leftRight: null,
-		  leftLeft: null,
-		  rightRight: null,
-		  rightLeft: null,
-		  bottomRight: null,
-		  bottomLeft: null
+      leftLeft: null,
+      rightRight: null,
+      rightLeft: null,
+      bottomRight: null,
+      bottomLeft: null
     },
     tools: [
       {

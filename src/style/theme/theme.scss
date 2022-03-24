@@ -6,13 +6,13 @@
                           /* GLOBAL STYLES */
 :root {
   /* Field */
-  --field-border:             1px solid var(--field-border-color);
-  --field-border-disabled:    1px solid var(--field-border-disabled-color);
-  --field-border-focused:     1px solid var(--field-border-focused-color);
-  --field-border-validated:   1px solid var(--field-border-validated-color);
-  --field-outline:            2px solid var(--field-outline-color);
-  --field-outline-focused:    2px solid var(--field-outline-focused-color);
-  --field-outline-validated:  2px solid var(--field-outline-validated-color);
+  --field-border:                 1px solid var(--field-border-color);
+  --field-border-disabled:        1px solid var(--field-border-disabled-color);
+  --field-border-focused:         1px solid var(--field-border-focused-color);
+  --field-border-validated:       1px solid var(--field-border-validated-color);
+  --field-outline:                2px solid var(--field-outline-color);
+  --field-outline-focused:        2px solid var(--field-outline-focused-color);
+  --field-outline-validated:      2px solid var(--field-outline-validated-color);
 
   /* Checkbox / Radio */
   --check-border:                 1px solid var(--check-border-color);

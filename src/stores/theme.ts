@@ -16,7 +16,7 @@ export const useTheme = defineStore('Theme', {
   }),
   actions: {
     setTheme (theme: string): void {
-		  window.localStorage.setItem('Theme', (this.theme = document.documentElement.dataset.theme = theme))
+      window.localStorage.setItem('Theme', (this.theme = document.documentElement.dataset.theme = theme))
     },
     loadTheme (): void {
       window.localStorage.setItem('Theme',
