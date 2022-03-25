@@ -21,7 +21,7 @@ const router = useRouter()
 </script>
 
 <style lang="scss" scoped>
-@use '@/style/breakpoints' as media;
+@use '../style/breakpoints' as media;
 
 .home {
   display: grid;
