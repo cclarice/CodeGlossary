@@ -3,7 +3,7 @@
     &[data-theme='odan'] {
       /* Panel */
       --panel-background:                 #2F3032;
-      --panel-border:                     #404144;
+      --panel-border:                     #27292A;
       --panel-alt-background:             #363642;
 
       /* Field */
@@ -21,11 +21,11 @@
 
       /* Checkbox / Radio */
       --check-background:                 #43494A;
-      --check-background-disabled:        var(--field-background-disabled);
-      --check-border-color:               #6B6B6B;
-      --check-border-disabled-color:      #545556;
-      --check-border-focused-color:       #43698E;
-      --check-outline-color:              #97C3F300;
+      --check-background-disabled:        #3C3F41;
+      --check-border-color:                 #6B6B6B;
+      --check-border-disabled-color:        #545556;
+      --check-border-focused-color:         #43698E;
+      --check-outline-color:                #97C3F300;
       --check-outline-focused-color:        #3D6185;
 
       /* Checked */
@@ -43,9 +43,9 @@
       --button-outline-focused-color:       var(--field-outline-focused-color);
 
       /* Progress */
-      --progress-background:                #555555;
+      --progress-background:                #555;
       --progress-fill-background:           #A0A0A0;
-      background: linear-gradient(270deg,
+      background:                           linear-gradient(270deg,
         #828282 0%,
         #696969 18.21%,
         #828282 36.41%,
@@ -54,28 +54,28 @@
         #696969 100%);
 
       /* Tabs */
-      --tabs-background:                   var(--panel-background);
-      --tabs-border:                       var(--panel-border);
-      --tab-background:                    var(--tabs-background);
-      --tab-background-active:             #4E5254;
-      --tab-border:                        var(--tabs-border);
-      --tab-border-active:                 #4A88C7;
+      --tabs-background:                    var(--panel-background);
+      --tabs-border:                        var(--panel-border);
+      --tab-background:                     var(--tabs-background);
+      --tab-background-active:              #393A3D;
+      --tab-border:                         var(--tabs-border);
+      --tab-border-active:                  #2F65CA;
 
       /* Card */
-      --main-background:                    #2B2B2B;
-      --card-header-background:             #4A4E52;
-      --card-hint-background:               #45494A;
-      --card-alt-background:                #3F434C;
+      --main-background:                    #232425;
+      --card-header-background:             #494D51;
+      --card-hint-background:               #3B3F3F;
+      --card-alt-background:                #363641;
       --card-shadow:                        0px 0px 2px #0000004C, 0px 0px 30px #0000004C;
 
       /* Icon */
-      --icon-background:                    #3C3F41;
+      --icon-background:                    #2F3032;
       --icon-hovered-background:            #4C5052;
       --icon-pressed-background:            #5C6164;
-      --icon-fill:                          #AFB1B3;
+      --icon-fill:                          #AEB0B2;
       --icon-filter:                        grayscale(0) brightness(1);
       --icon-dropdown:                      #D6D6D6;
-      --icon-split:                         #3C3F41;
+      --icon-split:                         #404144;
       --icon-split-hovered:                 #6B6B6B;
 
       /* Balloon */
@@ -86,25 +86,25 @@
       --balloon-hovered-icon-active-fill:   #7F8B91FF;
 
       /* Stripe */
-      --stripe-hovered-background:          #2D2F3080;
-      --stripe-selected-background:         #2D2F30;
+      --stripe-hovered-background:          #2A2A2C;
+      --stripe-selected-background:         #242526;
 
       /* Tool */
-      --tool-header:                        #3B4754;
+      --tool-header:                        #333436;
 
       /* Selection */
-      --selection-active:                   #2F65CA;
+      --selection-active:                   #2F64C8;
       --selection-hovered:                  #113A5C;
 
       /* Scrollbar */
-      --scroll-background:					        #49494944;
-      --scroll-thumb-color:								  #696969AA;
-      --scroll-thumb-active:								#696969CC;
-      --scroll-thumb-border:				 			  #29292944;
+      --scroll-background:                  #49494944;
+      --scroll-thumb-color:                 #696969AA;
+      --scroll-thumb-active:                #696969CC;
+      --scroll-thumb-border:                #29292944;
 
       /* Typography */
-      --default:                            #BBBBBB;
-      --disabled:                           #777777;
+      --default:                            #BBB;
+      --disabled:                           #777;
       --selected:                           #FEFEFE;
       --link:                               #589DF6;
       --link-visited:                       #BA6F25;
@@ -125,9 +125,9 @@
       --code-tag:                           #E8BF6A;
 
       /* Other */
-      --gutter-color:                       #999999;
+      --gutter-color:                       #999;
       --gutter-background:                  #313335;
-      --gutter-border:                      #555555;
+      --gutter-border:                      #555;
 
       /* Table */
       --table-head-background:              var(--panel-background);
