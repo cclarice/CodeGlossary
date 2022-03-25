@@ -129,6 +129,11 @@
       --gutter-color:                       #999999;
       --gutter-background:                  #313335;
       --gutter-border:                      #555555;
+
+      /* Table */
+      --table-head-background:              var(--panel-background);
+      --table-body-background:              var(--main-background);
+      --table-border:                       #373737;
     }
   }
 }

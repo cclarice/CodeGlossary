@@ -126,6 +126,11 @@
       --gutter-color:                       #999999;
       --gutter-background:                  #F2F2F2;
       --gutter-border:                      #D1D1D1;
+
+      /* Table */
+      --table-head-background:              #EFEFEF;
+      --table-body-background:              var(--main-background);
+      --table-border:                       #E6E6E6;
     }
   }
 }
