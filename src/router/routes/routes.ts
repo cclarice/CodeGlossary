@@ -28,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/large',
     name: 'LargeBlock',
-    component: () => import('@/views/develop/LargeBlock.vue'),
+    component: () => import('@/views/dev/LargeBlock.vue'),
     meta: {
       title: 'CodeGlossary',
       parent: null,

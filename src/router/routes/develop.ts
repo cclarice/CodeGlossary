@@ -18,7 +18,7 @@ const develop: Array<RouteRecordRaw> = [
   {
     path: '/dev/interface',
     name: 'Interface',
-    component: () => import('@/views/develop/Interface.vue'),
+    component: () => import('@/views/dev/Interface.vue'),
     meta: {
       layout: layouts.MainLayout,
       stats: {
