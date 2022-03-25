@@ -1,7 +1,7 @@
 import { Component } from 'vue'
 
 interface TableCellAdvanced {
-  content?: string | Component
+  content: string | Component
   column?: number
   row?: number
   icon?: string

@@ -44,7 +44,7 @@ interface Props {
   hasSlot: boolean
 }
 
-const icons = { dark, light, odan }
+const icons: { 'dark': string, 'light': string, 'odan': string } = { dark, light, odan }
 const theme = useTheme()
 const props = defineProps<Props>()
 

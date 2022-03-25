@@ -1,8 +1,8 @@
 <template>
   <component :is="props.tag">
     <tr
-      v-for="table_row of props.block"
-      :key="table_row"
+      v-for="(table_row, table_row_index) of props.block"
+      :key="table_row_index"
     >
       <component
         :is="(props.tag === 'thead' ? 'th' : 'td')"
@@ -11,10 +11,12 @@
       >
         {{ typeof table_cell === 'string' ? table_cell :
           (typeof table_cell.content === 'string' ? table_cell.content : '') }}
+        <!--
         <component
-          :is="table_cell.content"
-          v-if="table_cell.content instanceof Component"
+          :is="table_cell.content || 'div'"
+          v-if="table_cell.content && table_cell.content instanceof Component"
         />
+        -->
       </component>
     </tr>
   </component>
@@ -22,7 +24,6 @@
 
 <script setup lang="ts">
 import { TableBlock } from '@/models/Table'
-import { Component } from 'vue'
 
 interface Props {
   tag: 'thead' | 'tbody' | 'tfoot'

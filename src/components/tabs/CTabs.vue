@@ -5,9 +5,9 @@
       :tabs="ready_tabs"
     />
     <div
-      v-for="c_tab of ready_tabs"
+      v-for="(c_tab, c_tab_index) of ready_tabs"
       v-show="c_tab.id === tab"
-      :key="c_tab"
+      :key="c_tab_index"
       v-scrollable
       class="tabs__slide"
     >

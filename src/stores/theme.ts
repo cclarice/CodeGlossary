@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
 
+type theme = 'dark' | 'light' | 'odan'
+
 interface themeState {
-  theme: string,
-  themes: Array<string>
+  theme: theme,
+  themes: Array<theme>
 }
 
 export const useTheme = defineStore('Theme', {
@@ -15,12 +17,12 @@ export const useTheme = defineStore('Theme', {
     ]
   }),
   actions: {
-    setTheme (theme: string): void {
+    setTheme (theme: theme): void {
       window.localStorage.setItem('Theme', (this.theme = document.documentElement.dataset.theme = theme))
     },
     loadTheme (): void {
       window.localStorage.setItem('Theme',
-        (document.documentElement.dataset.theme = this.theme = window.localStorage.getItem('Theme') ||
+        (document.documentElement.dataset.theme = this.theme = window.localStorage.getItem('Theme') as theme ||
           (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && 'dark') ||
           'dark'))
     },

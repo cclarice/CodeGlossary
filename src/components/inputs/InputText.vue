@@ -13,7 +13,7 @@
       class="input-text__input"
       :type="props.type || 'text'"
       :value="props.modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
+      @input="updateModel"
     >
     <small
       v-if="props.maxlength"
@@ -49,7 +49,9 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue'])
+
+const updateModel = (event: Event): void => emit('update:modelValue', (event.target as HTMLInputElement).value)
 </script>
 
 <style lang="scss" scoped>

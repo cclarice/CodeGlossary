@@ -5,10 +5,10 @@
       <col>
     </colgroup>
     <c-table-block
-      v-for="(block, tag) in { head: props.table.head, body: props.table.body, foot: props.table.foot }"
-      :key="block"
-      :tag="`t${tag}`"
-      :block="block"
+      v-for="block in blocks"
+      :key="block.tag"
+      :tag="block.tag"
+      :block="block.block"
     />
     <!--
       <thead v-if="props.table.head">
@@ -55,8 +55,9 @@
 </template>
 
 <script setup lang="ts">
-import Table from '@/models/Table'
+import Table, { TableBlock } from '@/models/Table'
 import CTableBlock from '@/components/table/CTableBlock.vue'
+import { computed } from 'vue'
 
 interface Props {
   table: Table
@@ -64,7 +65,19 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const sortable = props.sortable || false
+
+type TableTagBlock = Array<{ tag: 'thead' | 'tbody' | 'tfoot', block: TableBlock }>
+
+const blocks = computed((): TableTagBlock => {
+  const blocks: TableTagBlock = []
+  const { head, body, foot } = props.table
+
+  if (head) { blocks.push({ tag: 'thead', block: head }) }
+  if (body) { blocks.push({ tag: 'tbody', block: body }) }
+  if (foot) { blocks.push({ tag: 'tfoot', block: foot }) }
+  return blocks
+})
+
 </script>
 
 <style lang="scss" scoped>
