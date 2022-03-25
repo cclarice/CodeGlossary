@@ -17,8 +17,8 @@
       --field-outline-color:                #FFFFFF00;
       --field-outline-focused-color:        #3D6185;
       --field-outline-validated-color:      #8B3C3C;
-      --field-button-background:            #3C3F41;
-      --field-button-background-disabled:   #3C3F41;
+      --field-button-background:            var(--panel-background);
+      --field-button-background-disabled:   var(--panel-background);
 
       /* Checkbox / Radio */
       --check-background:                   #43494A;
