@@ -5,6 +5,13 @@ interface TableCellAdvanced {
   column?: number
   row?: number
   icon?: string
+  align?: string
+  width?: string | number
+  color?: string
+  background?: string
+  font?: string
+  size?: string
+  editable?: boolean
 }
 
 type TableCell = TableCellAdvanced | string
