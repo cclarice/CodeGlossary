@@ -5,21 +5,7 @@
       :default-tab="defaultTab"
     >
       <template #0>
-        <h2>
-          Inputs
-        </h2>
-        <div class="interface__component">
-          <h3>
-            Input Text
-          </h3>
-          <div class="interface__component-wrapper">
-            <input-text v-model="inputTextValue0" />
-            <c-code
-              lang="html"
-              :code="inputTextText0"
-            />
-          </div>
-        </div>
+        <interface-input />
       </template>
       <template #1>
         <h2>
@@ -30,9 +16,7 @@
         <interface-table />
       </template>
       <template #3>
-        <h2>
-          Colors
-        </h2>
+        <interface-color />
       </template>
       <template #4>
         <h2>
@@ -46,18 +30,20 @@
 <script setup lang="ts">
 import CTabs from '@/components/tabs/CTabs.vue'
 import stub from '~@/icons/stub.svg'
-import InputText from '@/components/inputs/InputText.vue'
-import CCode from '@/components/code/CCode.vue'
-import { ref } from 'vue'
-import InterfaceTable from './interface/InterfaceTable.vue'
+import InputTextIcon from '~@/icons/interface/input-text.svg'
+import TabsIcon from '~@/icons/interface/tabs.svg'
+import TableIcon from '~@/icons/interface/table.svg'
+import ColorIcon from '~@/icons/interface/color.svg'
 
-const inputTextText0 = ref('<input-text v-model="value"/>')
-const inputTextValue0 = ref('text')
+import InterfaceTable from '@/views/dev/interface/InterfaceTable.vue'
+import InterfaceInput from '@/views/dev/interface/InterfaceInput.vue'
+import InterfaceColor from '@/views/dev/interface/InterfaceColor.vue'
+
 const tabs = [
-  { id: 0, icon: stub, name: 'Inputs', },
-  { id: 1, icon: stub, name: 'Tabs' },
-  { id: 2, icon: stub, name: 'Tables' },
-  { id: 3, icon: stub, name: 'Colors' },
+  { id: 0, icon: InputTextIcon, name: 'Inputs', },
+  { id: 1, icon: TabsIcon, name: 'Tabs' },
+  { id: 2, icon: TableIcon, name: 'Tables' },
+  { id: 3, icon: ColorIcon, name: 'Colors' },
   { id: 4, icon: stub, name: 'Other' }
 ]
 const defaultTab = document.URL.indexOf('#') !== -1 ? tabs.find((tab) =>
@@ -70,6 +56,7 @@ const defaultTab = document.URL.indexOf('#') !== -1 ? tabs.find((tab) =>
   flex-flow: column;
   gap: 16px;
   align-items: center;
+  max-width: 100%;
 
   .interface__component-wrapper {
     display: flex;
@@ -78,7 +65,9 @@ const defaultTab = document.URL.indexOf('#') !== -1 ? tabs.find((tab) =>
     border: 1px dashed #7B61FF;
     background-color: var(--panel-background);
     border-radius: 5px;
-    gap: 16px;
+    gap: 4px;
+    min-width: min(280px, 100%);
+    max-width: 100%;
 
     code:not(:nth-child(2)) {
       margin-bottom: 16px;
