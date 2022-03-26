@@ -1,26 +1,28 @@
 <template>
-  <div
+  <tr
     v-if="props.tabs"
     class="tabs-bar"
   >
-    <div
+    <th
       v-for="tab of props.tabs"
       :key="tab.id"
       class="tabs-bar__tab"
       :class="{ active: tab.id === props.modelValue}"
       @click="$emit('update:modelValue', tab.id)"
     >
-      <img
-        v-if="tab.icon"
-        class="tabs-bar__tab-icon"
-        :src="tab.icon"
-        :alt="tab.name"
-      >
-      <span class="tabs-bar__tab-name">
-        {{ tab.name }}
-      </span>
-    </div>
-  </div>
+      <div style="display: flex; align-items: center; height: 100%; gap: 4px;">
+        <img
+          v-if="tab.icon"
+          class="tabs-bar__tab-icon"
+          :src="tab.icon"
+          :alt="tab.name"
+        >
+        <span class="tabs-bar__tab-name">
+          {{ tab.name }}
+        </span>
+      </div>
+    </th>
+  </tr>
 </template>
 
 <script setup lang="ts">
@@ -43,30 +45,35 @@ defineEmits(['update:modelValue'])
 
 <style lang="scss" scoped>
 .tabs-bar {
-  display: flex;
   overflow: hidden;
   background-color: var(--tabs-background);
-  -webkit-box-shadow: 0px -1px 0px 0px var(--tabs-border) inset;
-  -moz-box-shadow: 0px -1px 0px 0px var(--tabs-border) inset;
-  box-shadow: 0px -1px 0px 0px var(--tabs-border) inset;
+  border-bottom: var(--tab-border);
   flex: 0 0 28px;
+  border-collapse: collapse;
+  box-shadow: 0 -1px 0 var(--tab-border) inset;
 
   &__tab {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 8px;
+    border-collapse: collapse;
+    padding: 0 8px;
     height:  28px;
     background-color: var(--tab-background);
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid var(--tab-border);
-    transition: border .2s, background-color .2s;
+    transition: background-color .2s, box-shadow .2s;
+    box-shadow: 0 -1px 0 var(--tab-border) inset;
     user-select: none;
+    &:not(:first-child) { border-left: 1px solid var(--tab-border) }
+    border-right: 1px solid var(--tab-border);
+
+    div {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      height: 100%;
+      user-select: none;
+    }
 
     &.active {
       background-color: var(--tab-background-active);
-      border-top: 3px solid transparent;
-      border-bottom: 3px solid var(--tab-border-active);
+      box-shadow: 0 -3px 0 var(--tab-border-active) inset;
     }
 
     &-icon {
