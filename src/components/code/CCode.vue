@@ -8,9 +8,7 @@
       v-if="lines"
       :lines="lines"
     />
-    <pre>
-      <code v-text="props.code" />
-    </pre>
+    <pre><code v-text="props.code" /></pre>
   </div>
 </template>
 
