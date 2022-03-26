@@ -115,24 +115,24 @@
 
       /* Typography Code */
       --code-default:                       #BABABA;
-      --code-keyword:                       #CB7832;
-      --code-variable:                      red; // #871094;
-      --code-number:                        #6896BA;
-      --code-method:                        red; // #00627A;
-      --code-caret-row:                     #323232;
-      --code-description:                   #7F7F7F;
-      --code-override:                      red; // #9E880D;
-      --code-tag:                           #E8BF6A;
+      --code-keyword:          #CB7832;
+      --code-variable:         red; // #871094;
+      --code-number:           #6896BA;
+      --code-method:           red; // #00627A;
+      --code-caret-row:        #323232;
+      --code-description:      #7F7F7F;
+      --code-override:         red; // #9E880D;
+      --code-tag:              #E8BF6A;
 
       /* Other */
-      --gutter-color:                       #999;
-      --gutter-background:                  #313335;
-      --gutter-border:                      #555;
+      --gutter-color:          #5F6265;
+      --gutter-background:     #1D1E1F;
+      --gutter-border:         #444648;
 
       /* Table */
-      --table-head-background:              var(--panel-background);
-      --table-body-background:              var(--main-background);
-      --table-border:                       #373737;
+      --table-head-background: var(--panel-background);
+      --table-body-background: var(--main-background);
+      --table-border:          #373737;
     }
   }
 }
