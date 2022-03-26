@@ -8,7 +8,7 @@
         :is="(props.tag === 'thead' ? 'th' : 'td')"
         v-for="(table_cell, table_cell_index) of table_row"
         :key="table_cell"
-        :style="{
+        :style="typeof table_cell !== 'string' && {
           width: table_cell.width !== undefined ? table_cell.width : 'auto',
           textAlign: table_cell.align,
           background: table_cell.background,
@@ -19,10 +19,10 @@
       >
         {{
           typeof table_cell === 'string' ? table_cell :
-          (typeof table_cell.content === 'string' && !table_cell.editable ? table_cell.content : undefined)
+          (!table_cell.editable ? table_cell.content : undefined)
         }}
         <input
-          v-if="table_cell.editable"
+          v-if="typeof table_cell !== 'string' && table_cell.editable"
           :value="table_cell.content"
           type="text"
           @input.stop="changeCell($event, table_row_index, table_cell_index)"
