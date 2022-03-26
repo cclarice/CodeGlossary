@@ -4,15 +4,16 @@
     :class="props.error"
   >
     <span
-      v-if="props.title"
-      class="input-text__title"
+      v-if="props.label"
+      class="input-text__label"
     >
-      {{ props.title }}
+      {{ props.label }}
     </span>
     <input
       class="input-text__input"
       :type="props.type || 'text'"
       :value="props.modelValue"
+      :disabled="props.disabled"
       @input="updateModel"
     >
     <small
@@ -34,7 +35,7 @@
 
 interface Props {
   name?: string
-  title?: string
+  label?: string
   error?: string
   modelValue?: string
   icon?: string
@@ -56,41 +57,58 @@ const updateModel = (event: Event): void => emit('update:modelValue', (event.tar
 
 <style lang="scss" scoped>
 .input-text {
-  display:    flex;
-  position:   relative;
-  max-width:  100%;
+  display:   flex;
+  flex-flow: column;
+  position:  relative;
+  max-width: 100%;
+  width: fit-content;
+
   &__input {
-    appearance:    none;
-    padding:       3px 6px;
-    min-width:     128px;
-    width:         128px;
-    max-width:     100%;
-    height:        24px;
+    appearance:       none;
+    padding:          3px 6px;
+    min-width:        128px;
+    width:            128px;
+    max-width:        100%;
+    height:           24px;
     background-color: var(--field-background);
-    border:        var(--field-border);
-    border-radius: 1px;
-    outline:       var(--field-outline);
+    border:           var(--field-border);
+    border-radius:    1px;
+    outline:          var(--field-outline);
+
     &:focus {
-      border: var(--field-border-focused);
+      border:  var(--field-border-focused);
       outline: var(--field-outline-focused);
     }
+
+    &:disabled {
+      background-color: var(--field-background-disabled);
+      cursor: not-allowed;
+      color: var(--disabled)
+    }
   }
+
   &__max {
     position: absolute;
-    right: 6px;
-    top:   4px;
+    right:    6px;
+    top:      4px;
   }
+
   &__error {
-    color: var(--error);
-    // top: calc(100% + 2px);
+    color:       var(--error);
     font-weight: 400;
   }
+
   &.Error {
     & > .input-text__input {
       color:   var(--error);
       border:  var(--field-border-validated);
       outline: var(--field-outline-validated);
     }
+  }
+
+  &__label {
+    font-size: 13px;
+    margin-bottom: 3px;
   }
 }
 </style>
