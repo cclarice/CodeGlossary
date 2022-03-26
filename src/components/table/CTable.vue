@@ -9,54 +9,14 @@
       :key="block.tag"
       :tag="block.tag"
       :block="block.block"
+      @change-cell="emit('change-cell', $event)"
     />
-    <!--
-      <thead v-if="props.table.head">
-        <tr
-          v-for="table_row of props.table.head"
-          :key="table_row"
-        >
-          <td
-            v-for="table_cell of table_row"
-            :key="table_cell"
-          >
-            {{ typeof table_cell === 'string' ? table_cell : table_cell.content }}
-          </td>
-        </tr>
-      </thead>
-      <tbody v-if="props.table.body">
-        <tr
-          v-for="table_row of props.table.body"
-          :key="table_row"
-        >
-          <td
-            v-for="table_cell of table_row"
-            :key="table_cell"
-          >
-            {{ typeof table_cell === 'string' ? table_cell : table_cell.content }}
-          </td>
-        </tr>
-      </tbody>
-      <tfoot v-if="props.table.foot">
-        <tr
-          v-for="table_row of props.table.foot"
-          :key="table_row"
-        >
-          <td
-            v-for="table_cell of table_row"
-            :key="table_cell"
-          >
-            {{ typeof table_cell === 'string' ? table_cell : table_cell.content }}
-          </td>
-        </tr>
-      </tfoot>
-    -->
   </table>
 </template>
 
 <script setup lang="ts">
 import Table, { TableBlock } from '@/models/Table'
-import CTableBlock from '@/components/table/CTableBlock.vue'
+import CTableBlock, { CellData } from '@/components/table/CTableBlock.vue'
 import { computed } from 'vue'
 
 interface Props {
@@ -77,6 +37,11 @@ const blocks = computed((): TableTagBlock => {
   if (foot) { blocks.push({ tag: 'tfoot', block: foot }) }
   return blocks
 })
+
+const emit = defineEmits<{
+  // eslint-disable-next-line no-unused-vars
+  (e: 'change-cell', data: CellData): void
+}>()
 
 </script>
 

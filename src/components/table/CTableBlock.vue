@@ -6,17 +6,27 @@
     >
       <component
         :is="(props.tag === 'thead' ? 'th' : 'td')"
-        v-for="table_cell of table_row"
+        v-for="(table_cell, table_cell_index) of table_row"
         :key="table_cell"
+        :style="{
+          width: table_cell.width !== undefined ? table_cell.width : 'auto',
+          textAlign: table_cell.align,
+          background: table_cell.background,
+          color: table_cell.color,
+          fontFamily: table_cell.font,
+          fontSize: table_cell.size
+        }"
       >
-        {{ typeof table_cell === 'string' ? table_cell :
-          (typeof table_cell.content === 'string' ? table_cell.content : '') }}
-        <!--
-        <component
-          :is="table_cell.content || 'div'"
-          v-if="table_cell.content && table_cell.content instanceof Component"
-        />
-        -->
+        {{
+          typeof table_cell === 'string' ? table_cell :
+          (typeof table_cell.content === 'string' && !table_cell.editable ? table_cell.content : undefined)
+        }}
+        <input
+          v-if="table_cell.editable"
+          :value="table_cell.content"
+          type="text"
+          @input.stop="changeCell($event, table_row_index, table_cell_index)"
+        >
       </component>
     </tr>
   </component>
@@ -24,6 +34,7 @@
 
 <script setup lang="ts">
 import { TableBlock } from '@/models/Table'
+import { computed } from 'vue'
 
 interface Props {
   tag: 'thead' | 'tbody' | 'tfoot'
@@ -31,11 +42,43 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const block_name = computed(() => props.tag === 'thead' ? 'head' : (props.tag === 'tbody' ? 'body' : 'foot'))
+
+export interface CellData {
+  value: string
+  block_name: 'head' | 'body' | 'foot'
+  row_index: number
+  cell_index: number
+}
+
+const emit = defineEmits<{
+  // eslint-disable-next-line no-unused-vars
+  (e: 'change-cell', data: CellData): void
+}>()
+
+const changeCell = (event: Event, row_index: number, cell_index: number) => {
+  const target = event.target as HTMLInputElement
+
+  emit('change-cell', {
+    value: target.value || '',
+    block_name: block_name.value,
+    row_index,
+    cell_index
+  })
+}
 </script>
 
 <style lang="scss" scoped>
 td, th {
   border: 1px solid var(--table-border);
+
+  input {
+    width: 100%;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
 }
 thead {
   background-color: var(--panel-background);
