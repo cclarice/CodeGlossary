@@ -32,6 +32,13 @@ type TableHead = TableBlock
 type TableBody = TableBlock
 type TableFoot = TableBlock
 
+export interface CellData {
+  value: string
+  block_name: 'head' | 'body' | 'foot'
+  row_index: number
+  cell_index: number
+}
+
 export default interface Table {
   head?: TableHead
   body?: TableBody

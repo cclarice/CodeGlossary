@@ -44,13 +44,6 @@ interface Props {
 const props = defineProps<Props>()
 const block_name = computed(() => props.tag === 'thead' ? 'head' : (props.tag === 'tbody' ? 'body' : 'foot'))
 
-export interface CellData {
-  value: string
-  block_name: 'head' | 'body' | 'foot'
-  row_index: number
-  cell_index: number
-}
-
 const emit = defineEmits<{
   // eslint-disable-next-line no-unused-vars
   (e: 'change-cell', data: CellData): void
