@@ -1,7 +1,7 @@
 <template>
   <div class="interface__component">
     <h3>
-      Input Text
+      Input Text Default
     </h3>
     <div class="interface__component-wrapper">
       <input-text v-model="inputTextValue0" />
@@ -9,12 +9,7 @@
         lang="html"
         :code="inputTextText0"
       />
-      <c-table
-        :table="{ body: [[
-          { content: 'value', width: 0 },
-          { content: inputTextValue0, align: 'right' }
-        ]] }"
-      />
+      <c-table :table="inputTextTable0" />
     </div>
   </div>
   <div class="interface__component">
@@ -24,12 +19,13 @@
     <div class="interface__component-wrapper">
       <input-text
         v-model="inputTextValue1"
-        disabled
+        :disabled="inputTextDisabled1"
       />
       <c-code
         lang="html"
         :code="inputTextText1"
       />
+      <c-table :table="inputTextTable1" />
     </div>
   </div>
   <div class="interface__component">
@@ -45,17 +41,23 @@
         lang="html"
         :code="inputTextText2"
       />
-      <c-table
-        v-memo="[ inputTextValue2 ]"
-        :table="{ body: [[
-          { content: 'value', width: 0 },
-          { content: inputTextValue2, align: 'right' }
-        ], [
-          { content: 'label', width: 0 },
-          { content: inputTextLabel2, align: 'right', editable: true }
-        ]] }"
-        @change-cell="inputTextChangeLabel"
+      <c-table :table="inputTextTable2" />
+    </div>
+  </div>
+  <div class="interface__component">
+    <h3>
+      Input Text Error
+    </h3>
+    <div class="interface__component-wrapper">
+      <input-text
+        v-model="inputTextValue3"
+        :error="inputTextRegex3.test(inputTextValue3) ? 'Error' : ''"
       />
+      <c-code
+        lang="html"
+        :code="inputTextText3"
+      />
+      <c-table :table="inputTextTable3" />
     </div>
   </div>
 </template>
@@ -64,23 +66,74 @@
 import CTable from '@/components/table/CTable.vue'
 import InputText from '@/components/inputs/InputText.vue'
 import CCode from '@/components/code/CCode.vue'
-import { ref } from 'vue'
-import { CellData } from '@/components/table/CTableBlock.vue'
+import { computed, ref } from 'vue'
+import Table from '@/models/Table'
 
-const inputTextText0 = ref('<input-text v-model="value" />')
+// 0 Default
 const inputTextValue0 = ref('Default')
+const inputTextText0 = ref('<input-text v-model="value" />')
+const inputTextTable0: Table = {
+  body: [[
+    { content: 'value', width: 0 },
+    { content: inputTextValue0, align: 'left', editable: true }
+  ]]
+}
+
+// 1 Disabled
+const inputTextValue1 = ref('Disabled')
+const inputTextDisabled1 = ref(true)
 const inputTextText1 = ref(`<input-text
   v-model="value"
-  disabled
+  :disabled="disabled"
 />`)
-const inputTextValue1 = ref('Disabled')
+const inputTextTable1: Table = {
+  body: [[
+    { content: 'value', width: 0 },
+    { content: inputTextValue1, align: 'left', editable: true }
+  ],
+  [
+    { content: 'disabled', width: 0 },
+    { content: inputTextDisabled1, align: 'left', editable: true }
+  ]]
+}
+
+// 2 Labeled
+const inputTextLabel2 = ref('Label:')
+const inputTextValue2 = ref('Labeled')
 const inputTextText2 = ref(`<input-text
   v-model="value"
-  label="Label:"
+  label="label"
 />`)
-const inputTextValue2 = ref('Labeled')
-const inputTextLabel2 = ref('Label:')
-const inputTextChangeLabel = (event: CellData) => inputTextLabel2.value = event.value
+const inputTextTable2: Table = {
+  body: [[
+    { content: 'value', width: 0 },
+    { content: inputTextValue2, align: 'left', editable: true }
+  ], [
+    { content: 'label', width: 0 },
+    { content: inputTextLabel2, align: 'left', editable: true }
+  ]]
+}
+
+// 3 Error
+const inputTextValue3 = ref('Error')
+const inputTextRegexText3 = ref('[A-Z]')
+const inputTextRegex3 = computed(() => {
+  try { return RegExp(inputTextRegexText3.value) }
+  catch (e) { return RegExp('') }
+})
+const inputTextTable3: Table = {
+  body: [[
+    { content: 'value', width: 0 },
+    { content: inputTextValue3, align: 'left', editable: true }
+  ],[
+    { content: 'regex', width: 0 },
+    { content: inputTextRegexText3, align: 'left', editable: true }
+  ]]
+}
+const inputTextText3 = `<input-text
+  v-model="value"
+  :error="regex.test(value) ? 'Error' : ''"
+/>`
 </script>
 
 <style lang="scss" scoped>
