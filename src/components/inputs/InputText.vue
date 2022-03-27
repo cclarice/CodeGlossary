@@ -1,7 +1,7 @@
 <template>
   <label
     class="input-text"
-    :class="props.error"
+    :class="{ error: props.error }"
   >
     <span
       v-if="props.label"
@@ -22,12 +22,14 @@
     >
       {{ `${props.modelValue ? props.modelValue.length : 0}/${props.maxlength}` }}
     </small>
-    <small
-      v-if="props.error"
-      class="input-text__error"
-    >
-      {{ props.error }}
-    </small>
+    <transition name="error">
+      <small
+        v-if="props.error"
+        class="input-text__error"
+      >
+        {{ props.error }}
+      </small>
+    </transition>
   </label>
 </template>
 
@@ -94,21 +96,34 @@ const updateModel = (event: Event): void => emit('update:modelValue', (event.tar
   }
 
   &__error {
+    margin-top: 2px;
     color:       var(--error);
     font-weight: 400;
+    overflow: hidden;
   }
 
-  &.Error {
-    & > .input-text__input {
-      color:   var(--error);
-      border:  var(--field-border-validated);
-      outline: var(--field-outline-validated);
-    }
+  &.error > .input-text__input {
+    color:   var(--error);
+    border:  var(--field-border-validated);
+    outline: var(--field-outline-validated);
   }
 
   &__label {
     font-size: 13px;
     margin-bottom: 3px;
   }
+}
+
+.error-enter-active,
+.error-leave-active {
+  height: 0;
+  margin-top: 0;
+  transition: 1.17s ease-in-out;
+}
+
+.error-leave-to {
+  height: 14px;
+  margin-top: 2px;
+  transition: 1.17s ease-in-out;
 }
 </style>
