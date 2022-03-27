@@ -15,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import Table, { TableBlock } from '@/models/Table'
-import CTableBlock, { CellData } from '@/components/table/CTableBlock.vue'
+import Table, { TableBlock, CellData } from '@/models/Table'
+import CTableBlock from '@/components/table/CTableBlock.vue'
 import { computed } from 'vue'
 
 interface Props {
