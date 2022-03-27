@@ -51,6 +51,10 @@ const defaultTab = document.URL.indexOf('#') !== -1 ? tabs.find((tab) =>
 </script>
 
 <style lang="scss" scoped>
+:deep(.tabs__slide) {
+  padding: 16px 0;
+}
+
 :deep(.interface__component) {
   display: flex;
   flex-flow: column;
