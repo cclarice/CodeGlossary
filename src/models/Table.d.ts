@@ -1,11 +1,12 @@
-import { Component } from 'vue'
+import { Component, Ref } from 'vue'
 
 interface TableCellAdvanced {
-  content: string | Component
+  content: string | Component | Ref<string | boolean | number>
+
   column?: number
   row?: number
   icon?: string
-  align?: string
+  align?: HTMLElement['style']['textAlign']
   width?: string | number
   color?: string
   background?: string
