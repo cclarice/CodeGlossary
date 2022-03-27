@@ -9,32 +9,47 @@
         v-for="(table_cell, table_cell_index) of table_row"
         :key="table_cell"
         :style="typeof table_cell !== 'string' && {
-          width: table_cell.width !== undefined ? table_cell.width : 'auto',
+          width: table_cell.width !== undefined ? table_cell.width : null,
           textAlign: table_cell.align,
-          background: table_cell.background,
-          color: table_cell.color,
-          fontFamily: table_cell.font,
-          fontSize: table_cell.size
+          background: table_cell.background || null,
+          color: table_cell.color || null,
+          fontFamily: table_cell.font || null,
+          fontSize: table_cell.size || null
         }"
       >
-        {{
-          typeof table_cell === 'string' ? table_cell :
-          (!table_cell.editable ? table_cell.content : undefined)
-        }}
-        <input
-          v-if="typeof table_cell !== 'string' && table_cell.editable"
-          :value="table_cell.content"
-          type="text"
-          @input.stop="changeCell($event, table_row_index, table_cell_index)"
-        >
+        {{ typeof table_cell === 'string' ? table_cell :
+          (!table_cell.editable ? table_cell.content : undefined) }}
+        <template v-if="typeof table_cell !== 'string' && table_cell.editable">
+          <input
+            v-if="table_cell.content === 'string'"
+            :value="table_cell.content"
+            type="text"
+            @input.stop="changeCell($event, table_row_index, table_cell_index)"
+          >
+          <template v-else-if="isRef(table_cell.content)">
+            <input
+              v-if="(typeof table_cell.content.value === 'string') || (typeof table_cell.content.value === 'number')"
+              v-model="table_cell.content.value"
+              :style="{ color: table_cell.color ||
+                (typeof table_cell.content.value === 'string' ? 'var(--code-string)' : 'var(--code-number)') }"
+              :type="typeof table_cell.content.value === 'string' ? 'text' : 'number'"
+            >
+            <span
+              v-else-if="isRef(table_cell.content) && typeof table_cell.content.value === 'boolean'"
+              style="color: var(--code-keyword); user-select: none; cursor: pointer"
+              @click=" toggleBooleanRef(table_cell.content)"
+              v-text="table_cell.content"
+            />
+          </template>
+        </template>
       </component>
     </tr>
   </component>
 </template>
 
 <script setup lang="ts">
-import { TableBlock } from '@/models/Table'
-import { computed } from 'vue'
+import { CellData, TableBlock } from '@/models/Table'
+import { computed, isRef } from 'vue'
 
 interface Props {
   tag: 'thead' | 'tbody' | 'tfoot'
@@ -58,6 +73,12 @@ const changeCell = (event: Event, row_index: number, cell_index: number) => {
     row_index,
     cell_index
   })
+}
+
+const toggleBooleanRef = (ref: any) => {
+  if (isRef(ref) && typeof ref.value === 'boolean') {
+    ref.value = !ref.value
+  }
 }
 </script>
 
