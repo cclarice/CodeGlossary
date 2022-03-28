@@ -1,7 +1,7 @@
 <template>
   <label
     class="input-text"
-    :class="{ error: props.error }"
+    :class="{ error: props.error || (props.max && props.modelValue.length > props.max) }"
   >
     <span
       v-if="props.label"
@@ -9,19 +9,20 @@
     >
       {{ props.label }}
     </span>
+    <small
+      v-if="props.max"
+      class="input-text__max"
+    >
+      {{ `${props.modelValue ? props.modelValue.length : 0}/${props.max}` }}
+    </small>
     <input
       class="input-text__input"
       :type="props.type || 'text'"
       :value="props.modelValue"
       :disabled="props.disabled"
+      :maxlength="props.max"
       @input="updateModel"
     >
-    <small
-      v-if="props.maxlength"
-      class="input-text__max"
-    >
-      {{ `${props.modelValue ? props.modelValue.length : 0}/${props.maxlength}` }}
-    </small>
     <transition name="error">
       <small
         v-if="props.error"
@@ -43,8 +44,8 @@ interface Props {
   icon?: string
   type?: 'text' | 'password' | 'email' | 'tel' | 'url'
   placeholder?: string
-  minlength?: number
-  maxlength?: number
+  min?: number
+  max?: number
   pattern?: string
   disabled?: boolean
   required?: boolean
@@ -62,14 +63,14 @@ const updateModel = (event: Event): void => emit('update:modelValue', (event.tar
   display:   flex;
   flex-flow: column;
   position:  relative;
-  max-width: 100%;
-  width: fit-content;
+  min-width: 128px;
+  width:     128px;
 
   &__input {
     appearance:       none;
     padding:          3px 6px;
     min-width:        128px;
-    width:            128px;
+    width:            100%;
     max-width:        100%;
     height:           24px;
     background-color: var(--field-background);
@@ -84,15 +85,21 @@ const updateModel = (event: Event): void => emit('update:modelValue', (event.tar
 
     &:disabled {
       background-color: var(--field-background-disabled);
-      cursor: not-allowed;
-      color: var(--disabled)
+      cursor:           not-allowed;
+      color:            var(--disabled)
     }
   }
 
   &__max {
-    position: absolute;
-    right:    6px;
-    top:      4px;
+    position:    absolute;
+    right:       6px;
+    top:         6px;
+    user-select: none;
+    box-shadow:  -4px 0 8px var(--field-background);
+
+    & ~ .input-text__input {
+      padding-right: 3em;
+    }
   }
 
   &__error {
@@ -100,17 +107,21 @@ const updateModel = (event: Event): void => emit('update:modelValue', (event.tar
     color:       var(--error);
     height:      14px;
     font-weight: 400;
-    overflow: hidden;
+    overflow:    hidden;
   }
 
-  &.error > .input-text__input {
+  &.error > &__input {
     color:   var(--error);
     border:  var(--field-border-validated);
     outline: var(--field-outline-validated);
   }
 
+  &.error > &__max {
+    color: var(--error);
+  }
+
   &__label {
-    font-size: 13px;
+    font-size:     13px;
     margin-bottom: 3px;
   }
 }
@@ -118,7 +129,7 @@ const updateModel = (event: Event): void => emit('update:modelValue', (event.tar
 .error-enter-from,
 .error-leave-to {
   margin-top: 0;
-  height: 0;
+  height:     0;
   transition: 0.25s;
 }
 

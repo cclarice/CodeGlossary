@@ -60,6 +60,23 @@
       <c-table :table="inputTextTable3" />
     </div>
   </div>
+  <div class="interface__component">
+    <h3>
+      Input Text Max
+    </h3>
+    <div class="interface__component-wrapper">
+      <input-text
+        v-model="inputTextValue4"
+        :max="inputTextMax4"
+        style="width: 128px"
+      />
+      <c-code
+        lang="html"
+        :code="inputTextText4"
+      />
+      <c-table :table="inputTextTable4" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -71,7 +88,7 @@ import Table from '@/models/Table'
 
 // 0 Default
 const inputTextValue0 = ref('Default')
-const inputTextText0 = ref('<input-text v-model="value" />')
+const inputTextText0 = '<input-text v-model="value" />'
 const inputTextTable0: Table = {
   body: [[
     { content: 'value', width: 0 },
@@ -82,10 +99,10 @@ const inputTextTable0: Table = {
 // 1 Disabled
 const inputTextValue1 = ref('Disabled')
 const inputTextDisabled1 = ref(true)
-const inputTextText1 = ref(`<input-text
+const inputTextText1 = `<input-text
   v-model="value"
   :disabled="disabled"
-/>`)
+/>`
 const inputTextTable1: Table = {
   body: [[
     { content: 'value', width: 0 },
@@ -100,10 +117,10 @@ const inputTextTable1: Table = {
 // 2 Labeled
 const inputTextLabel2 = ref('Label:')
 const inputTextValue2 = ref('Labeled')
-const inputTextText2 = ref(`<input-text
+const inputTextText2 = `<input-text
   v-model="value"
   label="label"
-/>`)
+/>`
 const inputTextTable2: Table = {
   body: [[
     { content: 'value', width: 0 },
@@ -132,8 +149,26 @@ const inputTextTable3: Table = {
 }
 const inputTextText3 = `<input-text
   v-model="value"
-  :error="regex.test(value) ? 'Error' : ''"
+  :error="regex.test(value) ?
+    'Error' : ''"
 />`
+
+// 4 Max
+const inputTextValue4 = ref('Max string length is 24!')
+const inputTextMax4   = ref(24)
+const inputTextText4  = `<input-text
+  v-model="value"
+  :max="max"
+/>`
+const inputTextTable4: Table = {
+  body: [[
+    { content: 'value', width: 0 },
+    { content: inputTextValue4, align: 'left', editable: true }
+  ],[
+    { content: 'max', width: 0 },
+    { content: inputTextMax4, align: 'left', editable: true }
+  ]]
+}
 </script>
 
 <style lang="scss" scoped>
