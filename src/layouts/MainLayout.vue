@@ -24,7 +24,10 @@
   </main-header>
   <main
     class="main-main"
-    :style="{ maxHeight: `calc(100% - 48px - ${ tools.buttonsVisible ? (hasTopTools ? 22 : 0) + (hasBottomTools ? 22 : 0) : 0}px)` }"
+    :style="{
+      maxHeight:
+        `calc(100% - 48px - ${tools.buttonsVisible ? (hasTopTools ? 22 : 0) + (hasBottomTools ? 22 : 0) : 0}px)`
+    }"
   >
     <main-bar
       v-show="tools.buttonsVisible"
