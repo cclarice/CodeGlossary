@@ -1,7 +1,14 @@
 <template>
-  <button class="main-bar-button">
+  <div
+    class="main-bar-button"
+    draggable="true"
+    @dragstart.stop="drag"
+  >
     <img
-      src=""
+      v-if="props.tool.icon"
+      class="main-bar-button__icon"
+      :src="props.tool.icon"
+      draggable="false"
       alt=""
     >
     <span class="main-bar-button__name"> {{ props.tool.name }} </span>
@@ -9,7 +16,19 @@
 </template>
 
 <script setup lang="ts">
+import { Tool } from '@/models/Tool'
 
+interface Props {
+  tool: Tool
+}
+
+const props = defineProps<Props>()
+
+const drag = (event: DragEvent) => {
+  if (event.dataTransfer) {
+    event.dataTransfer.items.add(`${props.tool.name}`, 'draggable/tool')
+  }
+}
 </script>
 
 <style lang="scss" scoped>
