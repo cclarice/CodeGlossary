@@ -7,18 +7,112 @@
     <nav class="main-footer__left">
       left
     </nav>
-    <nav class="main-footer__status">
-      status
+    <nav class="main-footer__status status">
+      <div class="status__element">
+        <img
+          :src="screenIcon"
+          :alt="screen"
+          style="margin-right: -9px"
+        >
+        <img
+          :src="devicesIcons[device]"
+          :alt="device"
+          width="8"
+          style="transform: translate(0, 4px); background-color: var(--panel-background); border-radius: 2px"
+        >
+        <img
+          :src="browserIcons[browser]"
+          :alt="browser"
+        >
+        {{ browser }}
+      </div>
     </nav>
   </footer>
 </template>
 
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue'
+import androidIcon from '~@/icons/devices/android.svg'
+import iosIcon from '~@/icons/devices/ios.svg'
+import linuxIcon from '~@/icons/devices/linux.svg'
+import macosIcon from '~@/icons/devices/macos.svg'
+import windowsIcon from '~@/icons/devices/windows.svg'
+import braveIcon from '~@/icons/browsers/brave.svg'
+import edgeIcon from '~@/icons/browsers/edge.svg'
+import yandexIcon from '~@/icons/browsers/yandex.svg'
+import operaIcon from '~@/icons/browsers/opera.svg'
+import chromeIcon from '~@/icons/browsers/chrome.svg'
+import firefoxIcon from '~@/icons/browsers/firefox.svg'
+import unknownIcon from '~@/icons/browsers/unknown.svg'
+import xl from '~@/icons/breakpoints/extra_large.svg'
+import xs from '~@/icons/breakpoints/extra_small.svg'
+import lg from '~@/icons/breakpoints/large.svg'
+import md from '~@/icons/breakpoints/medium.svg'
+import sm from '~@/icons/breakpoints/small.svg'
+
 defineProps({
   hasSlot: {
     type: Boolean,
     default: false
   }
+})
+
+// Screen
+const getScreen = (): string => {
+  return `${window.innerWidth} ✕ ${window.innerHeight}`
+}
+const screenIcons = { xl, xs, lg, md, sm }
+const getScreenIcon = (): string => {
+  return screenIcons[window.innerWidth < 600 ? 'xs' :
+                     window.innerWidth <= 960 ? 'sm' :
+                     window.innerWidth <= 1280 ? 'md' :
+                     window.innerWidth <= 1920 ? 'lg' : 'xl']
+}
+const screen = ref(getScreen())
+const screenIcon = ref(getScreenIcon())
+const resolutionUpdate = () => {
+  screen.value = getScreen()
+  screenIcon.value = getScreenIcon()
+}
+
+// Browser
+const browserInfo = navigator.userAgent.split(/\)/).filter((elem) => elem).map((elem) => (elem.includes('(') ? elem + ')' : elem).trim())
+const browserIcons = {
+  Brave: braveIcon,
+  Edge: edgeIcon,
+  Yandex: yandexIcon,
+  Opera: operaIcon,
+  Chrome: chromeIcon,
+  Firefox: firefoxIcon,
+  Unknown: unknownIcon
+}
+const browser =
+  (navigator as any)['brave'] && 'Brave' ||
+  browserInfo[2]?.includes('Edg') && 'Edge' ||
+  browserInfo[2]?.includes('YaBrowser') && 'Yandex' ||
+  browserInfo[2]?.includes('OPR') && 'Opera' ||
+  browserInfo[2]?.includes('Chrome') && 'Chrome' ||
+  browserInfo[1]?.includes('Firefox') && 'Firefox' ||
+  'Unknown'
+
+// device
+const devicesIcons = {
+  android: androidIcon,
+  ios: iosIcon,
+  linux: linuxIcon,
+  macos: macosIcon,
+  windows: windowsIcon
+}
+const device =
+  browserInfo[0]?.includes('Windows') && 'windows' ||
+  browserInfo[0]?.includes('Android') && 'android' ||
+  browserInfo[0]?.includes('Linux') && 'linux' ||
+  'Unknown'
+onMounted(() => {
+  window.addEventListener('resize', resolutionUpdate)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', resolutionUpdate)
 })
 </script>
 
@@ -31,13 +125,13 @@ defineProps({
   padding-top: 1px;
 
   &_slotted {
-    display: grid;
+    display:               grid;
     grid-template-rows: 21px 20px;
     grid-template-columns: 50% 50%;
-    grid-template-areas: "bar bar"
-                         "left status";
-    row-gap: 1px;
-    padding: 0;
+    grid-template-areas: 'bar bar'
+                         'left status';
+    row-gap:               1px;
+    padding:               0;
   }
 }
 
@@ -54,8 +148,29 @@ defineProps({
 }
 
 .main-footer__status {
-  flex-flow: row-reverse;
   grid-column: 2;
   grid-area: status;
+}
+
+.status {
+  display:   flex;
+  flex-flow: row-reverse;
+
+  &__element {
+    display:     flex;
+    align-items: center;
+    padding:     0 5px;
+    gap:         2px;
+    height:      100%;
+    cursor:      pointer;
+    user-select: none;
+
+    &:hover {
+      background-color: var(--stripe-hovered-background);
+    }
+    &:active {
+      background-color: var(--stripe-selected-background);
+    }
+  }
 }
 </style>
