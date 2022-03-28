@@ -1,7 +1,7 @@
 <template>
   <label
     class="input-text"
-    :class="{ error: props.error || (props.max && props.modelValue.length > props.max) }"
+    :class="{ error: props.error || (props.max && props.modelValue && props.modelValue.length > props.max) }"
   >
     <span
       v-if="props.label"
