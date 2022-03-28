@@ -26,8 +26,5 @@ const router = useRouter()
 .home {
   display: grid;
   grid-template-columns: 256px auto 256px;
-  @media (media.$xs) {
-    background-color: red;
-  }
 }
 </style>
