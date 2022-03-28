@@ -5,7 +5,13 @@
   >
     <slot />
     <nav class="main-footer__left">
-      left
+      <div class="status__element" style="padding: 0 3px">
+        <img
+          :src="tools.buttonsVisible ? tbVisibleIcon : tbHiddenIcon"
+          alt="Toggle visability"
+          @click="tools.toggleButtons"
+        >
+      </div>
     </nav>
     <nav class="main-footer__status status">
       <div class="status__element">
@@ -49,6 +55,11 @@ import xs from '~@/icons/breakpoints/extra_small.svg'
 import lg from '~@/icons/breakpoints/large.svg'
 import md from '~@/icons/breakpoints/medium.svg'
 import sm from '~@/icons/breakpoints/small.svg'
+import tbVisibleIcon from '~@/icons/tool-bar-visible.svg'
+import tbHiddenIcon from '~@/icons/tool-bar-hidden.svg'
+import { useTools } from '@/stores/tool'
+
+const tools = useTools()
 
 defineProps({
   hasSlot: {
