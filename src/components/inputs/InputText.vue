@@ -27,7 +27,7 @@
         v-if="props.error"
         class="input-text__error"
       >
-        {{ props.error }}
+        {{ props.error || '_' }}
       </small>
     </transition>
   </label>
@@ -96,8 +96,9 @@ const updateModel = (event: Event): void => emit('update:modelValue', (event.tar
   }
 
   &__error {
-    margin-top: 2px;
+    margin-top:  2px;
     color:       var(--error);
+    height:      14px;
     font-weight: 400;
     overflow: hidden;
   }
@@ -114,16 +115,14 @@ const updateModel = (event: Event): void => emit('update:modelValue', (event.tar
   }
 }
 
-.error-enter-active,
-.error-leave-active {
-  height: 0;
+.error-enter-from,
+.error-leave-to {
   margin-top: 0;
-  transition: 1.17s ease-in-out;
+  height: 0;
+  transition: 0.25s;
 }
 
-.error-leave-to {
-  height: 14px;
-  margin-top: 2px;
-  transition: 1.17s ease-in-out;
+.error-enter-to {
+  transition: 0.25s;
 }
 </style>
