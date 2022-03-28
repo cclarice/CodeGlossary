@@ -5,7 +5,10 @@
   >
     <slot />
     <nav class="main-footer__left">
-      <div class="status__element" style="padding: 0 3px">
+      <div
+        class="status__element"
+        style="padding: 0 3px"
+      >
         <img
           :src="tools.buttonsVisible ? tbVisibleIcon : tbHiddenIcon"
           alt="Toggle visability"
@@ -21,13 +24,13 @@
           style="margin-right: -9px"
         >
         <img
-          :src="devicesIcons[device]"
+          :src="deviceIcon"
           :alt="device"
           width="8"
           style="transform: translate(0, 4px); background-color: var(--panel-background); border-radius: 2px"
         >
         <img
-          :src="browserIcons[browser]"
+          :src="browserIcon"
           :alt="browser"
         >
         {{ browser }}
@@ -37,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import androidIcon from '~@/icons/devices/android.svg'
 import iosIcon from '~@/icons/devices/ios.svg'
 import linuxIcon from '~@/icons/devices/linux.svg'
@@ -87,8 +90,11 @@ const resolutionUpdate = () => {
 }
 
 // Browser
-const browserInfo = navigator.userAgent.split(/\)/).filter((elem) => elem).map((elem) => (elem.includes('(') ? elem + ')' : elem).trim())
-const browserIcons = {
+type IBrowser = 'Brave' | 'Edge' | 'Yandex' | 'Opera' | 'Chrome' | 'Firefox' | 'Unknown'
+const browserInfo = navigator.userAgent.split(/\)/).filter((elem) => elem)
+  .map((elem) => (elem.includes('(') ? elem + ')' : elem).trim())
+// eslint-disable-next-line no-unused-vars
+const browserIcons: { [key in IBrowser]: string } = {
   Brave: braveIcon,
   Edge: edgeIcon,
   Yandex: yandexIcon,
@@ -97,7 +103,7 @@ const browserIcons = {
   Firefox: firefoxIcon,
   Unknown: unknownIcon
 }
-const browser =
+const browser: IBrowser =
   (navigator as any)['brave'] && 'Brave' ||
   browserInfo[2]?.includes('Edg') && 'Edge' ||
   browserInfo[2]?.includes('YaBrowser') && 'Yandex' ||
@@ -105,20 +111,27 @@ const browser =
   browserInfo[2]?.includes('Chrome') && 'Chrome' ||
   browserInfo[1]?.includes('Firefox') && 'Firefox' ||
   'Unknown'
+const browserIcon = computed((): string => browserIcons[browser] || unknownIcon)
 
 // device
-const devicesIcons = {
+type IDevice = 'android' | 'ios' | 'linux' | 'macos' | 'windows' | 'unknown'
+
+// eslint-disable-next-line no-unused-vars
+const devicesIcons: { [key in IDevice]: string} = {
   android: androidIcon,
   ios: iosIcon,
   linux: linuxIcon,
   macos: macosIcon,
-  windows: windowsIcon
+  windows: windowsIcon,
+  unknown: unknownIcon
 }
-const device =
+const device: IDevice =
   browserInfo[0]?.includes('Windows') && 'windows' ||
   browserInfo[0]?.includes('Android') && 'android' ||
   browserInfo[0]?.includes('Linux') && 'linux' ||
-  'Unknown'
+  'unknown'
+
+const deviceIcon = computed((): string => devicesIcons[device] || unknownIcon)
 onMounted(() => {
   window.addEventListener('resize', resolutionUpdate)
 })
