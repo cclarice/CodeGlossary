@@ -2,7 +2,7 @@
   <main-header :has-slot="hasTopTools">
     <template #default>
       <main-bar
-        v-if="hasTopTools && tools.buttonsVisible"
+        v-if="hasTopTools"
         position="top"
       >
         <template #bar_left>
@@ -26,7 +26,7 @@
     class="main-main"
     :style="{
       maxHeight:
-        `calc(100% - 48px - ${tools.buttonsVisible ? (hasTopTools ? 22 : 0) + (hasBottomTools ? 22 : 0) : 0}px)`
+        `calc(100% - 49px - ${tools.buttonsVisible ? (hasTopTools ? 22 : 0) + (hasBottomTools ? 22 : 0) : 0}px)`
     }"
   >
     <main-bar
@@ -67,7 +67,7 @@
       </template>
       <template #bar_right>
         <main-bar-button
-          v-for="tool of tools.buttons.rightLeft"
+          v-for="tool of tools.buttons.rightRight"
           :key="tool.id"
           :tool="tool"
         />
@@ -76,7 +76,7 @@
   </main>
   <main-footer :has-slot="hasBottomTools">
     <main-bar
-      v-if="hasBottomTools && tools.buttonsVisible"
+      v-if="hasBottomTools"
       position="bottom"
     >
       <template #bar_left>
@@ -88,13 +88,17 @@
       </template>
       <template #bar_right>
         <main-bar-button
-          v-for="tool of tools.buttons.bottomLeft"
+          v-for="tool of tools.buttons.bottomRight"
           :key="tool.id"
           :tool="tool"
         />
       </template>
     </main-bar>
   </main-footer>
+  <div
+    id="droparea"
+    @dragover="dragover"
+  />
 </template>
 
 <script setup lang="ts">
@@ -107,11 +111,29 @@ import { computed } from 'vue'
 
 const tools = useTools()
 tools.initTools()
-const hasTopTools = computed(() => !!(tools.buttons.topLeft.length || tools.buttons.topRight.length))
-const hasBottomTools = computed(() => !!(tools.buttons.bottomLeft.length || tools.buttons.bottomRight.length))
+const hasTopTools =
+  computed(() => !!(tools.buttons.topLeft.length || tools.buttons.topRight.length) && tools.buttonsVisible)
+const hasBottomTools =
+  computed(() => !!(tools.buttons.bottomLeft.length || tools.buttons.bottomRight.length) && tools.buttonsVisible)
+const dragover = (event: DragEvent) => {
+  if (event.dataTransfer && event.dataTransfer.items[0].type === 'draggable/tool') {
+    event.dataTransfer.dropEffect = 'move'
+    event.preventDefault()
+  }
+}
 </script>
 
 <style lang="scss" scoped>
+#droparea {
+  position:         absolute;
+  display:          none;
+  width:            100%;
+  height:           100%;
+  z-index:          10;
+  background-color: var(--default);
+  opacity:          .25;
+}
+
 .main-main {
   display: flex;
   justify-content: space-between;

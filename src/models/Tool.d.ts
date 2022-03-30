@@ -1,18 +1,21 @@
-export type ToolPlace = 'leftRight' | 'leftLeft' | 'rightRight' | 'rightLeft' | 'bottomRight' | 'bottomLeft'
+/* eslint-disable no-unused-vars */
+
+export type ToolPlace = 'topLeft' | 'topRight' | 'leftRight' | 'leftLeft' |
+                    'rightRight' | 'rightLeft' | 'bottomRight' | 'bottomLeft'
 
 export interface Tool {
   id: number
   name: string
   icon?: string
-  data?: { [key: string]: string | number | null | [] | Tool['data'] }
+  data?: any
   component: string | null
+  place: ToolPlace | null
 }
 
 export interface ToolState {
-  // eslint-disable-next-line no-unused-vars
   buttons: { [key in ToolPlace | string]: Array<Tool> }
-  // eslint-disable-next-line no-unused-vars
   activeTools: { [key in ToolPlace | string]: Tool | null }
   tools: Array<Tool>
-  buttonsVisible: boolean
+  buttonsVisible: boolean,
+  phantomTool: Tool
 }
