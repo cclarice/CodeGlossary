@@ -37,27 +37,24 @@ const tools = useTools()
 const props = defineProps<Props>()
 const droparea = ref<HTMLElement | null>(null)
 const points = {
-  topRight: { x: 0, y: 0 },
-  topLeft: { x: 0, y: 0 },
-  leftRight: { x: 0, y: 0 },
-  leftLeft: { x: 0, y: 0 },
-  rightRight: { x: 0, y: 0 },
-  rightLeft: { x: 0, y: 0 },
-  bottomRight: { x: 0, y: 0 },
-  bottomLeft: { x: 0, y: 0 }
+  topLeft: { x: 0, y: 0, s: 0, h: true, a: true },
+  topRight: { x: 0, y: 0, s: 0, h: true, a: false },
+  leftLeft: { x: 0, y: 0, s: 0, h: false, a: false },
+  leftRight: { x: 0, y: 0, s: 0, h: false, a: true },
+  rightLeft: { x: 0, y: 0, s: 0, h: false, a: true },
+  rightRight: { x: 0, y: 0, s: 0, h: false, a: false },
+  bottomLeft: { x: 0, y: 0, s: 0, h: true, a: true },
+  bottomRight: { x: 0, y: 0, s: 0, h: true, a: false }
 }
 let width = 0
 let height = 0
 
 onMounted(() => {
-  for (let i = 0; document.body.children.item(i); i++) {
-    if (document.body.children.item(i)?.id === 'droparea' && document.body.children.item(i) instanceof HTMLElement) {
-      droparea.value = document.body.children.item(i) as HTMLElement
-    }
-  }
+  droparea.value = document.getElementById('droparea')
   window.addEventListener('resize', setPositions)
   setPositions()
 })
+
 onUnmounted(() => {
   window.removeEventListener('resize', setPositions)
 })
@@ -66,7 +63,7 @@ const setPositions = () => {
   width = window.innerWidth
   height = window.innerHeight
   points.topRight.x = width * 0.75
-  points.topRight.y = points.topLeft.y = 29
+  points.topRight.y = points.topLeft.y = 39
   points.topLeft.x = width * 0.25
 
   points.rightRight.x = points.rightLeft.x = width
@@ -74,14 +71,44 @@ const setPositions = () => {
   points.rightLeft.y = height * 0.25
 
   points.bottomRight.x = width * 0.75
-  points.bottomRight.y = points.bottomLeft.y = height - 20
+  points.bottomRight.y = points.bottomLeft.y = height - 30
   points.bottomLeft.x = width * 0.25
 
   points.leftRight.y = height * 0.25
   points.leftLeft.y = height * 0.75
+
+  points.topRight.s = points.bottomRight.s = width
+  points.leftRight.s = points.rightLeft.s = 39
+  points.leftLeft.s = points.rightRight.s = height - 30
 }
 
-const getDragPosition = (event: DragEvent): ToolPlace => {
+const mediumSize = 82
+
+const getDragOrder = (event: DragEvent, place: ToolPlace): number => {
+  const context = points[place]
+  const buttons = tools.buttons[place]
+  let pos = context.a ? context.s + mediumSize : context.s - mediumSize
+  let mPos = context.h ? event.pageX : event.pageY
+  let i = 0
+  if (context.a) {
+    for (; buttons[i]; i++) {
+      if (pos > mPos || !buttons[i + 1]) {
+        return i
+      }
+      pos += mediumSize
+    }
+  } else {
+    for (; buttons[i]; i++) {
+      if (pos < mPos || !buttons[i + 1]) {
+        return i
+      }
+      pos -= mediumSize
+    }
+  }
+  return -1
+}
+
+const getDragPlace = (event: DragEvent): ToolPlace => {
   let lengths: { place: ToolPlace, length: number }[] = []
   for (const place in points) {
     const point: { x: number, y: number } = points[place as ToolPlace]
@@ -104,9 +131,9 @@ const getDragPosition = (event: DragEvent): ToolPlace => {
 
 const drag = (event: Event) => {
   if (droparea.value) {
-    const dragPosition = getDragPosition(event as DragEvent)
-    tools.displayPhantom(dragPosition, props.tool.name)
-    droparea.value.style.clipPath = dropareas[dragPosition]
+    const dragPlace = getDragPlace(event as DragEvent)
+    tools.displayPhantom(dragPlace, props.tool.name, getDragOrder(event as DragEvent, dragPlace))
+    droparea.value.style.clipPath = dropareas[dragPlace]
     if (droparea.value.style.display !== 'block') {
       droparea.value.style.display = 'block'
     }
@@ -132,7 +159,8 @@ const dragstart = (event: DragEvent) => {
 }
 
 const dragend = (event: DragEvent) => {
-  tools.moveTool(props.tool, getDragPosition(event))
+  const dragPlace = getDragPlace(event as DragEvent)
+  tools.moveTool(props.tool, dragPlace, getDragOrder(event as DragEvent, dragPlace))
   if (droparea.value) {
     droparea.value.style.display = 'none'
   }

@@ -98,6 +98,7 @@
   <div
     id="droparea"
     @dragover="dragover"
+    @mouseup="(event) => { event.target.style.display = 'none' }"
   />
 </template>
 

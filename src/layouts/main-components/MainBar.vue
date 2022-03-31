@@ -21,11 +21,16 @@ const props = defineProps<{ position: 'top' | 'bottom' | 'left' | 'right' }>()
   display:          flex;
   justify-content:  space-between;
   background-color: var(--panel-background);
-  // height: 100%;
   grid-area:        bar;
   border-color:     var(--panel-border);
   border-style:     solid;
   border-width:     0;
+  overflow:         auto;
+  scrollbar-width:  none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &_top {
     width:               100%;

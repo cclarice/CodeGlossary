@@ -95,13 +95,15 @@ export const useTools = defineStore('Tools', {
     disableTool (place: ToolPlace) {
       this.activeTools[place] = null
     },
-    displayPhantom (place: ToolPlace, name = ''): void {
-      if (place !== this.phantomTool.place) {
+    displayPhantom (place: ToolPlace, name = '', order = -1): void {
+      if (this.buttons[place][order] !== this.phantomTool) {
         if (this.phantomTool.name !== name) {
           this.phantomTool.name = name
         }
-        this.removeTool(this.phantomTool)
-        this.setToolPlace(this.phantomTool, place)
+        if (!this.buttons[place].includes(this.phantomTool)) {
+          this.removeTool(this.phantomTool)
+        }
+        this.setToolPlace(this.phantomTool, place, order)
       }
     },
     // If tool has place and its deleted returns true
@@ -113,18 +115,37 @@ export const useTools = defineStore('Tools', {
       }
       return false
     },
-    setToolPlace (tool: Tool, new_place: ToolPlace, order = -1) {
-      if (order === -1) {
-        this.buttons[new_place].push(tool)
+    setToolPlaceWithOrder (tool: Tool, new_place: ToolPlace, o: number) {
+      const buttons = this.buttons[new_place]
+      const order = o < buttons.length ? o : buttons.length - 1
+      if (buttons.includes(tool)) {
+        if (buttons[order] !== tool && buttons[order] !== undefined) {
+          const index = buttons.indexOf(tool)
+          const swap = buttons[order]
+          buttons[order] = tool
+          buttons[index] = swap
+        }
+      } else {
+        this.buttons[new_place].splice(order, 0, tool)
         tool.place = new_place
+      }
+    },
+    setToolPlace (tool: Tool, new_place: ToolPlace, order = -1) {
+      if (tool.place !== new_place) {
+        this.removeTool(tool)
+        if (order !== -1) {
+          this.setToolPlaceWithOrder(tool, new_place, order)
+        } else {
+          this.buttons[new_place].push(tool)
+          tool.place = new_place
+        }
+      } else if (order !== -1) {
+        this.setToolPlaceWithOrder(tool, new_place, order)
       }
     },
     moveTool (tool: Tool, new_place: ToolPlace, order = -1) {
       this.removeTool(this.phantomTool)
-      if (tool.place !== new_place) {
-        this.removeTool(tool)
-        this.setToolPlace(tool, new_place, order)
-      }
+      this.setToolPlace(tool, new_place, order)
     },
     toggleButtons () {
       this.buttonsVisible = !this.buttonsVisible
