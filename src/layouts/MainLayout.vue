@@ -98,11 +98,7 @@
   <div
     id="droparea"
     @dragover="dragover"
-    @mouseup="(event) => {
-      if (event.target) {
-        event.target.style.display = 'none'
-      }
-    }"
+    @mouseup="dropareaMouseUp"
   />
 </template>
 
@@ -124,6 +120,12 @@ const dragover = (event: DragEvent) => {
   if (event.dataTransfer && event.dataTransfer.items[0].type === 'draggable/tool') {
     event.dataTransfer.dropEffect = 'move'
     event.preventDefault()
+  }
+}
+const dropareaMouseUp = (event: MouseEvent) => {
+  const target = event.target as HTMLElement | null
+  if (target) {
+    target.style.display = 'none'
   }
 }
 </script>
