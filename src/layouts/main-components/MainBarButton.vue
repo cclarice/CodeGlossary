@@ -81,6 +81,27 @@ const setPositions = () => {
   points.leftLeft.y = height * 0.75
 }
 
+const getDragPosition = (event: DragEvent): ToolPlace => {
+  let lengths: { place: ToolPlace, length: number }[] = []
+  for (const place in points) {
+    const point: { x: number, y: number } = points[place as ToolPlace]
+    const length = Math.sqrt(Math.pow(point.x - event.pageX, 2) + Math.pow((point.y - event.pageY), 2))
+    lengths.push({
+      place: place as ToolPlace,
+      length: place.includes('top') || place.includes('bottom') ? length * (height / width) : length
+    })
+  }
+
+  return lengths.sort((c, p) => {
+    if (c.length < p.length) {
+      return -1
+    } else if (c.length > p.length) {
+      return 1
+    }
+    return 0
+  })[0].place
+}
+
 const drag = (event: Event) => {
   if (droparea.value) {
     const dragPosition = getDragPosition(event as DragEvent)
@@ -109,31 +130,6 @@ const dragstart = (event: DragEvent) => {
     }
   })
 }
-
-const getDragPosition = (event: DragEvent): ToolPlace => {
-  let lengths: { place: ToolPlace, length: number }[] = []
-  for (const place in points) {
-    const point: { x: number, y: number } = points[place as ToolPlace]
-    const length = Math.sqrt(Math.pow(point.x - event.pageX, 2) + Math.pow((point.y - event.pageY), 2))
-    lengths.push({
-      place: place as ToolPlace,
-      length: place.includes('top') || place.includes('bottom') ? length * (height / width) : length
-    })
-  }
-
-  return lengths.sort((c, p) => {
-    if (c.length < p.length) {
-      return -1
-    } else if (c.length > p.length) {
-      return 1
-    }
-    return 0
-  })[0].place
-}
-
-// const getDragOrder = (event: DragEvent, position): number => {
-//   return 0 // todo
-// }
 
 const dragend = (event: DragEvent) => {
   tools.moveTool(props.tool, getDragPosition(event))
