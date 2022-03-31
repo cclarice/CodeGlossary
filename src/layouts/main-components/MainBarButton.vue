@@ -82,7 +82,7 @@ const setPositions = () => {
   points.leftLeft.s = points.rightRight.s = height - 30
 }
 
-const mediumSize = 82
+const mediumSize = 90
 
 const getDragOrder = (event: DragEvent, place: ToolPlace): number => {
   const context = points[place]
